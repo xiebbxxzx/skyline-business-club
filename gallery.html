@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery | Skyline Business Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBlue: '#0B2545',
+                        skylineYellow: '#FFD100'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="gallery" class="bg-white text-darkBlue font-sans antialiased flex flex-col min-h-screen">
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html" class="logo" aria-label="Skyline Business Club home">
+            <img src="images/logo.png" alt="Skyline Business Club logo" class="nav-logo">
+            <span>Skyline Business Club</span>
+        </a>
+        <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        <ul class="navbar" id="mainNav">
+            <li><a href="index.html" id="nav-home">Home</a></li>
+            <li><a href="novice.html" id="nav-novice">Novice Directory</a></li>
+            <li><a href="resources.html" id="nav-resources">Competition Resources</a></li>
+            <li><a href="gallery.html" id="nav-gallery" class="active">Photo Gallery</a></li>
+            <li><a href="awards.html" id="nav-awards">Recognition</a></li>
+            <li><a href="officers.html" id="nav-officers">Advisors &amp; Officers</a></li>
+            <li><a href="join.html" id="nav-join" class="nav-cta">Join Now</a></li>
+        </ul>
+    </nav>
+    <a href="join.html" class="news-ticker" aria-label="Chapter updates ticker">
+        <div class="ticker-track">
+            <span>Registration open: join Skyline DECA &amp; FBLA for the 2026 competitive season</span>
+            <span>Meetings every Monday and Wednesday unless otherwise stated</span>
+            <span>Join GroupMe and follow Instagram for updates</span>
+            <span>Pick your event in the Novice Directory</span>
+            <span>Registration open: join Skyline DECA &amp; FBLA for the 2026 competitive season</span>
+            <span>Meetings every Monday and Wednesday unless otherwise stated</span>
+            <span>Join GroupMe and follow Instagram for updates</span>
+            <span>Pick your event in the Novice Directory</span>
+        </div>
+    </a>
+    <div class="yellow-accent-line"></div>
+
+    <main id="main-content" tabindex="-1" class="flex-grow">
+
+        <section id="page-gallery" class="tab-content">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-4xl font-black tracking-tight page-heading-accent">Photo Gallery</h2>
+                </div>
+                <div class="border-4 border-darkBlue p-6 bg-white neo-box text-center max-w-4xl mx-auto mb-12 space-y-3">
+                    <h3 class="text-2xl font-black uppercase tracking-tight subsection-banner">Photos Coming Soon</h3>
+                    <p class="text-sm font-medium max-w-2xl mx-auto">These gallery spaces are ready for Google Photos embeds. Once PR confirms the albums and the other Technology VP approves the design, replace each placeholder with the correct shared album embed or link.</p>
+                    <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="inline-block bg-darkBlue text-white font-black text-xs uppercase tracking-wider px-5 py-2 border-2 border-darkBlue hover:bg-white hover:text-darkBlue transition">View Current Instagram <i class="fa-brands fa-instagram ml-2"></i></a>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="border-2 border-darkBlue neo-box gallery-roll-card bg-white overflow-hidden flex flex-col justify-between">
+                        <div class="bg-darkBlue text-white p-3 font-black text-xs uppercase tracking-wider flex justify-between">
+                            <span>DECA ICDC</span>
+                            <span>[2026 Archive]</span>
+                        </div>
+                        <div class="bg-gray-100 border-b border-darkBlue h-48 flex items-center justify-center p-4 relative">
+                            <div class="w-full h-full border-2 border-dashed border-darkBlue bg-white flex flex-col items-center justify-center text-center p-4">
+                                <i class="fa-brands fa-google text-3xl text-darkBlue mb-2"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Google Photos Embed Space</span>
+                                <span class="text-[9px] font-bold uppercase mt-1">PR Album Placeholder</span>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white flex-grow flex flex-col justify-between">
+                            <blockquote class="text-xs font-semibold italic border-l-2 border-darkBlue pl-3 py-1">
+                                "Walking onto the international stage with thousands of peers was surreal. The energy here changes your perspective on business forever."
+                            </blockquote>
+                            <span class="block text-[9px] uppercase font-black text-right mt-3">— DECA Competitor</span>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-darkBlue neo-box gallery-roll-card bg-white overflow-hidden flex flex-col justify-between">
+                        <div class="bg-darkBlue text-white p-3 font-black text-xs uppercase tracking-wider flex justify-between">
+                            <span>FBLA NLC</span>
+                            <span>[2026 Archive]</span>
+                        </div>
+                        <div class="bg-gray-100 border-b border-darkBlue h-48 flex items-center justify-center p-4 relative">
+                            <div class="w-full h-full border-2 border-dashed border-darkBlue bg-white flex flex-col items-center justify-center text-center p-4">
+                                <i class="fa-brands fa-google text-3xl text-darkBlue mb-2"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Google Photos Embed Space</span>
+                                <span class="text-[9px] font-bold uppercase mt-1">PR Album Placeholder</span>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white flex-grow flex flex-col justify-between">
+                            <blockquote class="text-xs font-semibold italic border-l-2 border-darkBlue pl-3 py-1">
+                                "Competing in objective tests at Nationals proves that our hard study nights paid off against the finest students across the country."
+                            </blockquote>
+                            <span class="block text-[9px] uppercase font-black text-right mt-3">— FBLA National Finalist</span>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-darkBlue neo-box gallery-roll-card bg-white overflow-hidden flex flex-col justify-between">
+                        <div class="bg-darkBlue text-white p-3 font-black text-xs uppercase tracking-wider flex justify-between">
+                            <span>DECA State</span>
+                            <span>[2026 Archive]</span>
+                        </div>
+                        <div class="bg-gray-100 border-b border-darkBlue h-48 flex items-center justify-center p-4 relative">
+                            <div class="w-full h-full border-2 border-dashed border-darkBlue bg-white flex flex-col items-center justify-center text-center p-4">
+                                <i class="fa-brands fa-google text-3xl text-darkBlue mb-2"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Google Photos Embed Space</span>
+                                <span class="text-[9px] font-bold uppercase mt-1">PR Album Placeholder</span>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white flex-grow flex flex-col justify-between">
+                            <blockquote class="text-xs font-semibold italic border-l-2 border-darkBlue pl-3 py-1">
+                                "The stage announcement was absolute madness. Skyline truly locked down the marketing division categories this season."
+                            </blockquote>
+                            <span class="block text-[9px] uppercase font-black text-right mt-3">— Chapter Officer</span>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-darkBlue neo-box gallery-roll-card bg-white overflow-hidden flex flex-col justify-between">
+                        <div class="bg-darkBlue text-white p-3 font-black text-xs uppercase tracking-wider flex justify-between">
+                            <span>FBLA State</span>
+                            <span>[2026 Archive]</span>
+                        </div>
+                        <div class="bg-gray-100 border-b border-darkBlue h-48 flex items-center justify-center p-4 relative">
+                            <div class="w-full h-full border-2 border-dashed border-darkBlue bg-white flex flex-col items-center justify-center text-center p-4">
+                                <i class="fa-brands fa-google text-3xl text-darkBlue mb-2"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Google Photos Embed Space</span>
+                                <span class="text-[9px] font-bold uppercase mt-1">PR Album Placeholder</span>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white flex-grow flex flex-col justify-between">
+                            <blockquote class="text-xs font-semibold italic border-l-2 border-darkBlue pl-3 py-1">
+                                "Securing our leadership placements at state shows how well our dual-framework system operates on campus."
+                            </blockquote>
+                            <span class="block text-[9px] uppercase font-black text-right mt-3">— FBLA State Placer</span>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-darkBlue neo-box gallery-roll-card bg-white overflow-hidden flex flex-col justify-between">
+                        <div class="bg-darkBlue text-white p-3 font-black text-xs uppercase tracking-wider flex justify-between">
+                            <span>DECA Regions</span>
+                            <span>[2026 Archive]</span>
+                        </div>
+                        <div class="bg-gray-100 border-b border-darkBlue h-48 flex items-center justify-center p-4 relative">
+                            <div class="w-full h-full border-2 border-dashed border-darkBlue bg-white flex flex-col items-center justify-center text-center p-4">
+                                <i class="fa-brands fa-google text-3xl text-darkBlue mb-2"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Google Photos Embed Space</span>
+                                <span class="text-[9px] font-bold uppercase mt-1">PR Album Placeholder</span>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white flex-grow flex flex-col justify-between">
+                            <blockquote class="text-xs font-semibold italic border-l-2 border-darkBlue pl-3 py-1">
+                                "The initial roleplay event of the year! A bit nerve-wracking, but it's the perfect diagnostic layout before major tracks."
+                            </blockquote>
+                            <span class="block text-[9px] uppercase font-black text-right mt-3">— Novice Track Member</span>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-darkBlue neo-box gallery-roll-card bg-white overflow-hidden flex flex-col justify-between">
+                        <div class="bg-darkBlue text-white p-3 font-black text-xs uppercase tracking-wider flex justify-between">
+                            <span>FBLA Regions</span>
+                            <span>[2026 Archive]</span>
+                        </div>
+                        <div class="bg-gray-100 border-b border-darkBlue h-48 flex items-center justify-center p-4 relative">
+                            <div class="w-full h-full border-2 border-dashed border-darkBlue bg-white flex flex-col items-center justify-center text-center p-4">
+                                <i class="fa-brands fa-google text-3xl text-darkBlue mb-2"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Google Photos Embed Space</span>
+                                <span class="text-[9px] font-bold uppercase mt-1">PR Album Placeholder</span>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white flex-grow flex flex-col justify-between">
+                            <blockquote class="text-xs font-semibold italic border-l-2 border-darkBlue pl-3 py-1">
+                                "Regional testing helped our first-year members feel more confident before bigger competitions."
+                            </blockquote>
+                            <span class="block text-[9px] uppercase font-black text-right mt-3">— Region Participant</span>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-darkBlue neo-box gallery-roll-card bg-white overflow-hidden flex flex-col justify-between">
+                        <div class="bg-darkBlue text-white p-3 font-black text-xs uppercase tracking-wider flex justify-between">
+                            <span>Aggie Invite</span>
+                            <span>[2026 Archive]</span>
+                        </div>
+                        <div class="bg-gray-100 border-b border-darkBlue h-48 flex items-center justify-center p-4 relative">
+                            <div class="w-full h-full border-2 border-dashed border-darkBlue bg-white flex flex-col items-center justify-center text-center p-4">
+                                <i class="fa-brands fa-google text-3xl text-darkBlue mb-2"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Google Photos Embed Space</span>
+                                <span class="text-[9px] font-bold uppercase mt-1">PR Album Placeholder</span>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white flex-grow flex flex-col justify-between">
+                            <blockquote class="text-xs font-semibold italic border-l-2 border-darkBlue pl-3 py-1">
+                                "An incredible invitational environment. Competing on a university campus raises your baseline professional strategy."
+                            </blockquote>
+                            <span class="block text-[9px] uppercase font-black text-right mt-3">— Invitational Attendee</span>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-darkBlue neo-box gallery-roll-card bg-white overflow-hidden flex flex-col justify-between">
+                        <div class="bg-darkBlue text-white p-3 font-black text-xs uppercase tracking-wider flex justify-between">
+                            <span>FLC DECA</span>
+                            <span>[2026 Archive]</span>
+                        </div>
+                        <div class="bg-gray-100 border-b border-darkBlue h-48 flex items-center justify-center p-4 relative">
+                            <div class="w-full h-full border-2 border-dashed border-darkBlue bg-white flex flex-col items-center justify-center text-center p-4">
+                                <i class="fa-brands fa-google text-3xl text-darkBlue mb-2"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Google Photos Embed Space</span>
+                                <span class="text-[9px] font-bold uppercase mt-1">PR Album Placeholder</span>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white flex-grow flex flex-col justify-between">
+                            <blockquote class="text-xs font-semibold italic border-l-2 border-darkBlue pl-3 py-1">
+                                "Workshops, dynamic team building, and initial track orientation. The best way to initiate our corporate novice pipeline."
+                            </blockquote>
+                            <span class="block text-[9px] uppercase font-black text-right mt-3">— Fall Delegate</span>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-darkBlue neo-box gallery-roll-card bg-white overflow-hidden flex flex-col justify-between">
+                        <div class="bg-darkBlue text-white p-3 font-black text-xs uppercase tracking-wider flex justify-between">
+                            <span>FLC FBLA</span>
+                            <span>[2026 Archive]</span>
+                        </div>
+                        <div class="bg-gray-100 border-b border-darkBlue h-48 flex items-center justify-center p-4 relative">
+                            <div class="w-full h-full border-2 border-dashed border-darkBlue bg-white flex flex-col items-center justify-center text-center p-4">
+                                <i class="fa-brands fa-google text-3xl text-darkBlue mb-2"></i>
+                                <span class="text-[10px] font-black uppercase tracking-widest">Google Photos Embed Space</span>
+                                <span class="text-[9px] font-bold uppercase mt-1">PR Album Placeholder</span>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-white flex-grow flex flex-col justify-between">
+                            <blockquote class="text-xs font-semibold italic border-l-2 border-darkBlue pl-3 py-1">
+                                "Connecting with multi-chapter networks across the state model gave us exceptional insights for our operational schedule."
+                            </blockquote>
+                            <span class="block text-[9px] uppercase font-black text-right mt-3">— FBLA Representative</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-12 border-4 border-darkBlue bg-white neo-box p-8 text-center space-y-6 max-w-7xl mx-auto">
+                    <h3 class="text-3xl font-black uppercase tracking-tight subsection-banner">Support Skyline Business Club</h3>
+                    <p class="text-sm font-medium max-w-3xl mx-auto">Help our members travel, compete, access practice materials, and represent Skyline at regional, state, and national conferences.</p>
+                    <div class="border-2 border-darkBlue p-5 text-left max-w-4xl mx-auto bg-white">
+                        <h4 class="font-black uppercase tracking-wider text-sm mb-3">Why Donate?</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-bold">
+                            <div class="border border-darkBlue p-3">Reduce travel and lodging costs for state, ICDC, and NLC qualifiers.</div>
+                            <div class="border border-darkBlue p-3">Fund practice materials, event prep resources, and competition registration fees.</div>
+                            <div class="border border-darkBlue p-3">Support first-time competitors who need help accessing chapter opportunities.</div>
+                        </div>
+                    </div>
+                    <button onclick="switchTab('join')" class="bg-darkBlue text-white font-black uppercase text-xs tracking-wider px-6 py-3 border-2 border-darkBlue neo-btn">Donate or Support the Club</button>
+                </div>
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fa fa-map-marker" aria-hidden="true"></i> School Location</h3>
+                <p>Skyline High School<br>3251 E 3760 S<br>Salt Lake City, UT 84109</p>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fa fa-calendar" aria-hidden="true"></i> Meetings</h3>
+                <p>Every <strong>Monday</strong> and <strong>Wednesday</strong> unless otherwise stated.<br>Check the calendar on the home page.</p>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fa fa-language" aria-hidden="true"></i> Language</h3>
+                <div id="google_translate_element"></div>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fa fa-adjust" aria-hidden="true"></i> Accessibility</h3>
+                <button id="contrastToggle" type="button" class="contrast-toggle" aria-pressed="false">
+                    <i class="fa fa-adjust" aria-hidden="true"></i> <span class="contrast-toggle-label">High contrast: Off</span>
+                </button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Skyline Business Club. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>

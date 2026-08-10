@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Now | Skyline Business Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBlue: '#0B2545',
+                        skylineYellow: '#FFD100'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="join" class="bg-white text-darkBlue font-sans antialiased flex flex-col min-h-screen">
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html" class="logo" aria-label="Skyline Business Club home">
+            <img src="images/logo.png" alt="Skyline Business Club logo" class="nav-logo">
+            <span>Skyline Business Club</span>
+        </a>
+        <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        <ul class="navbar" id="mainNav">
+            <li><a href="index.html" id="nav-home">Home</a></li>
+            <li><a href="novice.html" id="nav-novice">Novice Directory</a></li>
+            <li><a href="resources.html" id="nav-resources">Competition Resources</a></li>
+            <li><a href="gallery.html" id="nav-gallery">Photo Gallery</a></li>
+            <li><a href="awards.html" id="nav-awards">Recognition</a></li>
+            <li><a href="officers.html" id="nav-officers">Advisors &amp; Officers</a></li>
+            <li><a href="join.html" id="nav-join" class="nav-cta active">Join Now</a></li>
+        </ul>
+    </nav>
+    <a href="join.html" class="news-ticker" aria-label="Chapter updates ticker">
+        <div class="ticker-track">
+            <span>Registration open: join Skyline DECA &amp; FBLA for the 2026 competitive season</span>
+            <span>Meetings every Monday and Wednesday unless otherwise stated</span>
+            <span>Join GroupMe and follow Instagram for updates</span>
+            <span>Pick your event in the Novice Directory</span>
+            <span>Registration open: join Skyline DECA &amp; FBLA for the 2026 competitive season</span>
+            <span>Meetings every Monday and Wednesday unless otherwise stated</span>
+            <span>Join GroupMe and follow Instagram for updates</span>
+            <span>Pick your event in the Novice Directory</span>
+        </div>
+    </a>
+    <div class="yellow-accent-line"></div>
+
+    <main id="main-content" tabindex="-1" class="flex-grow">
+
+        <section id="page-join" class="tab-content">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-4xl font-black tracking-tight page-heading-accent">Join the Chapter</h2>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    <div class="lg:col-span-7 border-4 border-darkBlue p-1 bg-white neo-box">
+                        <div class="bg-darkBlue text-white p-4 font-black uppercase tracking-wider text-xs flex justify-between items-center">
+                            <span><i class="fa-regular fa-file-lines mr-2"></i> Official Registration Form</span>
+                            <span>● Live Form</span>
+                        </div>
+                        <div class="w-full bg-white h-[600px] relative flex flex-col justify-between border border-darkBlue">
+                            <iframe src="about:blank" class="w-full h-full border-0 hidden"></iframe>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center space-y-4">
+                                <i class="fa-solid fa-clipboard-list text-6xl"></i>
+                                <h4 class="font-black text-lg uppercase">Google Form Integration Window</h4>
+                                <p class="text-xs max-w-md font-medium">
+                                    Replace <code>iframe src="about:blank"</code> with the published Google Form embed link when registration opens.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 space-y-8">
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box flex flex-col sm:flex-row items-center gap-6 transition-transform duration-200 hover:-translate-y-1">
+                            <div class="w-24 h-24 bg-white border-2 border-darkBlue flex flex-col items-center justify-center p-2 text-center relative shrink-0">
+                                <i class="fa-solid fa-qrcode text-5xl"></i>
+                                <span class="text-[8px] font-black uppercase tracking-tighter mt-1 block">Discord QR</span>
+                            </div>
+                            <div class="space-y-3 w-full">
+                                <div>
+                                    <h4 class="font-black text-lg mt-1">Join Club Discord</h4>
+                                </div>
+                                <p class="text-xs">Optional space for longer announcements, training links, and shared resources once the Discord invite is ready.</p>
+                                <a href="#" target="_blank" class="inline-block w-full text-center bg-darkBlue text-white font-black py-2 text-xs uppercase tracking-wider border-2 border-darkBlue shadow-[2px_2px_0px_#FFD100] hover:bg-white hover:text-darkBlue transition">Launch Discord Invitation</a>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box flex flex-col sm:flex-row items-center gap-6 transition-transform duration-200 hover:-translate-y-1">
+                            <div class="w-24 h-24 bg-white border-2 border-darkBlue flex flex-col items-center justify-center p-2 text-center relative shrink-0">
+                                <i class="fa-solid fa-comments text-5xl"></i>
+                                <span class="text-[8px] font-black uppercase tracking-tighter mt-1 block">GroupMe QR</span>
+                            </div>
+                            <div class="space-y-3 w-full">
+                                <div>
+                                    <h4 class="font-black text-lg mt-1">Join Club GroupMe</h4>
+                                </div>
+                                <p class="text-xs">Fastest place for reminders, meeting updates, quick questions, and team coordination. This invite may change each school year.</p>
+                                <a href="https://groupme.com/join_group/110444392/MvwouQ9g" target="_blank" class="inline-block w-full text-center bg-darkBlue text-white font-black py-2 text-xs uppercase tracking-wider border-2 border-darkBlue shadow-[2px_2px_0px_#FFD100] hover:bg-white hover:text-darkBlue transition">Launch GroupMe Chat</a>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box flex flex-col sm:flex-row items-center gap-6 transition-transform duration-200 hover:-translate-y-1">
+                            <div class="w-24 h-24 bg-white border-2 border-darkBlue flex flex-col items-center justify-center p-2 text-center relative shrink-0">
+                                <i class="fa-brands fa-instagram text-5xl"></i>
+                                <span class="text-[8px] font-black uppercase tracking-tighter mt-1 block">Instagram</span>
+                            </div>
+                            <div class="space-y-3 w-full">
+                                <div>
+                                    <h4 class="font-black text-lg mt-1">Follow Our Instagram</h4>
+                                </div>
+                                <p class="text-xs">Follow for chapter photos, meeting reminders, competition recaps, officer updates, and member highlights.</p>
+                                <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="inline-block w-full text-center bg-darkBlue text-white font-black py-2 text-xs uppercase tracking-wider border-2 border-darkBlue shadow-[2px_2px_0px_#FFD100] hover:bg-white hover:text-darkBlue transition">View Instagram Profile</a>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="max-w-7xl mx-auto mt-12 border-4 border-darkBlue p-8 bg-white neo-box text-center space-y-4">
+                    <h3 class="text-2xl font-black uppercase tracking-tight subsection-banner">Not Sure Which Event to Choose?</h3>
+                    <p class="text-sm font-medium max-w-2xl mx-auto">Visit the Novice Directory to explore event types, take the event-matching quiz, and find a competition path that fits your strengths.</p>
+                    <button onclick="switchTab('novice')" class="bg-darkBlue text-white font-bold px-8 py-4 text-base tracking-wide uppercase neo-btn">
+                        Go to Novice Directory
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fa fa-map-marker" aria-hidden="true"></i> School Location</h3>
+                <p>Skyline High School<br>3251 E 3760 S<br>Salt Lake City, UT 84109</p>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fa fa-calendar" aria-hidden="true"></i> Meetings</h3>
+                <p>Every <strong>Monday</strong> and <strong>Wednesday</strong> unless otherwise stated.<br>Check the calendar on the home page.</p>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fa fa-language" aria-hidden="true"></i> Language</h3>
+                <div id="google_translate_element"></div>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fa fa-adjust" aria-hidden="true"></i> Accessibility</h3>
+                <button id="contrastToggle" type="button" class="contrast-toggle" aria-pressed="false">
+                    <i class="fa fa-adjust" aria-hidden="true"></i> <span class="contrast-toggle-label">High contrast: Off</span>
+                </button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Skyline Business Club. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>

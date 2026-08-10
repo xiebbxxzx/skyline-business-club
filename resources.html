@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Competition Resources | Skyline Business Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBlue: '#0B2545',
+                        skylineYellow: '#FFD100'
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="resources" class="bg-white text-darkBlue font-sans antialiased flex flex-col min-h-screen">
+
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html" class="logo" aria-label="Skyline Business Club home">
+            <img src="images/logo.png" alt="Skyline Business Club logo" class="nav-logo">
+            <span>Skyline Business Club</span>
+        </a>
+        <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        <ul class="navbar" id="mainNav">
+            <li><a href="index.html" id="nav-home">Home</a></li>
+            <li><a href="novice.html" id="nav-novice">Novice Directory</a></li>
+            <li><a href="resources.html" id="nav-resources" class="active">Competition Resources</a></li>
+            <li><a href="gallery.html" id="nav-gallery">Photo Gallery</a></li>
+            <li><a href="awards.html" id="nav-awards">Recognition</a></li>
+            <li><a href="officers.html" id="nav-officers">Advisors &amp; Officers</a></li>
+            <li><a href="join.html" id="nav-join" class="nav-cta">Join Now</a></li>
+        </ul>
+    </nav>
+    <a href="join.html" class="news-ticker" aria-label="Chapter updates ticker">
+        <div class="ticker-track">
+            <span>Registration open: join Skyline DECA &amp; FBLA for the 2026 competitive season</span>
+            <span>Meetings every Monday and Wednesday unless otherwise stated</span>
+            <span>Join GroupMe and follow Instagram for updates</span>
+            <span>Pick your event in the Novice Directory</span>
+            <span>Registration open: join Skyline DECA &amp; FBLA for the 2026 competitive season</span>
+            <span>Meetings every Monday and Wednesday unless otherwise stated</span>
+            <span>Join GroupMe and follow Instagram for updates</span>
+            <span>Pick your event in the Novice Directory</span>
+        </div>
+    </a>
+    <div class="yellow-accent-line"></div>
+
+    <main id="main-content" tabindex="-1" class="flex-grow">
+
+        <section id="page-resources" class="tab-content">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-4xl font-black tracking-tight page-heading-accent">Competition Resources</h2>
+                    <p class="section-subtitle">Every high school event offered by DECA and FBLA, listed from <a href="https://www.deca.org/compete" target="_blank" rel="noopener" class="underline">deca.org/compete</a> and <a href="https://www.fbla.org/high-school/competitive-events/" target="_blank" rel="noopener" class="underline">fbla.org</a>. Check with your advisor which events Utah offers.</p>
+                </div>
+
+                <div class="flex border-b-4 border-darkBlue mb-12">
+                    <button onclick="toggleResourceBranch('deca')" id="res-tab-deca" class="flex-1 text-center py-4 font-black text-sm uppercase tracking-wider bg-darkBlue text-white border-r-2 border-darkBlue">
+                        <i class="fa-solid fa-briefcase mr-2"></i> DECA
+                    </button>
+                    <button onclick="toggleResourceBranch('fbla')" id="res-tab-fbla" class="flex-1 text-center py-4 font-black text-sm uppercase tracking-wider bg-white text-darkBlue hover:bg-darkBlue hover:text-white transition">
+                        <i class="fa-solid fa-chart-line mr-2"></i> FBLA
+                    </button>
+                </div>
+
+                <div id="branch-deca" class="resource-branch space-y-12">
+                    <div class="space-y-8">
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
+                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-file-signature mr-2"></i> Prepared Entry</h3>
+                            <p class="text-xs mb-4">Written projects and prepared presentations: business plans, operations research, project management, integrated marketing campaigns, and professional selling. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                            <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-prepared-root">
+                                </div>
+                        </div>
+
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
+                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-comments mr-2"></i> Roleplays</h3>
+                            <p class="text-xs mb-4">Principles, Individual Series, Team Decision Making, and Personal Financial Literacy. Each pairs a cluster exam with a live role play or case study. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                            <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-roleplay-root">
+                                </div>
+                        </div>
+
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
+                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-clipboard-check mr-2"></i> Tests</h3>
+                            <p class="text-xs mb-4">The official career cluster exams taken alongside DECA's role play and prepared events. Practice them on DECA+. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                            <a href="https://www.decaplus.org" target="_blank" class="inline-block mb-4 bg-darkBlue text-white font-black text-xs uppercase tracking-wider px-4 py-2 border border-darkBlue hover:bg-white hover:text-darkBlue transition">Open DECA Plus <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-[10px]"></i></a>
+                            <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-tests-root">
+                                </div>
+                        </div>
+
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
+                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-desktop mr-2"></i> Online Simulations</h3>
+                            <p class="text-xs mb-4">Web-based business simulations played from the classroom: the Stock Market Game and the Virtual Business Challenge. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                            <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-online-root">
+                                </div>
+                        </div>
+
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
+                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-shirt mr-2"></i> DECA Dress Code Visual Guide</h3>
+                            <p class="text-xs mb-4 font-medium">Use this visual as a quick reference for business professional competition attire. Always confirm final dress-code details with your advisor before competition day.</p>
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center border-t border-darkBlue pt-4">
+                                <div class="lg:col-span-7 border-2 border-darkBlue bg-white p-3 overflow-hidden">
+                                    <img src="images/deca-dress-code.png" alt="DECA dress code visual guide showing professional attire with blazer, collared dress shirt or blouse, dress pants, neckwear, and dress shoes" class="w-full max-h-[520px] object-contain bg-white">
+                                </div>
+                                <div class="lg:col-span-5 space-y-3">
+                                    <h4 class="font-black text-xl">Competition Attire Check</h4>
+                                    <p class="text-sm font-medium leading-relaxed">Use this visual as a quick reference for professional DECA competition attire: blazer or suit jacket, collared shirt or blouse, appropriate neckwear when required, dress pants or skirt, and dress shoes.</p>
+                                    <a href="https://utahdeca.org/wp-content/uploads/2025/01/DECASTATE_Conference_Dress_Code.pdf" target="_blank" class="inline-block bg-darkBlue text-white font-black text-xs uppercase tracking-wider px-4 py-2 border-2 border-darkBlue hover:bg-white hover:text-darkBlue transition">View Utah DECA Dress Code <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-[10px]"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="branch-fbla" class="resource-branch hidden space-y-12">
+                    <div class="space-y-8">
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
+                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-laptop-code mr-2"></i> Prepared Entry</h3>
+                            <p class="text-xs mb-4">Presentation, production, and chapter events: prepared reports, speeches, designs, and live presentations. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                            <div class="space-y-2 border-t border-darkBlue pt-4" id="fbla-prepared-root">
+                                </div>
+                        </div>
+
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
+                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-users-gear mr-2"></i> Roleplays</h3>
+                            <p class="text-xs mb-4">Objective test plus a live role play scenario judged on the spot. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                            <div class="space-y-2 border-t border-darkBlue pt-4" id="fbla-roleplay-root">
+                                </div>
+                        </div>
+
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
+                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-clipboard-check mr-2"></i> Tests</h3>
+                            <p class="text-xs mb-4">Objective test events, including the 9th and 10th grade introductory tests. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                            <div class="space-y-2 border-t border-darkBlue pt-4" id="fbla-tests-root">
+                                </div>
+                        </div>
+
+                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
+                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-shirt mr-2"></i> FBLA Dress Code Visual Guide</h3>
+                            <p class="text-xs mb-4 font-medium">Use this visual as a quick reference for professional attire at FBLA events. Always confirm final dress-code details with your advisor before competition day.</p>
+                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center border-t border-darkBlue pt-4">
+                                <div class="lg:col-span-7 border-2 border-darkBlue bg-white p-3 overflow-hidden">
+                                    <img src="https://www.fbla.org/media/2024/10/2023-Dress-Code_FINAL-scaled-1-791x1024.jpg" alt="FBLA dress code poster showing acceptable and unacceptable professional attire for conference and competition settings" class="w-full max-h-[520px] object-contain bg-white">
+                                </div>
+                                <div class="lg:col-span-5 space-y-3">
+                                    <h4 class="font-black text-xl">Competition Attire Check</h4>
+                                    <p class="text-sm font-medium leading-relaxed">Check for business professional or approved business casual attire, appropriate shoes, and no prohibited clothing items.</p>
+                                    <a href="https://www.fbla.org/dress-code/" target="_blank" class="inline-block bg-darkBlue text-white font-black text-xs uppercase tracking-wider px-4 py-2 border-2 border-darkBlue hover:bg-white hover:text-darkBlue transition">View Official FBLA Dress Code <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-[10px]"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3><i class="fa fa-map-marker" aria-hidden="true"></i> School Location</h3>
+                <p>Skyline High School<br>3251 E 3760 S<br>Salt Lake City, UT 84109</p>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fa fa-calendar" aria-hidden="true"></i> Meetings</h3>
+                <p>Every <strong>Monday</strong> and <strong>Wednesday</strong> unless otherwise stated.<br>Check the calendar on the home page.</p>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fa fa-language" aria-hidden="true"></i> Language</h3>
+                <div id="google_translate_element"></div>
+            </div>
+            <div class="footer-section">
+                <h3><i class="fa fa-adjust" aria-hidden="true"></i> Accessibility</h3>
+                <button id="contrastToggle" type="button" class="contrast-toggle" aria-pressed="false">
+                    <i class="fa fa-adjust" aria-hidden="true"></i> <span class="contrast-toggle-label">High contrast: Off</span>
+                </button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Skyline Business Club. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script src="script.js"></script>
+</body>
+</html>
