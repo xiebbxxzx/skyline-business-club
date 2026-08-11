@@ -213,9 +213,9 @@ function renderResourceAccordions() {
     const helperByEvent = {
         // DECA TESTS
         "exam_2": ["Xuanyou Wu", "Elisa Tandra", "Grayson Carter"],
-        "exam_4": ["Madeline “Maddie” Doherty", "Melanie Wang"],
-        "exam_5": ["Daniel Luo", "Melanie Wang", "Sreeram Patcha", "Symon Kim", "Quynhanh Le", "Augustine “Gus” Pham", "Joyce Xie", "Rahul Nair", "Chloe Zou"],
-        "exam_6": ["Kainalu “Kai” Siu"],
+        "exam_4": ["Madeline Doherty", "Melanie Wang"],
+        "exam_5": ["Daniel Luo", "Melanie Wang", "Sreeram Patcha", "Symon Kim", "Quynhanh Le", "Augustine Pham", "Joyce Xie", "Rahul Nair", "Chloe Zou"],
+        "exam_6": ["Kainalu Siu"],
 
         // DECA PREPARED EVENTS
         "pmbs": ["Jack Wu", "Sreeram Patcha"],
@@ -233,17 +233,17 @@ function renderResourceAccordions() {
         "act": ["Brady Murtaugh"],
         "bfs": ["Yicheng Deng"],
         "bsm": ["Charlotte Soelberg"],
-        "btdm": ["Ryan Bai", "Augustine “Gus” Pham"],
+        "btdm": ["Ryan Bai", "Augustine Pham"],
         "ent": ["Elisa Tandra"],
         "fms": ["Chloe Zou"],
         "hlm": ["Melanie Wang"],
         "mcs": ["Joyce Xie"],
-        "pfl": ["Kainalu “Kai” Siu"],
+        "pfl": ["Kainalu Siu"],
         "qsrm": ["Hailey Park"],
         "rms": ["Daniel Luo"],
 
         // FBLA PREPARED EVENTS
-        "f_business_ethics": ["Madeline “Maddie” Doherty", "Kainalu “Kai” Siu"],
+        "f_business_ethics": ["Madeline Doherty", "Kainalu Siu"],
         "f_data_analysis": ["Elisa Tandra", "Chloe Zou"],
         "f_digital_animation": ["Joyce Xie"],
         "f_event_planning": ["Sophia Chen", "Sarah Wu", "Quynhanh Le"],
@@ -253,7 +253,7 @@ function renderResourceAccordions() {
         "f_sales_presentation": ["Andrew Jiao", "Nathan Li"],
         "f_social_media_strategies": ["Sam Hodson", "Aksel Rasmussen"],
         "f_supply_chain_management": ["Olivia Tran", "Chloe Zou"],
-        "f_website_coding_development": ["Symon Kim", "Augustine “Gus” Pham", "Kevin Ying"],
+        "f_website_coding_development": ["Symon Kim", "Augustine Pham", "Kevin Ying"],
         "f_introduction_to_business_presentation": ["Lydia Bartholomew", "Hailey Park", "Melanie Wang"],
         "f_introduction_to_programming": ["Yicheng Deng", "Joshua Zhang", "Melinda Zhou"],
         "f_introduction_to_public_speaking": ["Andrew Jiao"],
@@ -286,9 +286,12 @@ function renderResourceAccordions() {
 
         const isDeca = targetId.startsWith('deca');
         const isDecaTests = targetId === 'deca-tests-root';
+        const isFblaPrepared = targetId === 'fbla-prepared-root';
 
         // Convert DECA's generic "Cluster exam" label into the actual exam.
+        // FBLA prepared events do not require a test.
         const getSpecificTest = (item) => {
+            if (isFblaPrepared) return 'None';
             if (!isDeca) return item.test;
 
             // In the DECA Tests section, the event name itself IS the exam.
