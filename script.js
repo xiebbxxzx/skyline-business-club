@@ -330,7 +330,7 @@ function renderResourceAccordions() {
             const infoBoxes = `
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-bold uppercase">
                             <div class="border border-darkBlue p-3">
-                                <span class="block text-[10px] font-black tracking-widest text-darkBlue">Person Who Can Help:</span>
+                                <span class="block text-[10px] font-black tracking-widest text-darkBlue">Ask for help!:</span>
                                 <span class="text-sm block mt-1 font-black">${helperMarkup}</span>
                             </div>
                             <div class="border border-darkBlue p-3">
