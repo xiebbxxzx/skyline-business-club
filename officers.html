@@ -19,6 +19,154 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .leadership-grid {
+            align-items: stretch;
+        }
+
+        .leadership-card {
+            width: 100%;
+            min-height: 270px;
+            align-self: stretch;
+            background: #fff;
+            border: 2px solid #0B2545;
+            box-shadow: 4px 4px 0 #0B2545;
+            padding: 1rem;
+            text-align: center;
+            transition: transform 220ms ease, box-shadow 220ms ease;
+        }
+
+        .leadership-card:hover,
+        .leadership-card:focus-within {
+            transform: translateY(-5px);
+            box-shadow: 6px 6px 0 #FFD100;
+            z-index: 2;
+        }
+
+        .leadership-photo {
+            width: 96px;
+            height: 112px;
+            margin: 0 auto;
+            border: 2px solid #0B2545;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+        }
+
+        .leadership-photo-label {
+            margin-top: .4rem;
+            font-size: .42rem;
+            line-height: 1.1;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .12em;
+        }
+
+        .leadership-role {
+            display: inline-flex;
+            min-height: 2.15rem;
+            align-items: center;
+            justify-content: center;
+            margin-top: .85rem;
+            background: #0B2545;
+            color: #fff;
+            padding: .32rem .48rem;
+            font-size: .55rem;
+            line-height: 1.2;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .07em;
+            box-shadow: 2px 2px 0 #FFD100;
+        }
+
+        .leadership-name {
+            min-height: 2.35em;
+            margin-top: .7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1rem, 1.25vw, 1.35rem);
+            line-height: 1.08;
+            font-weight: 900;
+        }
+
+        .leadership-extra {
+            display: grid;
+            grid-template-rows: 0fr;
+            opacity: 0;
+            margin-top: 0;
+            transition:
+                grid-template-rows 260ms ease,
+                opacity 180ms ease,
+                margin-top 260ms ease;
+        }
+
+        .leadership-extra-inner {
+            overflow: hidden;
+        }
+
+        .leadership-card:hover .leadership-extra,
+        .leadership-card:focus-within .leadership-extra {
+            grid-template-rows: 1fr;
+            opacity: 1;
+            margin-top: .85rem;
+        }
+
+        .leadership-bio {
+            font-size: .72rem;
+            line-height: 1.45;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .leadership-email {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .35rem;
+            margin-top: .75rem;
+            border: 1px solid #0B2545;
+            padding: .4rem .55rem;
+            font-size: .58rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+
+        .leadership-email:hover,
+        .leadership-email:focus {
+            background: #0B2545;
+            color: #fff;
+        }
+
+        .recruitment-grid .leadership-role {
+            font-size: .48rem;
+            padding-left: .35rem;
+            padding-right: .35rem;
+        }
+
+        .recruitment-grid .leadership-name {
+            font-size: clamp(.9rem, 1vw, 1.08rem);
+        }
+
+        @media (hover: none), (max-width: 767px) {
+            .leadership-extra {
+                grid-template-rows: 1fr;
+                opacity: 1;
+                margin-top: .85rem;
+            }
+
+            .leadership-card:hover,
+            .leadership-card:focus-within {
+                transform: none;
+                box-shadow: 4px 4px 0 #0B2545;
+            }
+        }
+    </style>
+
 </head>
 <body data-page="officers" class="bg-white text-darkBlue font-sans antialiased flex flex-col min-h-screen">
 
@@ -110,306 +258,446 @@
                     </div>
 
                     <div class="space-y-12">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                            <div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                    <i class="fa-regular fa-user text-3xl"></i>
-                                    <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                </div>
-                                <div class="flex-grow space-y-2">
-                                    <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">Club President</div>
-                                    <h3 class="text-xl font-black">Daniel Luo</h3>
-                                    <p class="text-xs font-medium">Leads high-tier operations, runs strategic development maps, and connects chapter pathways across both paths.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="leadership-grid grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
 
-                            <div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                    <i class="fa-regular fa-user text-3xl"></i>
-                                    <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                </div>
-                                <div class="flex-grow space-y-2">
-                                    <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">Club Secretary</div>
-                                    <h3 class="text-xl font-black">Lydia Bartholomew</h3>
-                                    <p class="text-xs font-medium">Manages operational documentation, state event registry sequences, matrix notes, and tracking compliance schedules.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
+                                <article class="leadership-card" tabindex="0" aria-label="Daniel Luo, Overall President">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="leadership-role">Overall President</div>
+                                    <h3 class="leadership-name">Daniel Luo</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Daniel Luo here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Daniel Luo">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
 
-                            <div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                    <i class="fa-regular fa-user text-3xl"></i>
-                                    <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                </div>
-                                <div class="flex-grow space-y-2">
-                                    <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">DECA Vice President</div>
-                                    <h3 class="text-xl font-black">Chloe Zou</h3>
-                                    <p class="text-xs font-medium">Directs DECA roleplay simulations, diagnostic testing metrics, and specialized conference training frameworks.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
+                                <article class="leadership-card" tabindex="0" aria-label="Lydia Bartholomew, Secretary">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="leadership-role">Secretary</div>
+                                    <h3 class="leadership-name">Lydia Bartholomew</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Lydia Bartholomew here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Lydia Bartholomew">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
 
-                            <div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                    <i class="fa-regular fa-user text-3xl"></i>
-                                    <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                </div>
-                                <div class="flex-grow space-y-2">
-                                    <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">FBLA Vice President</div>
-                                    <h3 class="text-xl font-black">Quynhanh Le</h3>
-                                    <p class="text-xs font-medium">Manages FBLA test logistics, target sector blueprints, and study sets optimized for state objective metrics.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
+                                <article class="leadership-card" tabindex="0" aria-label="Chloe Zou, DECA President">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="leadership-role">DECA President</div>
+                                    <h3 class="leadership-name">Chloe Zou</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Chloe Zou here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Chloe Zou">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Quynhanh Le, FBLA President">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">FBLA President</div>
+                                    <h3 class="leadership-name">Quynhanh Le</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Quynhanh Le here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Quynhanh Le">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
                         </div>
 
                         <div class="grid grid-cols-1 xl:grid-cols-2 gap-12 pt-6">
                             <div>
                                 <h3 class="text-2xl font-black border-b-4 border-darkBlue pb-2 flex items-center"><i class="fa-solid fa-briefcase mr-2"></i> DECA Sub-Division</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-4">
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">DECA Publicity Officer</div>
-                                                <h3 class="text-xl font-black">DECA Publicity Officer</h3>
-                                                <p class="text-xs font-medium">Manages brand presentation and campus outreach grids.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
+                                <div class="leadership-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-4">
+
+                                <article class="leadership-card" tabindex="0" aria-label="Solomon Kim, VP of Public Relations">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
                                     </div>
-                                            </div>
-                                        </div>
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">DECA Development VP</div>
-                                                <h3 class="text-xl font-black">DECA Development VP</h3>
-                                                <p class="text-xs font-medium">Directs competitive material tracks.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
-                                    </div>
-                                            </div>
-                                        </div>
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">DECA Technology VP</div>
-                                                <h3 class="text-xl font-black">DECA Technology VP</h3>
-                                                <p class="text-xs font-medium">Manages system assets and submission metrics.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
-                                    </div>
-                                            </div>
-                                        </div>
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">DECA VP of Service</div>
-                                                <h3 class="text-xl font-black">DECA VP of Service</h3>
-                                                <p class="text-xs font-medium">Coordinates service campaigns and outreach drives.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
-                                    </div>
-                                            </div>
-                                        </div>
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">DECA Treasurer</div>
-                                                <h3 class="text-xl font-black">DECA Treasurer</h3>
-                                                <p class="text-xs font-medium">Monitors allocation registries and operational ledger accounts.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
-                                    </div>
-                                            </div>
-                                        </div>
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">DECA Recruitment Director</div>
-                                                <h3 class="text-xl font-black">DECA Recruitment Director</h3>
-                                                <p class="text-xs font-medium">Leads recruitment planning, outreach strategy, and new member onboarding.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
-                                    </div>
-                                            </div>
+                                    <div class="leadership-role">VP of Public Relations</div>
+                                    <h3 class="leadership-name">Solomon Kim</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Solomon Kim here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Solomon Kim">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
                                         </div>
                                     </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Rahul Nair, VP of Development">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">VP of Development</div>
+                                    <h3 class="leadership-name">Rahul Nair</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Rahul Nair here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Rahul Nair">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Andrew Jiao, VP of Finance">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">VP of Finance</div>
+                                    <h3 class="leadership-name">Andrew Jiao</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Andrew Jiao here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Andrew Jiao">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Sophia Chen, VP of Service">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">VP of Service</div>
+                                    <h3 class="leadership-name">Sophia Chen</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Sophia Chen here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Sophia Chen">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Joyce Xie, VP of Technology">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">VP of Technology</div>
+                                    <h3 class="leadership-name">Joyce Xie</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Joyce Xie here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Joyce Xie">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Sophie Heimburger, Recruitment Director">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">Recruitment Director</div>
+                                    <h3 class="leadership-name">Sophie Heimburger</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Sophie Heimburger here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Sophie Heimburger">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                                </div>
                             </div>
-                            
+
                             <div>
                                 <h3 class="text-2xl font-black border-b-4 border-darkBlue pb-2 flex items-center"><i class="fa-solid fa-chart-line mr-2"></i> FBLA Sub-Division</h3>
-                                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-4">
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">FBLA Publicity Officer</div>
-                                                <h3 class="text-xl font-black">FBLA Publicity Officer</h3>
-                                                <p class="text-xs font-medium">Manages brand presentation and campus outreach grids.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
+                                <div class="leadership-grid grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-4">
+
+                                <article class="leadership-card" tabindex="0" aria-label="Sarah Wu, VP of Public Relations">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
                                     </div>
-                                            </div>
-                                        </div>
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">FBLA Development VP</div>
-                                                <h3 class="text-xl font-black">FBLA Development VP</h3>
-                                                <p class="text-xs font-medium">Directs competitive material tracks.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
-                                    </div>
-                                            </div>
-                                        </div>
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">FBLA Technology VP</div>
-                                                <h3 class="text-xl font-black">FBLA Technology VP</h3>
-                                                <p class="text-xs font-medium">Manages system assets and submission metrics.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
-                                    </div>
-                                            </div>
-                                        </div>
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">FBLA VP of Service</div>
-                                                <h3 class="text-xl font-black">FBLA VP of Service</h3>
-                                                <p class="text-xs font-medium">Coordinates service campaigns and outreach drives.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
-                                    </div>
-                                            </div>
-                                        </div>
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">FBLA Treasurer</div>
-                                                <h3 class="text-xl font-black">FBLA Treasurer</h3>
-                                                <p class="text-xs font-medium">Monitors allocation registries and operational ledger accounts.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
-                                    </div>
-                                            </div>
-                                        </div>
-<div class="border-2 border-darkBlue neo-box bg-white overflow-hidden p-6 flex flex-col sm:flex-row gap-6 items-center sm:items-start text-center sm:text-left">
-                                            <div class="w-32 h-32 bg-white border-2 border-darkBlue shrink-0 flex flex-col items-center justify-center p-2 relative">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="text-[8px] font-black uppercase tracking-widest mt-1 block">Portrait Placement</span>
-                                            </div>
-                                            <div class="flex-grow space-y-2">
-                                                <div class="bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-0.5 inline-block border border-white shadow-[1px_1px_0px_#FFD100]">FBLA Recruitment Director</div>
-                                                <h3 class="text-xl font-black">FBLA Recruitment Director</h3>
-                                                <p class="text-xs font-medium">Leads recruitment planning, outreach strategy, and new member onboarding.</p>
-                                    <div class="grid grid-cols-1 gap-2 pt-2 text-[10px] font-black uppercase tracking-wider">
-                                        <a href="mailto:officer@skylinebusinessclub.org" class="border border-darkBlue px-2 py-1"><i class="fa-solid fa-envelope mr-1"></i> officer@skylinebusinessclub.org</a>
-                                        <a href="https://www.instagram.com/skyline.deca.fbla/" target="_blank" class="border border-darkBlue px-2 py-1"><i class="fa-brands fa-instagram mr-1"></i> Club Instagram</a>
-                                    </div>
-                                            </div>
+                                    <div class="leadership-role">VP of Public Relations</div>
+                                    <h3 class="leadership-name">Sarah Wu</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Sarah Wu here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Sarah Wu">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
                                         </div>
                                     </div>
-                            </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Elisa Tandra, VP of Development">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">VP of Development</div>
+                                    <h3 class="leadership-name">Elisa Tandra</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Elisa Tandra here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Elisa Tandra">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Sreeram Patcha, VP of Finance">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">VP of Finance</div>
+                                    <h3 class="leadership-name">Sreeram Patcha</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Sreeram Patcha here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Sreeram Patcha">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Melanie Wang, VP of Service">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">VP of Service</div>
+                                    <h3 class="leadership-name">Melanie Wang</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Melanie Wang here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Melanie Wang">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Kevin Ying, VP of Technology">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">VP of Technology</div>
+                                    <h3 class="leadership-name">Kevin Ying</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Kevin Ying here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Kevin Ying">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Kai’nalu Siu, Recruitment Director">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">Recruitment Director</div>
+                                    <h3 class="leadership-name">Kai’nalu Siu</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Kai’nalu Siu here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Kai’nalu Siu">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                                </div>
                             </div>
                         </div>
 
                         <div class="pt-8 border-t-2 border-darkBlue mt-8">
                             <div class="text-center max-w-xl mx-auto mb-8">
-                                <h3 class="text-2xl font-black uppercase tracking-tight subsection-banner">Recruitment Committees</h3>
+                                <h3 class="text-2xl font-black uppercase tracking-tight subsection-banner">Recruitment Committee</h3>
                             </div>
-                            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                                <div class="space-y-3">
-                                    <h4 class="font-bold text-sm uppercase tracking-wider text-darkBlue flex items-center"><i class="fa-solid fa-user-plus mr-2"></i> DECA Recruitment Committee</h4>
-                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                        <div class="border-2 border-darkBlue p-4 bg-white neo-box text-center">
-                                            <i class="fa-regular fa-user text-lg mb-1 block"></i>
-                                            <span class="font-black text-xs block">Recruitment Committee Member</span>
-                                        </div>
-                                        <div class="border-2 border-darkBlue p-4 bg-white neo-box text-center">
-                                            <i class="fa-regular fa-user text-lg mb-1 block"></i>
-                                            <span class="font-black text-xs block">Recruitment Committee Member</span>
-                                        </div>
-                                        <div class="border-2 border-darkBlue p-4 bg-white neo-box text-center">
-                                            <i class="fa-regular fa-user text-lg mb-1 block"></i>
-                                            <span class="font-black text-xs block">Recruitment Committee Member</span>
+                            <div class="leadership-grid recruitment-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 max-w-7xl mx-auto">
+
+                                <article class="leadership-card" tabindex="0" aria-label="Andrew Bi, Recruitment Committee">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">Recruitment Committee</div>
+                                    <h3 class="leadership-name">Andrew Bi</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Andrew Bi here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Andrew Bi">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="space-y-3">
-                                    <h4 class="font-bold text-sm uppercase tracking-wider text-darkBlue flex items-center"><i class="fa-solid fa-user-plus mr-2"></i> FBLA Recruitment Committee</h4>
-                                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                        <div class="border-2 border-darkBlue p-4 bg-white neo-box text-center">
-                                            <i class="fa-regular fa-user text-lg mb-1 block"></i>
-                                            <span class="font-black text-xs block">Recruitment Committee Member</span>
-                                        </div>
-                                        <div class="border-2 border-darkBlue p-4 bg-white neo-box text-center">
-                                            <i class="fa-regular fa-user text-lg mb-1 block"></i>
-                                            <span class="font-black text-xs block">Recruitment Committee Member</span>
-                                        </div>
-                                        <div class="border-2 border-darkBlue p-4 bg-white neo-box text-center">
-                                            <i class="fa-regular fa-user text-lg mb-1 block"></i>
-                                            <span class="font-black text-xs block">Recruitment Committee Member</span>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="James Stacey, Recruitment Committee">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">Recruitment Committee</div>
+                                    <h3 class="leadership-name">James Stacey</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about James Stacey here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email James Stacey">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
                                         </div>
                                     </div>
-                                </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Yicheng Deng, Recruitment Committee">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">Recruitment Committee</div>
+                                    <h3 class="leadership-name">Yicheng Deng</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Yicheng Deng here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Yicheng Deng">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Lily Coulter, Recruitment Committee">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">Recruitment Committee</div>
+                                    <h3 class="leadership-name">Lily Coulter</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Lily Coulter here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Lily Coulter">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Aaditya Kuberan, Recruitment Committee">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">Recruitment Committee</div>
+                                    <h3 class="leadership-name">Aaditya Kuberan</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Aaditya Kuberan here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Aaditya Kuberan">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <article class="leadership-card" tabindex="0" aria-label="Snow Xu, Recruitment Committee">
+                                    <div class="leadership-photo">
+                                        <i class="fa-regular fa-user text-3xl"></i>
+                                        <span class="leadership-photo-label">Portrait Placement</span>
+                                    </div>
+                                    <div class="leadership-role">Recruitment Committee</div>
+                                    <h3 class="leadership-name">Snow Xu</h3>
+                                    <div class="leadership-extra">
+                                        <div class="leadership-extra-inner">
+                                            <p class="leadership-bio">Add a short 1–2 sentence bio about Snow Xu here.</p>
+                                            <a href="mailto:officer@skylinebusinessclub.org"
+                                               class="leadership-email"
+                                               aria-label="Email Snow Xu">
+                                                <i class="fa-solid fa-envelope"></i> Email
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
                             </div>
 
                             <div class="mt-12 border-4 border-darkBlue bg-white neo-box p-8 max-w-7xl mx-auto text-center space-y-5">
