@@ -208,32 +208,131 @@ const fblaTestData = [
 
 // RENDERER FUNCTION FOR EXPANDABLE RESOURCE BLOCKS
 function renderResourceAccordions() {
+    // Current Skyline members who can help with events based on the state placement list.
+    // Events not listed here automatically display TBD.
+    const helperByEvent = {
+        // DECA TESTS
+        "exam_2": ["Xuanyou Wu", "Elisa Tandra", "Grayson Carter"],
+        "exam_4": ["Madeline “Maddie” Doherty", "Melanie Wang"],
+        "exam_5": ["Daniel Luo", "Melanie Wang", "Sreeram Patcha", "Symon Kim", "Quynhanh Le", "Augustine “Gus” Pham", "Joyce Xie", "Rahul Nair", "Chloe Zou"],
+        "exam_6": ["Kainalu “Kai” Siu"],
+
+        // DECA PREPARED EVENTS
+        "pmbs": ["Jack Wu", "Sreeram Patcha"],
+        "pmca": ["Selha Chaozstang", "Annie Lin", "Eva Averin"],
+        "efb": ["Eli Shen"],
+        "eib": ["Andrew Jiao", "Lydia Bartholomew", "Hailey Park"],
+        "eip": ["Eva Averin"],
+        "imce": ["Daniel Luo"],
+        "imcp": ["Lydia Bartholomew", "Joyce Xie", "Casey Zhang"],
+        "imcs": ["Sreeram Patcha", "Aksel Rasmussen"],
+        "seor": ["Jiyu Han"],
+        "esb": ["Sarah Wu", "Chloe Zou"],
+
+        // DECA ROLEPLAY / CASE STUDY EVENTS
+        "act": ["Brady Murtaugh"],
+        "bfs": ["Yicheng Deng"],
+        "bsm": ["Charlotte Soelberg"],
+        "btdm": ["Ryan Bai", "Augustine “Gus” Pham"],
+        "ent": ["Elisa Tandra"],
+        "fms": ["Chloe Zou"],
+        "hlm": ["Melanie Wang"],
+        "mcs": ["Joyce Xie"],
+        "pfl": ["Kainalu “Kai” Siu"],
+        "qsrm": ["Hailey Park"],
+        "rms": ["Daniel Luo"],
+
+        // FBLA PREPARED EVENTS
+        "f_business_ethics": ["Madeline “Maddie” Doherty", "Kainalu “Kai” Siu"],
+        "f_data_analysis": ["Elisa Tandra", "Chloe Zou"],
+        "f_digital_animation": ["Joyce Xie"],
+        "f_event_planning": ["Sophia Chen", "Sarah Wu", "Quynhanh Le"],
+        "f_financial_planning": ["Brady Murtaugh", "Sreeram Patcha", "Jack Wu"],
+        "f_mobile_application_development": ["Sophia Chen", "Solomon Kim", "Eli Shen"],
+        "f_public_service_announcement": ["Emily Tan", "Kristine Tra"],
+        "f_sales_presentation": ["Andrew Jiao", "Nathan Li"],
+        "f_social_media_strategies": ["Sam Hodson", "Aksel Rasmussen"],
+        "f_supply_chain_management": ["Olivia Tran", "Chloe Zou"],
+        "f_website_coding_development": ["Symon Kim", "Augustine “Gus” Pham", "Kevin Ying"],
+        "f_introduction_to_business_presentation": ["Lydia Bartholomew", "Hailey Park", "Melanie Wang"],
+        "f_introduction_to_programming": ["Yicheng Deng", "Joshua Zhang", "Melinda Zhou"],
+        "f_introduction_to_public_speaking": ["Andrew Jiao"],
+        "f_introduction_to_social_media_strategy": ["Leya Olsen", "Nikki Santi"],
+
+        // FBLA ROLEPLAY / CASE STUDY EVENTS
+        "f_banking_financial_systems": ["Rahul Nair", "Sreeram Patcha"],
+        "f_business_management": ["Daniel Luo"],
+        "f_hospitality_event_management": ["Sreeram Patcha", "Jack Wu"],
+        "f_management_information_systems": ["Symon Kim", "Kevin Ying", "Jailai Ying"],
+        "f_network_design": ["Selha Chaozstang", "Annie Lin"],
+        "f_sports_entertainment_management": ["Andrew Jiao", "Aaditya Kuberan", "Nathan Li"],
+        "f_technology_support_services": ["Aaditya Kuberan"],
+
+        // FBLA OBJECTIVE / PRODUCTION TESTS
+        "f_agribusiness": ["Daniel Luo"],
+        "f_business_communication": ["Melanie Wang"],
+        "f_insurance_risk_management": ["Elisa Tandra"],
+        "f_public_administration_management": ["Daniel Luo"],
+        "f_introduction_to_business_communication": ["Melanie Wang"],
+        "f_introduction_to_business_concepts": ["Hailey Park"],
+        "f_introduction_to_fbla": ["Joyce Xie"],
+        "f_introduction_to_marketing_concepts": ["Andrew Jiao"],
+        "f_introduction_to_parliamentary_procedure": ["Joyce Xie"],
+    };
+
     const renderGroup = (targetId, dataset) => {
         const container = document.getElementById(targetId);
         if (!container) return;
 
         const isDeca = targetId.startsWith('deca');
+        const isDecaTests = targetId === 'deca-tests-root';
+
+        // Convert DECA's generic "Cluster exam" label into the actual exam.
+        const getSpecificTest = (item) => {
+            if (!isDeca) return item.test;
+
+            // In the DECA Tests section, the event name itself IS the exam.
+            if (isDecaTests) return item.name;
+
+            const rawTest = (item.test || '').trim();
+            if (rawTest.toLowerCase() !== 'cluster exam') return rawTest || 'None';
+
+            // Principles events use the Business Administration Core Exam.
+            if (item.category === 'Principles of Business Administration') {
+                return 'Business Administration Core Exam';
+            }
+
+            const examByCluster = {
+                'Business Management and Administration': 'Business Management and Administration Exam',
+                'Entrepreneurship': 'Entrepreneurship Exam',
+                'Finance': 'Finance Exam',
+                'Hospitality and Tourism': 'Hospitality and Tourism Exam',
+                'Marketing': 'Marketing Exam',
+                'Personal Financial Literacy': 'Personal Financial Literacy Exam'
+            };
+
+            return examByCluster[item.cluster] || `${item.cluster} Exam`;
+        };
+
         const html = dataset.map(item => {
-            // DECA events have an official abbreviation; FBLA events do not.
+            // DECA events keep their official abbreviation on the right.
             const rightLabel = item.code
                 ? `<span class="text-xs border border-darkBlue group-hover:border-white px-2 py-0.5">${item.code}</span>`
                 : '';
 
-            const tags = [item.category, `${item.members} ${item.members === '1' ? 'member' : 'members'}`];
-            const tagMarkup = `<div class="flex flex-wrap gap-2">${tags
-                .map(tag => `<span class="border border-darkBlue px-2 py-1 text-[10px] font-black uppercase tracking-widest">${tag}</span>`)
-                .join('')}</div>`;
+            const specificTest = getSpecificTest(item);
+            const helpers = helperByEvent[item.id] || [];
+            const helperMarkup = helpers.length ? helpers.join('<br>') : 'TBD';
 
-            const clusterLabel = isDeca ? 'Career Cluster:' : 'Event Type:';
             const infoBoxes = `
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs font-bold uppercase">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-bold uppercase">
                             <div class="border border-darkBlue p-3">
-                                <span class="block text-[10px] font-black tracking-widest text-darkBlue">${clusterLabel}</span>
-                                <span class="text-sm block mt-1 font-black">${item.cluster}</span>
+                                <span class="block text-[10px] font-black tracking-widest text-darkBlue">Person Who Can Help:</span>
+                                <span class="text-sm block mt-1 font-black">${helperMarkup}</span>
                             </div>
                             <div class="border border-darkBlue p-3">
                                 <span class="block text-[10px] font-black tracking-widest text-darkBlue">Test:</span>
-                                <span class="text-sm block mt-1 font-black">${item.test}</span>
+                                <span class="text-sm block mt-1 font-black">${specificTest}</span>
                             </div>
                             <div class="border border-darkBlue p-3">
                                 <span class="block text-[10px] font-black tracking-widest text-darkBlue">Participants:</span>
@@ -248,14 +347,7 @@ function renderResourceAccordions() {
                         ${rightLabel}
                     </summary>
                     <div class="p-6 border-t border-darkBlue bg-white space-y-4">
-                        ${tagMarkup}
                         ${infoBoxes}
-                        <div class="border border-darkBlue p-4 space-y-2 bg-white">
-                            <span class="block text-[10px] font-black uppercase tracking-widest">Want help with this event?</span>
-                            <ul class="text-xs font-bold space-y-1">
-                                ${item.mentors.map(m => `<li><i class="fa-solid fa-user-check mr-2"></i>${m}</li>`).join('')}
-                            </ul>
-                        </div>
                         <div class="pt-2">
                             <a href="${item.url}" target="_blank" rel="noopener" class="w-full sm:w-auto inline-block text-center bg-darkBlue text-white font-black text-xs uppercase tracking-wider px-6 py-3 border border-darkBlue hover:bg-white hover:text-darkBlue transition">
                                 ${isDeca ? 'Official DECA Event Page' : 'Official Guidelines (PDF)'} <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-[10px]"></i>
