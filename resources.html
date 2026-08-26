@@ -19,6 +19,49 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .resource-category {
+            overflow: hidden;
+        }
+
+        .resource-category-toggle {
+            width: 100%;
+            text-align: left;
+        }
+
+        .resource-category-panel {
+            display: grid;
+            grid-template-rows: 0fr;
+            opacity: 0;
+            transition: grid-template-rows 320ms ease, opacity 240ms ease;
+        }
+
+        .resource-category-inner {
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        .resource-category.is-open .resource-category-panel {
+            grid-template-rows: 1fr;
+            opacity: 1;
+        }
+
+        .resource-category-chevron {
+            transition: transform 300ms ease;
+        }
+
+        .resource-category.is-open .resource-category-chevron {
+            transform: rotate(180deg);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .resource-category-panel,
+            .resource-category-chevron {
+                transition: none;
+            }
+        }
+    </style>
 </head>
 <body data-page="resources" class="bg-white text-darkBlue font-sans antialiased flex flex-col min-h-screen">
 
@@ -65,7 +108,7 @@
                     <p class="section-subtitle">Every high school event offered by DECA and FBLA, listed from <a href="https://www.deca.org/compete" target="_blank" rel="noopener" class="underline">deca.org/compete</a> and <a href="https://www.fbla.org/high-school/competitive-events/" target="_blank" rel="noopener" class="underline">fbla.org</a>. Check with your advisor which events Utah offers.</p>
                 </div>
 
-                <div class="mb-12">
+                <div class="mb-8">
                     <div class="bg-white border-4 border-darkBlue neo-box p-8 space-y-6 relative pt-12">
                         <h2 class="text-3xl font-black tracking-tight page-heading-accent text-center">Official Organizations</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -82,37 +125,59 @@
                                 <a href="https://www.fbla.org" target="_blank" class="inline-block bg-darkBlue text-white font-bold py-2 px-4 text-xs uppercase tracking-wider border-2 border-darkBlue neo-btn">Visit FBLA.org</a>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="border-2 border-darkBlue bg-white p-6">
-                            <div class="flex items-start gap-4 mb-5">
-                                <div class="w-12 h-12 bg-darkBlue flex-shrink-0 flex items-center justify-center text-white text-xl border-2 border-darkBlue">
-                                    <i class="fa-solid fa-trophy"></i>
-                                </div>
-                                
-                                <div>
-                                    <h3 class="font-black text-xl uppercase tracking-tight">How Do I Qualify for ICDC or NLC?</h3>
-                                    <p class="text-sm font-medium mt-1">National conference qualification is based on your performance at the state competition.</p>
-                                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12 items-stretch">
+                    <div class="border-2 border-darkBlue p-6 bg-white neo-box h-full">
+                        <div class="flex items-start gap-4 mb-5">
+                            <div class="w-12 h-12 bg-darkBlue flex-shrink-0 flex items-center justify-center text-white text-xl border-2 border-darkBlue">
+                                <i class="fa-solid fa-trophy"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-black text-xl uppercase tracking-tight">How Do I Qualify for ICDC or NLC?</h3>
+                                <p class="text-sm font-medium mt-1">National conference qualification is based on your performance at State.</p>
+                            </div>
+                        </div>
+
+                        <div class="border-2 border-darkBlue p-5 bg-white">
+                            <p class="text-sm font-medium leading-relaxed">
+                                Place <strong>1st, 2nd, or 3rd</strong> in any event at State to qualify for your organization's national conference: <strong>ICDC</strong> for DECA or <strong>NLC</strong> for FBLA. This includes testing events.
+                            </p>
+                        </div>
+
+                        <div class="mt-4 bg-darkBlue text-white border-2 border-darkBlue px-5 py-4">
+                            <p class="text-xs font-black uppercase tracking-wider">
+                                <i class="fa-solid fa-circle-info mr-2"></i>
+                                Region and invitational placements do not count toward ICDC or NLC qualification.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-darkBlue p-6 bg-white neo-box h-full">
+                        <div class="flex items-start gap-4 mb-5">
+                            <div class="w-12 h-12 bg-darkBlue flex-shrink-0 flex items-center justify-center text-white text-xl border-2 border-darkBlue">
+                                <i class="fa-solid fa-shirt"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-black text-xl uppercase tracking-tight">Competition Dress Code</h3>
+                                <p class="text-sm font-medium mt-1">Check the official dress requirements before competition day.</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="border-2 border-darkBlue p-4 bg-white flex flex-col">
+                                <img src="images/deca-dress-code.png" alt="DECA dress code visual guide" class="w-full h-44 object-contain bg-white mb-3">
+                                <h4 class="font-black text-lg">DECA</h4>
+                                <p class="text-xs font-medium mt-1 mb-3">Use the visual guide as a quick reference, then confirm the official Utah DECA dress code.</p>
+                                <a href="https://utahdeca.org/wp-content/uploads/2025/01/DECASTATE_Conference_Dress_Code.pdf" target="_blank" class="mt-auto inline-block text-center bg-darkBlue text-white font-black text-xs uppercase tracking-wider px-4 py-2 border-2 border-darkBlue hover:bg-white hover:text-darkBlue transition">DECA Dress Code <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-[10px]"></i></a>
                             </div>
 
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="border-2 border-darkBlue p-5 bg-white">
-                                    <span class="block text-[10px] font-black uppercase tracking-widest mb-1">DECA</span>
-                                    <h4 class="font-black text-lg">ICDC</h4>
-                                    <p class="text-sm font-medium mt-2">Place <strong>1st, 2nd, or 3rd</strong> in any event at DECA State to qualify for the International Career Development Conference. This includes testing events.</p>
-                                </div>
-                                <div class="border-2 border-darkBlue p-5 bg-white">
-                                    <span class="block text-[10px] font-black uppercase tracking-widest mb-1">FBLA</span>
-                                    <h4 class="font-black text-lg">NLC</h4>
-                                    <p class="text-sm font-medium mt-2">Place <strong>1st, 2nd, or 3rd</strong> in any event at FBLA State to qualify for the National Leadership Conference. This includes testing events.</p>
-                                </div>
-                            </div>
-
-                            <div class="mt-4 bg-darkBlue text-white border-2 border-darkBlue px-5 py-4">
-                                <p class="text-xs font-black uppercase tracking-wider">
-                                    <i class="fa-solid fa-circle-info mr-2"></i>
-                                    Region and invitational placements do not qualify you for ICDC or NLC.
-                                </p>
+                            <div class="border-2 border-darkBlue p-4 bg-white flex flex-col">
+                                <img src="https://www.fbla.org/media/2024/10/2023-Dress-Code_FINAL-scaled-1-791x1024.jpg" alt="FBLA dress code visual guide" class="w-full h-44 object-contain bg-white mb-3">
+                                <h4 class="font-black text-lg">FBLA</h4>
+                                <p class="text-xs font-medium mt-1 mb-3">Use the visual guide as a quick reference, then confirm the official FBLA dress code.</p>
+                                <a href="https://www.fbla.org/dress-code/" target="_blank" class="mt-auto inline-block text-center bg-darkBlue text-white font-black text-xs uppercase tracking-wider px-4 py-2 border-2 border-darkBlue hover:bg-white hover:text-darkBlue transition">FBLA Dress Code <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-[10px]"></i></a>
                             </div>
                         </div>
                     </div>
@@ -128,47 +193,64 @@
                 </div>
 
                 <div id="branch-deca" class="resource-branch space-y-12">
-                    <div class="space-y-8">
-                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
-                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-file-signature mr-2"></i> Prepared Entry</h3>
-                            <p class="text-xs mb-4">Written projects and prepared presentations: business plans, operations research, project management, integrated marketing campaigns, and professional selling. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
-                            <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-prepared-root">
+                    <div class="space-y-5">
+                        <div class="resource-category border-2 border-darkBlue bg-white neo-box">
+                            <button type="button" class="resource-category-toggle flex w-full items-center justify-between gap-4 p-6" aria-expanded="false" aria-controls="deca-prepared-panel">
+                                <h3 class="font-black text-lg uppercase tracking-tight subsection-banner"><i class="fa-solid fa-file-signature mr-2"></i> Prepared Entry</h3>
+                                <i class="fa-solid fa-chevron-down resource-category-chevron flex-shrink-0" aria-hidden="true"></i>
+                            </button>
+                            <div id="deca-prepared-panel" class="resource-category-panel">
+                                <div class="resource-category-inner">
+                                    <div class="px-6 pb-6">
+                                        <p class="text-xs mb-4">Written projects and prepared presentations: business plans, operations research, project management, integrated marketing campaigns, and professional selling. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                                        <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-prepared-root"></div>
+                                    </div>
                                 </div>
+                            </div>
                         </div>
 
-                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
-                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-comments mr-2"></i> Roleplays</h3>
-                            <p class="text-xs mb-4">Principles, Individual Series, Team Decision Making, and Personal Financial Literacy. Each pairs a cluster exam with a live role play or case study. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
-                            <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-roleplay-root">
+                        <div class="resource-category border-2 border-darkBlue bg-white neo-box">
+                            <button type="button" class="resource-category-toggle flex w-full items-center justify-between gap-4 p-6" aria-expanded="false" aria-controls="deca-roleplay-panel">
+                                <h3 class="font-black text-lg uppercase tracking-tight subsection-banner"><i class="fa-solid fa-comments mr-2"></i> Roleplays</h3>
+                                <i class="fa-solid fa-chevron-down resource-category-chevron flex-shrink-0" aria-hidden="true"></i>
+                            </button>
+                            <div id="deca-roleplay-panel" class="resource-category-panel">
+                                <div class="resource-category-inner">
+                                    <div class="px-6 pb-6">
+                                        <p class="text-xs mb-4">Principles, Individual Series, Team Decision Making, and Personal Financial Literacy. Each pairs a cluster exam with a live role play or case study. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                                        <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-roleplay-root"></div>
+                                    </div>
                                 </div>
+                            </div>
                         </div>
 
-                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
-                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-clipboard-check mr-2"></i> Tests</h3>
-                            <p class="text-xs mb-4">The official career cluster exams taken alongside DECA's role play and prepared events. Practice them on DECA+. <span class="event-count font-black uppercase tracking-widest"></span></p>
-                            <a href="https://www.decaplus.org" target="_blank" class="inline-block mb-4 bg-darkBlue text-white font-black text-xs uppercase tracking-wider px-4 py-2 border border-darkBlue hover:bg-white hover:text-darkBlue transition">Open DECA Plus <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-[10px]"></i></a>
-                            <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-tests-root">
+                        <div class="resource-category border-2 border-darkBlue bg-white neo-box">
+                            <button type="button" class="resource-category-toggle flex w-full items-center justify-between gap-4 p-6" aria-expanded="false" aria-controls="deca-tests-panel">
+                                <h3 class="font-black text-lg uppercase tracking-tight subsection-banner"><i class="fa-solid fa-clipboard-check mr-2"></i> Tests</h3>
+                                <i class="fa-solid fa-chevron-down resource-category-chevron flex-shrink-0" aria-hidden="true"></i>
+                            </button>
+                            <div id="deca-tests-panel" class="resource-category-panel">
+                                <div class="resource-category-inner">
+                                    <div class="px-6 pb-6">
+                                        <p class="text-xs mb-4">The official career cluster exams taken alongside DECA's role play and prepared events. Practice them on DECA+. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                                        <a href="https://www.decaplus.org" target="_blank" class="inline-block mb-4 bg-darkBlue text-white font-black text-xs uppercase tracking-wider px-4 py-2 border border-darkBlue hover:bg-white hover:text-darkBlue transition">Open DECA Plus <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-[10px]"></i></a>
+                                        <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-tests-root"></div>
+                                    </div>
                                 </div>
+                            </div>
                         </div>
 
-                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
-                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-desktop mr-2"></i> Online Simulations</h3>
-                            <p class="text-xs mb-4">Web-based business simulations played from the classroom: the Stock Market Game and the Virtual Business Challenge. <span class="event-count font-black uppercase tracking-widest"></span></p>
-                            <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-online-root">
-                                </div>
-                        </div>
-
-                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
-                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-shirt mr-2"></i> DECA Dress Code Visual Guide</h3>
-                            <p class="text-xs mb-4 font-medium">Use this visual as a quick reference for business professional competition attire. Always confirm final dress-code details with your advisor before competition day.</p>
-                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center border-t border-darkBlue pt-4">
-                                <div class="lg:col-span-7 border-2 border-darkBlue bg-white p-3 overflow-hidden">
-                                    <img src="images/deca-dress-code.png" alt="DECA dress code visual guide showing professional attire with blazer, collared dress shirt or blouse, dress pants, neckwear, and dress shoes" class="w-full max-h-[520px] object-contain bg-white">
-                                </div>
-                                <div class="lg:col-span-5 space-y-3">
-                                    <h4 class="font-black text-xl">Competition Attire Check</h4>
-                                    <p class="text-sm font-medium leading-relaxed">Use this visual as a quick reference for professional DECA competition attire: blazer or suit jacket, collared shirt or blouse, appropriate neckwear when required, dress pants or skirt, and dress shoes.</p>
-                                    <a href="https://utahdeca.org/wp-content/uploads/2025/01/DECASTATE_Conference_Dress_Code.pdf" target="_blank" class="inline-block bg-darkBlue text-white font-black text-xs uppercase tracking-wider px-4 py-2 border-2 border-darkBlue hover:bg-white hover:text-darkBlue transition">View Utah DECA Dress Code <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-[10px]"></i></a>
+                        <div class="resource-category border-2 border-darkBlue bg-white neo-box">
+                            <button type="button" class="resource-category-toggle flex w-full items-center justify-between gap-4 p-6" aria-expanded="false" aria-controls="deca-online-panel">
+                                <h3 class="font-black text-lg uppercase tracking-tight subsection-banner"><i class="fa-solid fa-desktop mr-2"></i> Online Simulations</h3>
+                                <i class="fa-solid fa-chevron-down resource-category-chevron flex-shrink-0" aria-hidden="true"></i>
+                            </button>
+                            <div id="deca-online-panel" class="resource-category-panel">
+                                <div class="resource-category-inner">
+                                    <div class="px-6 pb-6">
+                                        <p class="text-xs mb-4">Web-based business simulations played from the classroom: the Stock Market Game and the Virtual Business Challenge. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                                        <div class="space-y-2 border-t border-darkBlue pt-4" id="deca-online-root"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -176,39 +258,48 @@
                 </div>
 
                 <div id="branch-fbla" class="resource-branch hidden space-y-12">
-                    <div class="space-y-8">
-                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
-                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-laptop-code mr-2"></i> Prepared Entry</h3>
-                            <p class="text-xs mb-4">Presentation, production, and chapter events: prepared reports, speeches, designs, and live presentations. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
-                            <div class="space-y-2 border-t border-darkBlue pt-4" id="fbla-prepared-root">
+                    <div class="space-y-5">
+                        <div class="resource-category border-2 border-darkBlue bg-white neo-box">
+                            <button type="button" class="resource-category-toggle flex w-full items-center justify-between gap-4 p-6" aria-expanded="false" aria-controls="fbla-prepared-panel">
+                                <h3 class="font-black text-lg uppercase tracking-tight subsection-banner"><i class="fa-solid fa-laptop-code mr-2"></i> Prepared Entry</h3>
+                                <i class="fa-solid fa-chevron-down resource-category-chevron flex-shrink-0" aria-hidden="true"></i>
+                            </button>
+                            <div id="fbla-prepared-panel" class="resource-category-panel">
+                                <div class="resource-category-inner">
+                                    <div class="px-6 pb-6">
+                                        <p class="text-xs mb-4">Presentation, production, and chapter events: prepared reports, speeches, designs, and live presentations. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                                        <div class="space-y-2 border-t border-darkBlue pt-4" id="fbla-prepared-root"></div>
+                                    </div>
                                 </div>
+                            </div>
                         </div>
 
-                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
-                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-users-gear mr-2"></i> Roleplays</h3>
-                            <p class="text-xs mb-4">Objective test plus a live role play scenario judged on the spot. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
-                            <div class="space-y-2 border-t border-darkBlue pt-4" id="fbla-roleplay-root">
+                        <div class="resource-category border-2 border-darkBlue bg-white neo-box">
+                            <button type="button" class="resource-category-toggle flex w-full items-center justify-between gap-4 p-6" aria-expanded="false" aria-controls="fbla-roleplay-panel">
+                                <h3 class="font-black text-lg uppercase tracking-tight subsection-banner"><i class="fa-solid fa-users-gear mr-2"></i> Roleplays</h3>
+                                <i class="fa-solid fa-chevron-down resource-category-chevron flex-shrink-0" aria-hidden="true"></i>
+                            </button>
+                            <div id="fbla-roleplay-panel" class="resource-category-panel">
+                                <div class="resource-category-inner">
+                                    <div class="px-6 pb-6">
+                                        <p class="text-xs mb-4">Objective test plus a live role play scenario judged on the spot. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                                        <div class="space-y-2 border-t border-darkBlue pt-4" id="fbla-roleplay-root"></div>
+                                    </div>
                                 </div>
+                            </div>
                         </div>
 
-                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
-                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-clipboard-check mr-2"></i> Tests</h3>
-                            <p class="text-xs mb-4">Objective test events, including the 9th and 10th grade introductory tests. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
-                            <div class="space-y-2 border-t border-darkBlue pt-4" id="fbla-tests-root">
-                                </div>
-                        </div>
-
-                        <div class="border-2 border-darkBlue p-6 bg-white neo-box">
-                            <h3 class="font-black text-lg uppercase tracking-tight mb-3 subsection-banner"><i class="fa-solid fa-shirt mr-2"></i> FBLA Dress Code Visual Guide</h3>
-                            <p class="text-xs mb-4 font-medium">Use this visual as a quick reference for professional attire at FBLA events. Always confirm final dress-code details with your advisor before competition day.</p>
-                            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center border-t border-darkBlue pt-4">
-                                <div class="lg:col-span-7 border-2 border-darkBlue bg-white p-3 overflow-hidden">
-                                    <img src="https://www.fbla.org/media/2024/10/2023-Dress-Code_FINAL-scaled-1-791x1024.jpg" alt="FBLA dress code poster showing acceptable and unacceptable professional attire for conference and competition settings" class="w-full max-h-[520px] object-contain bg-white">
-                                </div>
-                                <div class="lg:col-span-5 space-y-3">
-                                    <h4 class="font-black text-xl">Competition Attire Check</h4>
-                                    <p class="text-sm font-medium leading-relaxed">Check for business professional or approved business casual attire, appropriate shoes, and no prohibited clothing items.</p>
-                                    <a href="https://www.fbla.org/dress-code/" target="_blank" class="inline-block bg-darkBlue text-white font-black text-xs uppercase tracking-wider px-4 py-2 border-2 border-darkBlue hover:bg-white hover:text-darkBlue transition">View Official FBLA Dress Code <i class="fa-solid fa-arrow-up-right-from-square ml-2 text-[10px]"></i></a>
+                        <div class="resource-category border-2 border-darkBlue bg-white neo-box">
+                            <button type="button" class="resource-category-toggle flex w-full items-center justify-between gap-4 p-6" aria-expanded="false" aria-controls="fbla-tests-panel">
+                                <h3 class="font-black text-lg uppercase tracking-tight subsection-banner"><i class="fa-solid fa-clipboard-check mr-2"></i> Tests</h3>
+                                <i class="fa-solid fa-chevron-down resource-category-chevron flex-shrink-0" aria-hidden="true"></i>
+                            </button>
+                            <div id="fbla-tests-panel" class="resource-category-panel">
+                                <div class="resource-category-inner">
+                                    <div class="px-6 pb-6">
+                                        <p class="text-xs mb-4">Objective test events, including the 9th and 10th grade introductory tests. Click an event to reveal details. <span class="event-count font-black uppercase tracking-widest"></span></p>
+                                        <div class="space-y-2 border-t border-darkBlue pt-4" id="fbla-tests-root"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -255,5 +346,15 @@
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script src="script.js"></script>
+
+    <script>
+        document.querySelectorAll('.resource-category-toggle').forEach((button) => {
+            button.addEventListener('click', () => {
+                const category = button.closest('.resource-category');
+                const isOpen = category.classList.toggle('is-open');
+                button.setAttribute('aria-expanded', String(isOpen));
+            });
+        });
+    </script>
 </body>
 </html>
