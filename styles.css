@@ -199,15 +199,25 @@ body {
     box-shadow: 7px 7px 0px 0px #fca311;
 }
 
-main button:hover,
-main a:hover {
+/* Generic "invert on hover" for buttons and links in the page body.
+   Components that manage their own hover state opt out below —
+   without the exclusions this white-on-hover wins over everything,
+   including active tabs and white text sitting on a navy banner. */
+main button:hover:not(.resource-tab):not(.resource-category-toggle),
+main a:hover:not(.resource-tab):not(.resource-category-toggle) {
     background-color: #FFFFFF !important;
     color: #0B2545 !important;
     border-color: #0B2545 !important;
 }
-main button:hover i,
-main a:hover i {
+main button:hover:not(.resource-tab):not(.resource-category-toggle) i,
+main a:hover:not(.resource-tab):not(.resource-category-toggle) i {
     color: #0B2545 !important;
+}
+/* Icons inside a navy banner keep their own colour regardless —
+   turning them navy makes them vanish into the background. */
+main button:hover .subsection-banner i,
+main a:hover .subsection-banner i {
+    color: inherit !important;
 }
 #quiz-toggle-deca:hover,
 #quiz-toggle-fbla:hover {
@@ -1249,4 +1259,95 @@ body.high-contrast .footer-section h3 {
     letter-spacing: 0.1em;
     color: var(--primary);
     opacity: 0.5;
+}
+
+/* ============================================================
+   COMPETITION RESOURCES — tabs and collapsible categories
+   ============================================================ */
+
+/* ── DECA / FBLA tab strip ───────────────────────────────── */
+.resource-tab {
+    background: #fff;
+    color: var(--primary);
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.resource-tab:hover {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+.resource-tab i {
+    color: inherit;
+}
+
+/* The tab you are already on stays navy — hovering it should not
+   invert, because there is nothing to switch to. */
+.resource-tab.is-active {
+    background: var(--primary);
+    color: #fff;
+    cursor: default;
+}
+
+.resource-tab.is-active:hover {
+    background: var(--primary);
+    color: #fff;
+}
+
+/* ── Collapsible category cards ──────────────────────────── */
+.resource-category-toggle {
+    background: #fff;
+    color: var(--primary);
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.resource-category-toggle:hover,
+.resource-category-toggle:focus-visible {
+    background: var(--light);
+}
+
+/* The heading keeps its navy banner and white text on hover */
+.resource-category-toggle .subsection-banner,
+.resource-category-toggle:hover .subsection-banner {
+    color: #fff;
+}
+
+.resource-category-toggle .subsection-banner i {
+    color: #fff;
+}
+
+.resource-category-chevron {
+    color: var(--primary);
+    font-size: 1rem;
+    transition: transform 0.25s ease-in-out;
+}
+
+.resource-category.is-open .resource-category-chevron {
+    transform: rotate(180deg);
+}
+
+/* Animated open/close without hard-coding a height */
+.resource-category-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-in-out;
+}
+
+.resource-category.is-open .resource-category-panel {
+    grid-template-rows: 1fr;
+}
+
+.resource-category-inner {
+    overflow: hidden;
+    min-height: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .resource-category-panel,
+    .resource-category-chevron {
+        transition: none;
+    }
 }
