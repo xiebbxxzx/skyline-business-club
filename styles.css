@@ -890,3 +890,363 @@ body.high-contrast .footer-section h3 {
         font-size: 0.8rem;
     }
 }
+
+/* ============================================================
+   NATIONALS PHOTO COLLAGES
+   Two mosaics side by side, each a dense 3-column grid.
+   .wide / .tall / .big let a tile span extra columns or rows so
+   the result reads as a collage rather than a uniform gallery.
+   Tiles crossfade between photos; see initNationalsCollages()
+   in script.js.
+   ============================================================ */
+
+.collage-block {
+    border: 4px solid var(--primary);
+    background: #fff;
+    box-shadow: 6px 6px 0 0 var(--accent);
+    display: flex;
+    flex-direction: column;
+}
+
+.collage-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1rem;
+    padding: 0.8rem 1.1rem;
+    background: var(--primary);
+    color: #fff;
+    border-bottom: 2px solid var(--primary);
+}
+
+.collage-title {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+}
+
+.collage-meta {
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+}
+
+/* ── The mosaic ──────────────────────────────────────────── */
+.photo-collage {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 118px;
+    grid-auto-flow: dense;
+    gap: 8px;
+    padding: 8px;
+}
+
+.collage-tile {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border: 2px solid var(--primary);
+    background: var(--light);
+}
+
+.collage-tile.wide { grid-column: span 2; }
+.collage-tile.tall { grid-row: span 2; }
+.collage-tile.big  { grid-column: span 2; grid-row: span 2; }
+
+/* ── Crossfading photo layers ────────────────────────────── */
+/* Two stacked layers per tile: one visible, one fading in behind
+   or in front of it. JS swaps which is which. */
+.collage-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    opacity: 0;
+    transition: opacity 900ms ease-in-out;
+}
+
+.collage-img.is-visible {
+    opacity: 1;
+}
+
+/* Slow drift while a photo is on screen, for a bit of life */
+.collage-tile.is-live .collage-img.is-visible {
+    animation: collageDrift 14s ease-in-out infinite alternate;
+}
+
+@keyframes collageDrift {
+    from { transform: scale(1); }
+    to   { transform: scale(1.07); }
+}
+
+/* Placeholder while photos are being collected */
+.collage-empty {
+    position: absolute;
+    inset: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    text-align: center;
+    border: 2px dashed var(--primary);
+    background: #fff;
+    color: var(--primary);
+    opacity: 0.55;
+    transition: opacity 400ms ease-in-out;
+}
+
+.collage-tile.is-live .collage-empty {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.collage-empty i {
+    font-size: 1.25rem;
+}
+
+.collage-empty-label {
+    font-size: 0.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+/* Caption overlay — only appears when the figcaption has text */
+.collage-caption:not(:empty) {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 8px 10px;
+    background: rgba(11, 37, 69, 0.92);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.35;
+    transform: translateY(100%);
+    transition: transform 250ms ease-in-out;
+    z-index: 2;
+}
+
+.collage-tile:hover .collage-caption:not(:empty),
+.collage-tile:focus-within .collage-caption:not(:empty) {
+    transform: translateY(0);
+}
+
+/* Touch devices have no hover, so keep captions visible */
+@media (hover: none) {
+    .collage-caption:not(:empty) {
+        transform: translateY(0);
+    }
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+/* Below the lg breakpoint the two collages stack, so each one gets
+   the full width back and the tiles can grow. */
+@media screen and (max-width: 1023px) {
+    .photo-collage {
+        grid-auto-rows: 150px;
+        gap: 10px;
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .photo-collage {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 115px;
+        gap: 8px;
+        padding: 8px;
+    }
+    /* A 2x2 tile would swallow an entire phone row */
+    .collage-tile.big {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+}
+
+/* Respect a reduced-motion preference: photos still appear and
+   still cycle, they just cut instead of fading and never drift. */
+@media (prefers-reduced-motion: reduce) {
+    .collage-img {
+        transition: none;
+    }
+    .collage-tile.is-live .collage-img.is-visible {
+        animation: none;
+    }
+    .collage-empty {
+        transition: none;
+    }
+}
+
+@supports not (grid-auto-flow: dense) {
+    .photo-collage {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .collage-tile {
+        flex: 1 1 150px;
+        height: 150px;
+    }
+}
+
+/* ============================================================
+   MONTH HIGHLIGHTS
+   Sits under the calendar and lists everything happening in the
+   month currently on screen. Populated by updateMonthHighlights().
+   ============================================================ */
+
+.month-highlights {
+    background: #fff;
+}
+
+.month-highlights-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1rem;
+    padding: 0.75rem 1.25rem;
+    border-bottom: 2px solid var(--primary);
+    background: var(--light);
+}
+
+.month-highlights-title {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--primary);
+}
+
+.month-highlights-month {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary);
+    opacity: 0.7;
+}
+
+.month-highlights-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+.month-highlights-list > li + li {
+    border-top: 1px solid rgba(11, 37, 69, 0.15);
+}
+
+/* Each row is a button so it can be clicked or tabbed to */
+.month-highlight {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding: 0.85rem 1.25rem;
+    background: none;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    color: var(--primary);
+    transition: background-color 0.15s ease-in-out;
+}
+
+.month-highlight:hover,
+.month-highlight:focus-visible {
+    background-color: var(--accent);
+}
+
+.month-highlight-date {
+    flex-shrink: 0;
+    width: 46px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 0;
+    border: 2px solid var(--primary);
+    background: var(--primary);
+    color: #fff;
+    line-height: 1.1;
+}
+
+.month-highlight-dow {
+    font-size: 0.5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+}
+
+.month-highlight-day {
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.month-highlight-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.month-highlight-title {
+    font-size: 0.85rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.month-highlight-time {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.72;
+}
+
+/* Events that have already passed this month */
+.month-highlight.is-past .month-highlight-date {
+    background: #fff;
+    color: var(--primary);
+}
+
+.month-highlight.is-past .month-highlight-dow {
+    color: var(--primary);
+}
+
+.month-highlight.is-past .month-highlight-title {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.month-highlight.is-past .month-highlight-time {
+    opacity: 0.5;
+}
+
+.month-highlights-none {
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--primary);
+    opacity: 0.5;
+}
