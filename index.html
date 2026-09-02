@@ -129,10 +129,177 @@
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
                 <div class="text-center max-w-2xl mx-auto mb-12">
-                    <h2 class="text-3xl font-black tracking-tight page-heading-accent">Schedule & Season Overview</h2>
+                    <h2 class="text-3xl font-black tracking-tight page-heading-accent">Nationals</h2>
+                    <p class="section-subtitle">Photos from ICDC and NLC are on the way</p>
                 </div>
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    <div class="lg:col-span-12 bg-white border-4 border-darkBlue neo-box overflow-hidden pt-2">
+
+                <!--
+                    NATIONALS COLLAGES
+                    Two mosaics side by side, one per conference.
+
+                    THE PHOTOS LIVE IN script.js, not here. Drop the image files in
+                    images/ and list them in NATIONALS_PHOTOS near the bottom of
+                    script.js. Each collage cycles through its own list, fading one
+                    tile at a time, so you can list far more photos than there are
+                    tiles. With no photos listed, the dashed placeholders stay put.
+
+                    Tile sizes: add "wide", "tall", or "big" to a figure's class to
+                    span extra columns or rows. The grid packs densely, so tiles can
+                    be added or removed in any order without leaving holes.
+                -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                    <div class="collage-block" id="nationals-icdc" data-collage="icdc">
+                        <div class="collage-header">
+                            <h3 class="collage-title">ICDC</h3>
+                            <span class="collage-meta">International Career Development Conference</span>
+                        </div>
+                        <div class="photo-collage">
+                            <figure class="collage-tile big">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile tall">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile wide">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile wide">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                        </div>
+                    </div>
+
+                    <div class="collage-block" id="nationals-nlc" data-collage="nlc">
+                        <div class="collage-header">
+                            <h3 class="collage-title">NLC</h3>
+                            <span class="collage-meta">National Leadership Conference</span>
+                        </div>
+                        <div class="photo-collage">
+                            <figure class="collage-tile big">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile tall">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile tall">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                            <figure class="collage-tile wide">
+                                <div class="collage-empty">
+                                    <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                                    <span class="collage-empty-label">Photo</span>
+                                </div>
+                                <figcaption class="collage-caption"></figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-3xl font-black tracking-tight page-heading-accent">Calendar</h2>
+                </div>
+                <div class="grid grid-cols-1">
+                    <div class="bg-white border-4 border-darkBlue neo-box overflow-hidden pt-2">
                         <div class="bg-darkBlue text-white px-6 py-3 border-b-2 border-darkBlue">
                             <h3 class="font-black text-xl uppercase tracking-tight">Upcoming Events</h3>
                         </div>
@@ -175,22 +342,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="border-t-2 border-darkBlue p-5 text-center space-y-4">
-                            <p class="font-black tracking-wider text-sm">meetings every monday and wednesday unless otherwise stated</p>
-                            <button onclick="switchTab('join')" class="bg-darkBlue text-white font-black text-xs tracking-wider px-6 py-3 border-2 border-darkBlue neo-btn">join groupme and follow socials to stay up to date</button>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-12 bg-white border-4 border-darkBlue neo-box overflow-hidden pt-2">
-                        <div class="bg-darkBlue text-white px-6 py-3 border-b-2 border-darkBlue">
-                            <h3 class="font-black text-xl uppercase tracking-tight">Season at a Glance</h3>
-                        </div>
-                        <div class="divide-y divide-darkBlue text-sm font-bold">
-                            <div class="p-4 grid grid-cols-3 gap-3"><span class="font-black uppercase">Aug-Sept</span><span class="col-span-2">Recruitment, event selection, and practice launch</span></div>
-                            <div class="p-4 grid grid-cols-3 gap-3"><span class="font-black uppercase">Oct-Nov</span><span class="col-span-2">Practice tests, roleplays, and project drafting</span></div>
-                            <div class="p-4 grid grid-cols-3 gap-3"><span class="font-black uppercase">Jan</span><span class="col-span-2">Regional competition season</span></div>
-                            <div class="p-4 grid grid-cols-3 gap-3"><span class="font-black uppercase">Mar</span><span class="col-span-2">State competition and national qualification</span></div>
-                            <div class="p-4 grid grid-cols-3 gap-3"><span class="font-black uppercase">Apr-Jun</span><span class="col-span-2">ICDC/NLC prep and travel</span></div>
+                        <div class="month-highlights border-t-2 border-darkBlue">
+                            <div class="month-highlights-head">
+                                <h4 class="month-highlights-title">This Month</h4>
+                                <span class="month-highlights-month" id="highlights-month"></span>
+                            </div>
+                            <ul class="month-highlights-list" id="month-highlights-list">
+                                <!-- Filled in by the calendar script -->
+                            </ul>
                         </div>
                     </div>
                 </div>
