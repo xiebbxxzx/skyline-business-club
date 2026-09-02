@@ -642,6 +642,8 @@ function switchTab(tabId) {
     const eventDay = document.querySelector('.today-date .event-day');
     const eventDate = document.querySelector('.today-date .event-date');
     const eventsContainer = document.querySelector('.container-cal .events');
+    const highlightsList = document.getElementById('month-highlights-list');
+    const highlightsMonth = document.getElementById('highlights-month');
 
     const months = [
         'January', 'February', 'March', 'April', 'May', 'June',
@@ -723,7 +725,69 @@ function switchTab(tabId) {
         daysContainer.innerHTML = days;
         getActiveDay(activeDay);
         updateEvents(activeDay);
+        updateMonthHighlights();
         addListener();
+    }
+
+    /* Everything happening in the month currently on screen, listed
+       under the calendar. Clicking one jumps to that day. */
+    function updateMonthHighlights() {
+        if (!highlightsList) return;
+
+        if (highlightsMonth) {
+            highlightsMonth.textContent = months[month] + ' ' + year;
+        }
+
+        const entries = [];
+        eventsArr.forEach(entry => {
+            if (entry.month === month + 1 && entry.year === year) {
+                entry.events.forEach(ev => {
+                    entries.push({ day: entry.day, title: ev.title, time: ev.time });
+                });
+            }
+        });
+        entries.sort((a, b) => a.day - b.day || a.title.localeCompare(b.title));
+
+        if (!entries.length) {
+            highlightsList.innerHTML =
+                '<li class="month-highlights-none">Nothing scheduled this month</li>';
+            return;
+        }
+
+        const now = new Date();
+        const isCurrentMonth = year === now.getFullYear() && month === now.getMonth();
+
+        highlightsList.innerHTML = entries.map(e => {
+            const dow = weekdays[new Date(year, month, e.day).getDay()].slice(0, 3);
+            const past = isCurrentMonth && e.day < now.getDate();
+            return `<li>
+                    <button type="button" class="month-highlight${past ? ' is-past' : ''}" data-day="${e.day}">
+                        <span class="month-highlight-date">
+                            <span class="month-highlight-dow">${dow}</span>
+                            <span class="month-highlight-day">${e.day}</span>
+                        </span>
+                        <span class="month-highlight-body">
+                            <span class="month-highlight-title">${e.title}</span>
+                            <span class="month-highlight-time">${e.time}</span>
+                        </span>
+                    </button>
+                </li>`;
+        }).join('');
+
+        highlightsList.querySelectorAll('.month-highlight').forEach(btn => {
+            btn.addEventListener('click', () => {
+                activeDay = Number(btn.dataset.day);
+                initCalendar();
+                const cell = [...daysContainer.querySelectorAll('.day')].find(d =>
+                    !d.classList.contains('prev-date') &&
+                    !d.classList.contains('next-date') &&
+                    Number(d.textContent) === activeDay
+                );
+                if (cell && cell.scrollIntoView) {
+                    cell.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+        });
     }
 
     function getActiveDay(date) {
@@ -834,3 +898,147 @@ function switchTab(tabId) {
 
     initCalendar();
 })();
+/* ============================================================
+   NATIONALS PHOTO COLLAGES
+
+   Each collage cycles its tiles through a pool of photos, fading
+   one tile at a time. List as many photos as you like — more
+   photos than tiles is the point; the extras rotate in.
+
+   To add photos: drop the files in images/ and list their paths
+   below. A plain string works, or use an object to attach a
+   caption that appears when someone hovers the tile.
+
+       icdc: [
+           "images/icdc-01.jpg",
+           { src: "images/icdc-02.jpg", caption: "Business Growth Plan finalists" }
+       ]
+
+   Leave a list empty and that collage keeps its dashed
+   placeholders — nothing breaks.
+   ============================================================ */
+const NATIONALS_PHOTOS = {
+    icdc: [
+        // "images/icdc-01.jpg",
+        // { src: "images/icdc-02.jpg", caption: "Add a caption here" },
+    ],
+    nlc: [
+        // "images/nlc-01.jpg",
+        // { src: "images/nlc-02.jpg", caption: "Add a caption here" },
+    ]
+};
+
+// How long a photo stays before the next tile swaps, in milliseconds.
+const COLLAGE_SWAP_INTERVAL = 3200;
+
+function initNationalsCollages() {
+    const blocks = document.querySelectorAll('.collage-block[data-collage]');
+    if (!blocks.length) return;
+
+    const reduceMotion = window.matchMedia &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    blocks.forEach((block, blockIndex) => {
+        const key = block.dataset.collage;
+        const photos = (NATIONALS_PHOTOS[key] || []).map(p =>
+            typeof p === 'string' ? { src: p, caption: '' } : p
+        );
+        const tiles = [...block.querySelectorAll('.collage-tile')];
+
+        // No photos yet: leave the placeholders alone.
+        if (!photos.length || !tiles.length) return;
+
+        // Give each tile two stacked layers so one can fade in over the other.
+        const states = tiles.map((tile, i) => {
+            // Guard against a second init run stacking extra layers.
+            tile.querySelectorAll('.collage-img').forEach(el => el.remove());
+
+            const a = document.createElement('img');
+            const b = document.createElement('img');
+            [a, b].forEach(img => {
+                img.className = 'collage-img';
+                img.loading = 'lazy';
+                img.decoding = 'async';
+                img.alt = '';
+                tile.insertBefore(img, tile.firstChild);
+            });
+            return { tile, layers: [a, b], front: 0, photoIndex: i % photos.length };
+        });
+
+        const show = (state, photo, animate) => {
+            const next = state.layers[1 - state.front];
+            const current = state.layers[state.front];
+
+            const reveal = () => {
+                next.classList.add('is-visible');
+                current.classList.remove('is-visible');
+                state.front = 1 - state.front;
+                state.tile.classList.add('is-live');
+
+                const cap = state.tile.querySelector('.collage-caption');
+                if (cap) cap.textContent = photo.caption || '';
+                next.alt = photo.caption || 'Skyline Business Club at nationals';
+            };
+
+            next.onload = reveal;
+            next.onerror = () => {
+                // Bad path: drop back to the placeholder rather than showing a broken image.
+                state.tile.classList.remove('is-live');
+            };
+            next.src = photo.src;
+
+            // Cached images may already be complete before onload attaches.
+            if (next.complete && next.naturalWidth) reveal();
+            if (!animate) next.style.transition = 'none';
+        };
+
+        // Seed every tile with its starting photo.
+        states.forEach(state => show(state, photos[state.photoIndex], false));
+
+        // Nothing left over to rotate in.
+        if (photos.length <= tiles.length) return;
+
+        let cursor = tiles.length % photos.length;   // next unused photo
+        let turn = 0;                                // which tile swaps next
+        let timer = null;
+
+        const step = () => {
+            const state = states[turn % states.length];
+            const photo = photos[cursor % photos.length];
+            show(state, photo, !reduceMotion);
+            cursor = (cursor + 1) % photos.length;
+            turn += 1;
+        };
+
+        // Stagger the two collages so they do not swap in lockstep.
+        const offset = blockIndex * (COLLAGE_SWAP_INTERVAL / 2);
+
+        const start = () => {
+            if (timer) return;
+            timer = setInterval(step, COLLAGE_SWAP_INTERVAL);
+        };
+        const stop = () => {
+            clearInterval(timer);
+            timer = null;
+        };
+
+        // Only animate while the collage is on screen and the tab is visible.
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(entries => {
+                entries.forEach(e => (e.isIntersecting && !document.hidden) ? start() : stop());
+            }, { threshold: 0.15 }).observe(block);
+        } else {
+            setTimeout(start, offset);
+        }
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) stop();
+        });
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNationalsCollages);
+} else {
+    initNationalsCollages();
+}
