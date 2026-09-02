@@ -212,25 +212,24 @@ function renderResourceAccordions() {
     // Events not listed here automatically display TBD.
     const helperByEvent = {
         // DECA TESTS
-        "exam_2": ["Xuanyou Wu", "Elisa Tandra", "Grayson Carter"],
+        "exam_2": ["Elisa Tandra", "Grayson Carter"],
         "exam_4": ["Madeline Doherty", "Melanie Wang"],
         "exam_5": ["Daniel Luo", "Melanie Wang", "Sreeram Patcha", "Symon Kim", "Quynhanh Le", "Augustine Pham", "Joyce Xie", "Rahul Nair", "Chloe Zou"],
         "exam_6": ["Kainalu Siu"],
 
         // DECA PREPARED EVENTS
-        "pmbs": ["Jack Wu", "Sreeram Patcha"],
+        "pmbs": ["Sreeram Patcha"],
         "pmca": ["Selha Chaozstang", "Annie Lin", "Eva Averin"],
         "efb": ["Eli Shen"],
         "eib": ["Andrew Jiao", "Lydia Bartholomew", "Hailey Park"],
         "eip": ["Eva Averin"],
         "imce": ["Daniel Luo"],
         "imcp": ["Lydia Bartholomew", "Joyce Xie", "Casey Zhang"],
-        "imcs": ["Sreeram Patcha", "Aksel Rasmussen"],
+        "imcs": ["Sreeram Patcha"],
         "seor": ["Jiyu Han"],
         "esb": ["Sarah Wu", "Chloe Zou"],
 
         // DECA ROLEPLAY / CASE STUDY EVENTS
-        "act": ["Brady Murtaugh"],
         "bfs": ["Yicheng Deng"],
         "bsm": ["Charlotte Soelberg"],
         "btdm": ["Ryan Bai", "Augustine Pham"],
@@ -241,18 +240,21 @@ function renderResourceAccordions() {
         "pfl": ["Kainalu Siu"],
         "qsrm": ["Hailey Park"],
         "rms": ["Daniel Luo"],
+        "sem": ["Kevin Ying"],
+        "stdm": ["Symon Kim", "Jialai Ying"],
 
         // FBLA PREPARED EVENTS
         "f_business_ethics": ["Madeline Doherty", "Kainalu Siu"],
         "f_data_analysis": ["Elisa Tandra", "Chloe Zou"],
         "f_digital_animation": ["Joyce Xie"],
         "f_event_planning": ["Sophia Chen", "Sarah Wu", "Quynhanh Le"],
-        "f_financial_planning": ["Brady Murtaugh", "Sreeram Patcha", "Jack Wu"],
+        "f_financial_planning": ["Sreeram Patcha"],
         "f_mobile_application_development": ["Sophia Chen", "Solomon Kim", "Eli Shen"],
         "f_public_service_announcement": ["Emily Tan", "Kristine Tra"],
         "f_sales_presentation": ["Andrew Jiao", "Nathan Li"],
-        "f_social_media_strategies": ["Sam Hodson", "Aksel Rasmussen"],
+        "f_social_media_strategies": ["Sam Hodson"],
         "f_supply_chain_management": ["Olivia Tran", "Chloe Zou"],
+        "f_website_design": ["Symon Kim", "Augustine Pham", "Kevin Ying"],
         "f_website_coding_development": ["Symon Kim", "Augustine Pham", "Kevin Ying"],
         "f_introduction_to_business_presentation": ["Lydia Bartholomew", "Hailey Park", "Melanie Wang"],
         "f_introduction_to_programming": ["Yicheng Deng", "Joshua Zhang", "Melinda Zhou"],
@@ -262,7 +264,7 @@ function renderResourceAccordions() {
         // FBLA ROLEPLAY / CASE STUDY EVENTS
         "f_banking_financial_systems": ["Rahul Nair", "Sreeram Patcha"],
         "f_business_management": ["Daniel Luo"],
-        "f_hospitality_event_management": ["Sreeram Patcha", "Jack Wu"],
+        "f_hospitality_event_management": ["Sreeram Patcha"],
         "f_management_information_systems": ["Symon Kim", "Kevin Ying", "Jailai Ying"],
         "f_network_design": ["Selha Chaozstang", "Annie Lin"],
         "f_sports_entertainment_management": ["Andrew Jiao", "Aaditya Kuberan", "Nathan Li"],
@@ -273,6 +275,7 @@ function renderResourceAccordions() {
         "f_business_communication": ["Melanie Wang"],
         "f_insurance_risk_management": ["Elisa Tandra"],
         "f_public_administration_management": ["Daniel Luo"],
+        "f_economics": ["Kevin Ying"],
         "f_introduction_to_business_communication": ["Melanie Wang"],
         "f_introduction_to_business_concepts": ["Hailey Park"],
         "f_introduction_to_fbla": ["Joyce Xie"],
@@ -389,16 +392,13 @@ function toggleResourceBranch(branchType) {
     document.querySelectorAll('.resource-branch').forEach(el => el.classList.add('hidden'));
     document.getElementById('branch-' + branchType).classList.remove('hidden');
 
-    const decaBtn = document.getElementById('res-tab-deca');
-    const fblaBtn = document.getElementById('res-tab-fbla');
-
-    if (branchType === 'deca') {
-        decaBtn.className = "flex-1 text-center py-4 font-black text-sm uppercase tracking-wider bg-darkBlue text-white border-r-2 border-darkBlue";
-        fblaBtn.className = "flex-1 text-center py-4 font-black text-sm uppercase tracking-wider bg-white text-darkBlue hover:bg-darkBlue hover:text-white transition";
-    } else {
-        decaBtn.className = "flex-1 text-center py-4 font-black text-sm uppercase tracking-wider bg-white text-darkBlue border-r-2 border-darkBlue hover:bg-darkBlue hover:text-white transition";
-        fblaBtn.className = "flex-1 text-center py-4 font-black text-sm uppercase tracking-wider bg-darkBlue text-white";
-    }
+    // Colours live in styles.css under .resource-tab / .resource-tab.is-active,
+    // so the tabs only need their active state flipped here.
+    document.querySelectorAll('.resource-tab').forEach(btn => {
+        const isActive = btn.id === 'res-tab-' + branchType;
+        btn.classList.toggle('is-active', isActive);
+        btn.setAttribute('aria-selected', String(isActive));
+    });
 }
 
 function initiateQuizMode(track) {
