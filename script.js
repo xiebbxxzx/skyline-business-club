@@ -657,11 +657,27 @@ function switchTab(tabId) {
     // Add chapter events here. `month` is 1-based.
     const eventsArr = [
         {
+            day: 11,
+            month: 9,
+            year: 2026,
+            events: [
+                {title: "DECA Fall Leadership Conference", time: "7:30 AM - 12:30 PM" }
+            ]
+        },
+        {
             day: 1,
             month: 10,
             year: 2026,
             events: [
                 { title: "EagleFest", time: "4:00 PM - 6:00 PM" }
+            ]
+        },
+        {
+            day: 7,
+            month: 10,
+            year: 2026,
+            events: [
+                { title: "FBLA Fall Leadership Conference", time: "8:00 AM - 3:00 PM" }
             ]
         },
         {
