@@ -203,14 +203,14 @@ body {
    Components that manage their own hover state opt out below —
    without the exclusions this white-on-hover wins over everything,
    including active tabs and white text sitting on a navy banner. */
-main button:hover:not(.resource-tab):not(.resource-category-toggle),
-main a:hover:not(.resource-tab):not(.resource-category-toggle) {
+main button:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-toggle),
+main a:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-toggle) {
     background-color: #FFFFFF !important;
     color: #0B2545 !important;
     border-color: #0B2545 !important;
 }
-main button:hover:not(.resource-tab):not(.resource-category-toggle) i,
-main a:hover:not(.resource-tab):not(.resource-category-toggle) i {
+main button:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-toggle) i,
+main a:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-toggle) i {
     color: #0B2545 !important;
 }
 /* Icons inside a navy banner keep their own colour regardless —
@@ -219,10 +219,30 @@ main button:hover .subsection-banner i,
 main a:hover .subsection-banner i {
     color: inherit !important;
 }
-#quiz-toggle-deca:hover,
-#quiz-toggle-fbla:hover {
-    background-color: inherit !important;
-    color: inherit !important;
+/* Novice quiz mode toggles — same story as the resource tabs:
+   they own their colours, so keep the generic invert away. */
+.quiz-toggle {
+    background: #fff;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.quiz-toggle:hover {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+.quiz-toggle.is-active {
+    background: var(--primary);
+    color: #fff;
+    cursor: default;
+}
+
+.quiz-toggle.is-active:hover {
+    background: var(--primary);
+    color: #fff;
 }
 
 /* ============================================================
