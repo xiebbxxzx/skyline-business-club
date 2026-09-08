@@ -401,114 +401,666 @@ function toggleResourceBranch(branchType) {
     });
 }
 
-function initiateQuizMode(track) {
-    document.getElementById('current-quiz-track').value = track;
-    const label = document.getElementById('quiz-track-label');
-    if (label) label.innerText = track + " System Analysis";
+/* ============================================================
+   NOVICE EVENT MATCH QUIZ
+   DECA and FBLA intentionally use different question sets.
+   The quiz recommends events from the event data already defined
+   above; it does not create a separate list of event names/URLs.
+   ============================================================ */
 
-    // Colours live in styles.css under .quiz-toggle / .quiz-toggle.is-active.
-    document.querySelectorAll('.quiz-toggle').forEach(btn => {
+const QUIZ_QUESTIONS = {
+    DECA: [
+        {
+            id: 'grade',
+            question: 'What grade are you in?',
+            note: 'Grade gives context, but DECA Principles eligibility depends on whether you are a first-year DECA member.',
+            options: [
+                { value: '9', label: '9th Grade' },
+                { value: '10', label: '10th Grade' },
+                { value: '11', label: '11th Grade' },
+                { value: '12', label: '12th Grade' }
+            ]
+        },
+        {
+            id: 'firstYear',
+            question: 'Is this your first year as a DECA member?',
+            note: 'Principles of Business Administration events are designed for individual first-year DECA members.',
+            options: [
+                { value: 'yes', label: 'Yes — this is my first year in DECA' },
+                { value: 'no', label: 'No — I have competed or been a DECA member before' }
+            ]
+        },
+        {
+            id: 'format',
+            question: 'Which competition experience sounds most appealing?',
+            options: [
+                { value: 'roleplay', label: 'Get a business problem, prepare quickly, and present my solution to a judge' },
+                { value: 'prepared', label: 'Spend weeks developing a polished project and presentation' },
+                { value: 'online', label: 'Compete through a business simulation or investment challenge over time' },
+                { value: 'open', label: 'I am open to any of these' }
+            ]
+        },
+        {
+            id: 'pressure',
+            question: 'How do you prefer to work when the competition gets stressful?',
+            options: [
+                { value: 'fast', label: 'I like thinking on my feet and making decisions quickly' },
+                { value: 'partner', label: 'I am comfortable with pressure if I can work through it with a teammate' },
+                { value: 'prepared', label: 'I strongly prefer knowing and practicing my presentation beforehand' },
+                { value: 'strategy', label: 'I would rather focus on strategy, data, or simulation decisions than a live pitch' }
+            ]
+        },
+        {
+            id: 'team',
+            question: 'Who would you prefer to compete with?',
+            options: [
+                { value: 'solo', label: 'By myself' },
+                { value: 'pair', label: 'One teammate' },
+                { value: 'team', label: 'A flexible team of up to three people' },
+                { value: 'open', label: 'No preference' }
+            ]
+        },
+        {
+            id: 'cluster',
+            question: 'Which business area interests you most?',
+            options: [
+                { value: 'marketing', label: 'Marketing, advertising, retail, or sports & entertainment' },
+                { value: 'finance', label: 'Finance, accounting, investing, or personal finance' },
+                { value: 'entrepreneurship', label: 'Entrepreneurship and starting a business' },
+                { value: 'hospitality', label: 'Hospitality, restaurants, hotels, or travel' },
+                { value: 'management', label: 'Management, HR, business operations, or ethics' },
+                { value: 'open', label: 'I am not sure yet' }
+            ]
+        },
+        {
+            id: 'task',
+            question: 'Which task would you actually enjoy doing?',
+            options: [
+                { value: 'persuade', label: 'Convince a judge that my solution to a business problem will work' },
+                { value: 'campaign', label: 'Create a marketing campaign for a product, service, or event' },
+                { value: 'startup', label: 'Develop a new business or start-up idea' },
+                { value: 'research', label: 'Research a real business problem and recommend improvements' },
+                { value: 'project', label: 'Plan and carry out a structured project' },
+                { value: 'simulation', label: 'Manage a simulated business or investment portfolio' }
+            ]
+        },
+        {
+            id: 'workload',
+            question: 'Realistically, how much preparation are you willing to do?',
+            options: [
+                { value: 'low', label: 'Mostly practice during club meetings' },
+                { value: 'medium', label: 'A few hours of practice outside meetings' },
+                { value: 'high', label: 'Consistent work over several weeks' },
+                { value: 'major', label: 'I am willing to take on a major long-term project' }
+            ]
+        }
+    ],
+
+    FBLA: [
+        {
+            id: 'grade',
+            question: 'What grade are you in?',
+            note: 'Many FBLA “Introduction to…” events are limited to 9th and 10th graders.',
+            options: [
+                { value: '9', label: '9th Grade' },
+                { value: '10', label: '10th Grade' },
+                { value: '11', label: '11th Grade' },
+                { value: '12', label: '12th Grade' }
+            ]
+        },
+        {
+            id: 'format',
+            question: 'Which competition format sounds best?',
+            options: [
+                { value: 'test', label: 'Study a subject and take an objective test' },
+                { value: 'prepared', label: 'Prepare something beforehand and present it to judges' },
+                { value: 'roleplay', label: 'Receive a business scenario and solve it live' },
+                { value: 'build', label: 'Build, design, code, or create something and demonstrate it' },
+                { value: 'open', label: 'I am open to anything' }
+            ]
+        },
+        {
+            id: 'presentation',
+            question: 'How do you feel about presenting directly to judges?',
+            options: [
+                { value: 'love', label: 'I enjoy presenting and would be comfortable making it a major part of my event' },
+                { value: 'prepared', label: 'I am comfortable presenting if I can prepare and rehearse beforehand' },
+                { value: 'team', label: 'I am more comfortable presenting if I have teammates with me' },
+                { value: 'avoid', label: 'I would rather choose an event with little or no presenting' }
+            ]
+        },
+        {
+            id: 'task',
+            question: 'Which type of work sounds most like you?',
+            options: [
+                { value: 'study', label: 'Studying facts, concepts, and terminology' },
+                { value: 'analyze', label: 'Analyzing information, numbers, or systems to solve a problem' },
+                { value: 'create', label: 'Designing, coding, producing, or creating something' },
+                { value: 'persuade', label: 'Speaking, pitching, or persuading an audience' },
+                { value: 'organize', label: 'Organizing a plan, project, event, or business strategy' }
+            ]
+        },
+        {
+            id: 'team',
+            question: 'Would you rather compete individually or with other people?',
+            options: [
+                { value: 'solo', label: 'Individual' },
+                { value: 'team', label: 'With one or two teammates' },
+                { value: 'open', label: 'Either is fine' }
+            ]
+        },
+        {
+            id: 'subject',
+            question: 'Which subject area interests you most?',
+            options: [
+                { value: 'finance', label: 'Finance, accounting, economics, or investing' },
+                { value: 'marketing', label: 'Marketing, advertising, social media, or sales' },
+                { value: 'technology', label: 'Technology, programming, cybersecurity, data, or networking' },
+                { value: 'management', label: 'Management, entrepreneurship, HR, or project management' },
+                { value: 'communication', label: 'Communication, public speaking, journalism, or interviews' },
+                { value: 'law', label: 'Law, government, or parliamentary procedure' },
+                { value: 'hospitality', label: 'Hospitality, event planning, or tourism' },
+                { value: 'open', label: 'I am not sure yet' }
+            ]
+        },
+        {
+            id: 'prep',
+            question: 'If you had a month before competition, what preparation would you actually do?',
+            options: [
+                { value: 'study', label: 'Study a test guide and do practice questions' },
+                { value: 'presentation', label: 'Build and rehearse a presentation' },
+                { value: 'product', label: 'Develop a technical, visual, or creative product' },
+                { value: 'scenario', label: 'Practice solving business scenarios under time pressure' },
+                { value: 'project', label: 'Work steadily on a larger project with teammates' }
+            ]
+        },
+        {
+            id: 'priority',
+            question: 'What matters most when you choose an event?',
+            options: [
+                { value: 'straightforward', label: 'A straightforward preparation process with a clear study target' },
+                { value: 'career', label: 'Something connected to a career or subject I may pursue later' },
+                { value: 'creative', label: 'A chance to be creative and make something original' },
+                { value: 'challenge', label: 'A challenging event that requires quick thinking or technical skill' },
+                { value: 'friends', label: 'An event I can realistically do with friends or teammates' },
+                { value: 'open', label: 'I do not know yet — just give me the strongest fit' }
+            ]
+        }
+    ]
+};
+
+const QUIZ_CANDIDATES = {
+    DECA: [
+        // Principles — individual first-year DECA members only.
+        { id: 'pmk', format: 'roleplay', cluster: 'marketing', team: 'solo', pressure: 'fast', task: 'persuade', workload: 'low', firstYearOnly: true },
+        { id: 'pfn', format: 'roleplay', cluster: 'finance', team: 'solo', pressure: 'fast', task: 'persuade', workload: 'low', firstYearOnly: true },
+        { id: 'pen', format: 'roleplay', cluster: 'entrepreneurship', team: 'solo', pressure: 'fast', task: 'persuade', workload: 'low', firstYearOnly: true },
+        { id: 'pht', format: 'roleplay', cluster: 'hospitality', team: 'solo', pressure: 'fast', task: 'persuade', workload: 'low', firstYearOnly: true },
+        { id: 'pbm', format: 'roleplay', cluster: 'management', team: 'solo', pressure: 'fast', task: 'persuade', workload: 'low', firstYearOnly: true },
+
+        // Individual roleplays.
+        { id: 'rms', format: 'roleplay', cluster: 'marketing', team: 'solo', pressure: 'fast', task: 'persuade', workload: 'medium' },
+        { id: 'mcs', format: 'roleplay', cluster: 'marketing', team: 'solo', pressure: 'fast', task: 'persuade', workload: 'medium' },
+        { id: 'bfs', format: 'roleplay', cluster: 'finance', team: 'solo', pressure: 'fast', task: 'persuade', workload: 'medium' },
+        { id: 'ent', format: 'roleplay', cluster: 'entrepreneurship', team: 'solo', pressure: 'fast', task: 'persuade', workload: 'medium' },
+        { id: 'hlm', format: 'roleplay', cluster: 'hospitality', team: 'solo', pressure: 'fast', task: 'persuade', workload: 'medium' },
+        { id: 'hrm', format: 'roleplay', cluster: 'management', team: 'solo', pressure: 'fast', task: 'persuade', workload: 'medium' },
+
+        // Team decision making.
+        { id: 'btdm', format: 'roleplay', cluster: 'marketing', team: 'pair', pressure: 'partner', task: 'persuade', workload: 'medium' },
+        { id: 'ftdm', format: 'roleplay', cluster: 'finance', team: 'pair', pressure: 'partner', task: 'persuade', workload: 'medium' },
+        { id: 'etdm', format: 'roleplay', cluster: 'entrepreneurship', team: 'pair', pressure: 'partner', task: 'persuade', workload: 'medium' },
+        { id: 'htdm', format: 'roleplay', cluster: 'hospitality', team: 'pair', pressure: 'partner', task: 'persuade', workload: 'medium' },
+        { id: 'bltdm', format: 'roleplay', cluster: 'management', team: 'pair', pressure: 'partner', task: 'persuade', workload: 'medium' },
+
+        // Prepared events.
+        { id: 'imcp', format: 'prepared', cluster: 'marketing', team: 'flexible', pressure: 'prepared', task: 'campaign', workload: 'high' },
+        { id: 'imce', format: 'prepared', cluster: 'marketing', team: 'flexible', pressure: 'prepared', task: 'campaign', workload: 'high' },
+        { id: 'seor', format: 'prepared', cluster: 'marketing', team: 'flexible', pressure: 'prepared', task: 'research', workload: 'major' },
+        { id: 'for', format: 'prepared', cluster: 'finance', team: 'flexible', pressure: 'prepared', task: 'research', workload: 'major' },
+        { id: 'esb', format: 'prepared', cluster: 'entrepreneurship', team: 'flexible', pressure: 'prepared', task: 'startup', workload: 'high' },
+        { id: 'eib', format: 'prepared', cluster: 'entrepreneurship', team: 'flexible', pressure: 'prepared', task: 'startup', workload: 'major' },
+        { id: 'htor', format: 'prepared', cluster: 'hospitality', team: 'flexible', pressure: 'prepared', task: 'research', workload: 'major' },
+        { id: 'pmbs', format: 'prepared', cluster: 'management', team: 'flexible', pressure: 'prepared', task: 'project', workload: 'high' },
+
+        // Online simulations.
+        { id: 'smg', format: 'online', cluster: 'finance', team: 'flexible', pressure: 'strategy', task: 'simulation', workload: 'medium' },
+        { id: 'vbcac', format: 'online', cluster: 'finance', team: 'flexible', pressure: 'strategy', task: 'simulation', workload: 'medium' },
+        { id: 'vbcen', format: 'online', cluster: 'entrepreneurship', team: 'flexible', pressure: 'strategy', task: 'simulation', workload: 'medium' },
+        { id: 'vbchm', format: 'online', cluster: 'hospitality', team: 'flexible', pressure: 'strategy', task: 'simulation', workload: 'medium' },
+        { id: 'vbcsp', format: 'online', cluster: 'marketing', team: 'flexible', pressure: 'strategy', task: 'simulation', workload: 'medium' }
+    ],
+
+    FBLA: [
+        // Objective tests.
+        { id: 'f_accounting', format: 'test', subject: 'finance', team: 'solo', task: 'study', prep: 'study' },
+        { id: 'f_economics', format: 'test', subject: 'finance', team: 'solo', task: 'analyze', prep: 'study' },
+        { id: 'f_securities_investments', format: 'test', subject: 'finance', team: 'solo', task: 'analyze', prep: 'study' },
+        { id: 'f_advertising', format: 'test', subject: 'marketing', team: 'solo', task: 'study', prep: 'study' },
+        { id: 'f_business_communication', format: 'test', subject: 'communication', team: 'solo', task: 'study', prep: 'study' },
+        { id: 'f_business_law', format: 'test', subject: 'law', team: 'solo', task: 'study', prep: 'study' },
+        { id: 'f_cybersecurity', format: 'test', subject: 'technology', team: 'solo', task: 'study', prep: 'study' },
+        { id: 'f_data_science_ai', format: 'test', subject: 'technology', team: 'solo', task: 'analyze', prep: 'study' },
+        { id: 'f_project_management', format: 'test', subject: 'management', team: 'solo', task: 'organize', prep: 'study' },
+        { id: 'f_human_resource_management', format: 'test', subject: 'management', team: 'solo', task: 'study', prep: 'study' },
+        { id: 'f_personal_finance', format: 'test', subject: 'finance', team: 'solo', task: 'study', prep: 'study' },
+
+        // 9th/10th-grade-only objective tests.
+        { id: 'f_introduction_to_business_communication', format: 'test', subject: 'communication', team: 'solo', task: 'study', prep: 'study', introOnly: true },
+        { id: 'f_introduction_to_information_technology', format: 'test', subject: 'technology', team: 'solo', task: 'study', prep: 'study', introOnly: true },
+        { id: 'f_introduction_to_marketing_concepts', format: 'test', subject: 'marketing', team: 'solo', task: 'study', prep: 'study', introOnly: true },
+        { id: 'f_introduction_to_parliamentary_procedure', format: 'test', subject: 'law', team: 'solo', task: 'study', prep: 'study', introOnly: true },
+        { id: 'f_introduction_to_business_concepts', format: 'test', subject: 'management', team: 'solo', task: 'study', prep: 'study', introOnly: true },
+
+        // Prepared / presentation events.
+        { id: 'f_business_plan', format: 'prepared', subject: 'management', team: 'flexible', task: 'organize', prep: 'project' },
+        { id: 'f_financial_planning', format: 'prepared', subject: 'finance', team: 'flexible', task: 'analyze', prep: 'presentation' },
+        { id: 'f_event_planning', format: 'prepared', subject: 'hospitality', team: 'flexible', task: 'organize', prep: 'project' },
+        { id: 'f_public_speaking', format: 'prepared', subject: 'communication', team: 'solo', task: 'persuade', prep: 'presentation' },
+        { id: 'f_social_media_strategies', format: 'prepared', subject: 'marketing', team: 'flexible', task: 'persuade', prep: 'presentation' },
+
+        // Technical / creative prepared events.
+        { id: 'f_digital_animation', format: 'build', subject: 'technology', team: 'flexible', task: 'create', prep: 'product' },
+        { id: 'f_mobile_application_development', format: 'build', subject: 'technology', team: 'flexible', task: 'create', prep: 'product' },
+        { id: 'f_website_coding_development', format: 'build', subject: 'technology', team: 'flexible', task: 'create', prep: 'product' },
+        { id: 'f_graphic_design', format: 'build', subject: 'marketing', team: 'flexible', task: 'create', prep: 'product' },
+
+        // 9th/10th-grade-only presentation events.
+        { id: 'f_introduction_to_programming', format: 'build', subject: 'technology', team: 'flexible', task: 'create', prep: 'product', introOnly: true },
+        { id: 'f_introduction_to_public_speaking', format: 'prepared', subject: 'communication', team: 'solo', task: 'persuade', prep: 'presentation', introOnly: true },
+        { id: 'f_introduction_to_social_media_strategy', format: 'prepared', subject: 'marketing', team: 'flexible', task: 'persuade', prep: 'presentation', introOnly: true },
+        { id: 'f_introduction_to_business_presentation', format: 'prepared', subject: 'management', team: 'flexible', task: 'persuade', prep: 'presentation', introOnly: true },
+
+        // Roleplays.
+        { id: 'f_banking_financial_systems', format: 'roleplay', subject: 'finance', team: 'flexible', task: 'analyze', prep: 'scenario' },
+        { id: 'f_business_management', format: 'roleplay', subject: 'management', team: 'flexible', task: 'analyze', prep: 'scenario' },
+        { id: 'f_entrepreneurship', format: 'roleplay', subject: 'management', team: 'flexible', task: 'persuade', prep: 'scenario' },
+        { id: 'f_hospitality_event_management', format: 'roleplay', subject: 'hospitality', team: 'flexible', task: 'organize', prep: 'scenario' },
+        { id: 'f_marketing', format: 'roleplay', subject: 'marketing', team: 'flexible', task: 'persuade', prep: 'scenario' },
+        { id: 'f_network_design', format: 'roleplay', subject: 'technology', team: 'flexible', task: 'analyze', prep: 'scenario' },
+        { id: 'f_sports_entertainment_management', format: 'roleplay', subject: 'marketing', team: 'flexible', task: 'analyze', prep: 'scenario' },
+        { id: 'f_technology_support_services', format: 'roleplay', subject: 'technology', team: 'solo', task: 'analyze', prep: 'scenario' }
+    ]
+};
+
+let quizAnswers = {};
+let quizQuestionIndex = 0;
+
+function getQuizEventById(id) {
+    const allEvents = [
+        ...decaPreparedData,
+        ...decaRoleplayData,
+        ...decaOnlineData,
+        ...fblaPreparedData,
+        ...fblaRoleplayData,
+        ...fblaTestData
+    ];
+    return allEvents.find(item => item.id === id);
+}
+
+function getCurrentQuizQuestions() {
+    const trackInput = document.getElementById('current-quiz-track');
+    const track = trackInput ? trackInput.value : 'DECA';
+    return QUIZ_QUESTIONS[track] || QUIZ_QUESTIONS.DECA;
+}
+
+function setQuizToggleStyles(track) {
+    document.querySelectorAll('.quiz-org-toggle').forEach(btn => {
         const isActive = btn.id === 'quiz-toggle-' + track.toLowerCase();
-        btn.classList.toggle('is-active', isActive);
         btn.setAttribute('aria-pressed', String(isActive));
+        btn.style.backgroundColor = isActive ? '#0B2545' : '#FFFFFF';
+        btn.style.color = isActive ? '#FFFFFF' : '#0B2545';
+        btn.style.boxShadow = isActive ? '4px 4px 0 #FFD100' : 'none';
+        btn.style.transform = isActive ? 'translate(-1px, -1px)' : 'none';
+    });
+}
+
+function initiateQuizMode(track) {
+    const trackInput = document.getElementById('current-quiz-track');
+    if (!trackInput) return;
+
+    trackInput.value = track;
+    quizAnswers = {};
+    quizQuestionIndex = 0;
+
+    setQuizToggleStyles(track);
+
+    const label = document.getElementById('quiz-track-label');
+    if (label) label.textContent = track + ' Event Quiz';
+
+    const result = document.getElementById('quiz-result-container');
+    if (result) result.classList.add('hidden');
+
+    const error = document.getElementById('quiz-question-error');
+    if (error) error.classList.add('hidden');
+
+    renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+    const questions = getCurrentQuizQuestions();
+    const question = questions[quizQuestionIndex];
+    const container = document.getElementById('quiz-question-container');
+    if (!question || !container) return;
+
+    const selected = quizAnswers[question.id];
+
+    container.innerHTML = `
+        <div class="space-y-5">
+            <div>
+                <span class="text-[10px] font-black uppercase tracking-widest">Question ${quizQuestionIndex + 1}</span>
+                <h4 class="text-xl font-black mt-1 leading-snug">${question.question}</h4>
+                ${question.note ? `<p class="text-xs font-medium mt-2 leading-relaxed">${question.note}</p>` : ''}
+            </div>
+
+            <div class="grid grid-cols-1 gap-3" id="quiz-answer-options">
+                ${question.options.map(option => `
+                    <label class="quiz-answer-option border-2 border-darkBlue p-4 cursor-pointer transition ${selected === option.value ? 'bg-darkBlue text-white' : 'bg-white text-darkBlue'}">
+                        <input type="radio"
+                               name="quiz-current-answer"
+                               value="${option.value}"
+                               ${selected === option.value ? 'checked' : ''}
+                               class="accent-darkBlue mr-3">
+                        <span class="text-sm font-bold">${option.label}</span>
+                    </label>
+                `).join('')}
+            </div>
+        </div>
+    `;
+
+    container.querySelectorAll('input[name="quiz-current-answer"]').forEach(input => {
+        input.addEventListener('change', () => {
+            quizAnswers[question.id] = input.value;
+            document.getElementById('quiz-question-error')?.classList.add('hidden');
+
+            container.querySelectorAll('.quiz-answer-option').forEach(label => {
+                const radio = label.querySelector('input');
+                const isSelected = radio && radio.checked;
+                label.classList.toggle('bg-darkBlue', isSelected);
+                label.classList.toggle('text-white', isSelected);
+                label.classList.toggle('bg-white', !isSelected);
+                label.classList.toggle('text-darkBlue', !isSelected);
+            });
+        });
     });
 
-    document.getElementById('quiz-result-container').classList.add('hidden');
-    document.getElementById('aptitude-quiz-form').reset();
+    const progressLabel = document.getElementById('quiz-progress-label');
+    if (progressLabel) progressLabel.textContent = `Question ${quizQuestionIndex + 1} of ${questions.length}`;
+
+    const progressFill = document.getElementById('quiz-progress-fill');
+    if (progressFill) progressFill.style.width = `${((quizQuestionIndex + 1) / questions.length) * 100}%`;
+
+    const backButton = document.getElementById('quiz-back-button');
+    if (backButton) {
+        backButton.disabled = quizQuestionIndex === 0;
+        backButton.style.opacity = quizQuestionIndex === 0 ? '0.4' : '1';
+        backButton.style.cursor = quizQuestionIndex === 0 ? 'not-allowed' : 'pointer';
+    }
+
+    const nextButton = document.getElementById('quiz-next-button');
+    const submitButton = document.getElementById('quiz-submit-button');
+    const isLast = quizQuestionIndex === questions.length - 1;
+
+    if (nextButton) nextButton.classList.toggle('hidden', isLast);
+    if (submitButton) submitButton.classList.toggle('hidden', !isLast);
+}
+
+function goToQuizQuestion(direction) {
+    const questions = getCurrentQuizQuestions();
+    const currentQuestion = questions[quizQuestionIndex];
+    if (!currentQuestion) return;
+
+    if (direction > 0 && !quizAnswers[currentQuestion.id]) {
+        document.getElementById('quiz-question-error')?.classList.remove('hidden');
+        return;
+    }
+
+    quizQuestionIndex = Math.max(0, Math.min(questions.length - 1, quizQuestionIndex + direction));
+    document.getElementById('quiz-question-error')?.classList.add('hidden');
+    renderQuizQuestion();
+
+    document.getElementById('quiz-question-container')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest'
+    });
+}
+
+function scoreTeamPreference(candidateTeam, answer) {
+    if (!answer || answer === 'open') return 0;
+    if (answer === 'solo') {
+        if (candidateTeam === 'solo') return 3;
+        if (candidateTeam === 'flexible') return 1;
+    }
+    if (answer === 'pair') {
+        if (candidateTeam === 'pair') return 3;
+        if (candidateTeam === 'flexible') return 2;
+    }
+    if (answer === 'team') {
+        if (candidateTeam === 'flexible') return 3;
+        if (candidateTeam === 'pair') return 2;
+    }
+    return 0;
+}
+
+function scoreDecaCandidate(candidate, answers) {
+    if (candidate.firstYearOnly && answers.firstYear !== 'yes') return -Infinity;
+
+    let score = 0;
+
+    if (candidate.firstYearOnly && answers.firstYear === 'yes') {
+        score += 5;
+        if (answers.grade === '9' || answers.grade === '10') score += 1;
+    }
+
+    if (answers.format && answers.format !== 'open' && candidate.format === answers.format) score += 6;
+    if (answers.pressure && candidate.pressure === answers.pressure) score += 4;
+    if (answers.cluster && answers.cluster !== 'open' && candidate.cluster === answers.cluster) score += 5;
+    if (answers.task && candidate.task === answers.task) score += 5;
+    if (answers.workload && candidate.workload === answers.workload) score += 3;
+
+    score += scoreTeamPreference(candidate.team, answers.team);
+
+    // Partial format matches keep close alternatives competitive.
+    if (answers.pressure === 'fast' && candidate.format === 'roleplay') score += 2;
+    if (answers.pressure === 'partner' && candidate.format === 'roleplay' && candidate.team === 'pair') score += 2;
+    if (answers.pressure === 'prepared' && candidate.format === 'prepared') score += 2;
+    if (answers.pressure === 'strategy' && candidate.format === 'online') score += 2;
+
+    if (answers.workload === 'low' && candidate.format === 'roleplay') score += 2;
+    if (answers.workload === 'medium' && (candidate.format === 'roleplay' || candidate.format === 'online')) score += 1;
+    if ((answers.workload === 'high' || answers.workload === 'major') && candidate.format === 'prepared') score += 2;
+
+    return score;
+}
+
+function scoreFblaCandidate(candidate, answers) {
+    const isIntroGrade = answers.grade === '9' || answers.grade === '10';
+    if (candidate.introOnly && !isIntroGrade) return -Infinity;
+
+    let score = candidate.introOnly && isIntroGrade ? 3 : 0;
+
+    if (answers.format && answers.format !== 'open' && candidate.format === answers.format) score += 6;
+    if (answers.subject && answers.subject !== 'open' && candidate.subject === answers.subject) score += 5;
+    if (answers.task && candidate.task === answers.task) score += 5;
+    if (answers.prep && candidate.prep === answers.prep) score += 4;
+
+    score += scoreTeamPreference(candidate.team, answers.team);
+
+    if (answers.presentation === 'avoid' && candidate.format === 'test') score += 6;
+    if (answers.presentation === 'love' && (candidate.format === 'prepared' || candidate.format === 'roleplay')) score += 3;
+    if (answers.presentation === 'prepared' && (candidate.format === 'prepared' || candidate.format === 'build')) score += 4;
+    if (answers.presentation === 'team' && candidate.team === 'flexible') score += 3;
+
+    if (answers.priority === 'straightforward' && candidate.format === 'test') score += 3;
+    if (answers.priority === 'creative' && candidate.format === 'build') score += 4;
+    if (answers.priority === 'challenge' && (candidate.format === 'roleplay' || candidate.format === 'build')) score += 3;
+    if (answers.priority === 'friends' && candidate.team === 'flexible') score += 3;
+
+    return score;
+}
+
+function formatQuizType(track, candidate) {
+    if (track === 'DECA') {
+        if (candidate.firstYearOnly) return 'Principles Roleplay';
+        if (candidate.format === 'roleplay') return candidate.team === 'pair' ? 'Team Decision Making' : 'Roleplay / Case Study';
+        if (candidate.format === 'prepared') return 'Prepared Event';
+        if (candidate.format === 'online') return 'Online Simulation';
+    } else {
+        if (candidate.introOnly && candidate.format === 'test') return '9th/10th Grade Objective Test';
+        if (candidate.introOnly && candidate.format !== 'test') return '9th/10th Grade Presentation Event';
+        if (candidate.format === 'test') return 'Objective Test';
+        if (candidate.format === 'roleplay') return 'Roleplay';
+        if (candidate.format === 'build') return 'Technical / Creative Event';
+        if (candidate.format === 'prepared') return 'Prepared Presentation';
+    }
+    return 'Competitive Event';
+}
+
+function buildQuizReason(track, candidate, answers) {
+    const reasons = [];
+
+    if (track === 'DECA') {
+        const clusterLabels = {
+            marketing: 'marketing',
+            finance: 'finance',
+            entrepreneurship: 'entrepreneurship',
+            hospitality: 'hospitality and tourism',
+            management: 'management and business operations'
+        };
+
+        if (candidate.firstYearOnly && answers.firstYear === 'yes') {
+            reasons.push('you said this is your first year in DECA');
+        }
+        if (answers.cluster !== 'open' && candidate.cluster === answers.cluster) {
+            reasons.push(`you chose ${clusterLabels[candidate.cluster]}`);
+        }
+        if (answers.format !== 'open' && candidate.format === answers.format) {
+            const label = candidate.format === 'roleplay' ? 'live roleplays' :
+                candidate.format === 'prepared' ? 'prepared projects' : 'online simulations';
+            reasons.push(`you preferred ${label}`);
+        }
+        if (candidate.task === answers.task) {
+            const taskLabels = {
+                persuade: 'solving and pitching business problems',
+                campaign: 'building marketing campaigns',
+                startup: 'developing business ideas',
+                research: 'research and strategy',
+                project: 'structured project work',
+                simulation: 'business simulations'
+            };
+            reasons.push(`you liked ${taskLabels[candidate.task]}`);
+        }
+    } else {
+        const subjectLabels = {
+            finance: 'finance',
+            marketing: 'marketing',
+            technology: 'technology',
+            management: 'management',
+            communication: 'communication',
+            law: 'law and government',
+            hospitality: 'hospitality and event planning'
+        };
+
+        if (candidate.introOnly && (answers.grade === '9' || answers.grade === '10')) {
+            reasons.push('your grade makes you eligible for this introductory event');
+        }
+        if (answers.subject !== 'open' && candidate.subject === answers.subject) {
+            reasons.push(`you chose ${subjectLabels[candidate.subject]}`);
+        }
+        if (answers.format !== 'open' && candidate.format === answers.format) {
+            const label = candidate.format === 'test' ? 'objective testing' :
+                candidate.format === 'roleplay' ? 'live scenarios' :
+                candidate.format === 'build' ? 'building and creating' : 'prepared presentations';
+            reasons.push(`you preferred ${label}`);
+        }
+        if (answers.presentation === 'avoid' && candidate.format === 'test') {
+            reasons.push('you preferred little or no presenting');
+        }
+        if (candidate.task === answers.task) {
+            reasons.push('the work style matches the task you selected');
+        }
+    }
+
+    if (!reasons.length) {
+        return 'This event is one of the strongest overall matches for the preferences you selected.';
+    }
+
+    return 'Strong match because ' + reasons.slice(0, 3).join(', ') + '.';
 }
 
 function evaluateQuizResults(event) {
     event.preventDefault();
-    const track = document.getElementById('current-quiz-track').value;
 
-    const q2 = parseInt(document.querySelector('input[name="q2"]:checked').value);
-    const q3 = parseInt(document.querySelector('input[name="q3"]:checked').value);
-    const q4 = parseInt(document.querySelector('input[name="q4"]:checked').value);
-    const grade = document.querySelector('input[name="q6"]:checked').value;
+    const trackInput = document.getElementById('current-quiz-track');
+    if (!trackInput) return;
 
-    const isUpperClassman = (grade === '11' || grade === '12');
-    let recommendations = [];
+    const track = trackInput.value;
+    const questions = getCurrentQuizQuestions();
+    const currentQuestion = questions[quizQuestionIndex];
 
-    if (track === 'DECA') {
-        if (q2 >= 3 && q4 >= 3) {
-            recommendations = [
-                isUpperClassman 
-                    ? { name: "Retail Merchandising Series (RMS)", cat: "Individual Core Roleplay System", url: "https://www.deca.org/compete/retail-merchandising" }
-                    : { name: "Principles of Marketing (PBM)", cat: "Introductory Roleplay Series", url: "https://www.deca.org/compete/principles-of-marketing" },
-                { name: "Marketing Communications Series (MCS)", cat: "Individual Roleplay Series", url: "https://www.deca.org/compete/marketing-communications" },
-                { name: "Sports and Entertainment Marketing (SEM)", cat: "Individual Case Study", url: "https://www.deca.org/compete/sports-and-entertainment-marketing-series" }
-            ];
-        } else if (q3 >= 3) {
-            recommendations = [
-                isUpperClassman
-                    ? { name: "Business Finance Series (BFS)", cat: "Individual Case Roleplay Variant", url: "https://www.deca.org/compete/business-finance" }
-                    : { name: "Principles of Finance (PBF)", cat: "Introductory Roleplay Series", url: "https://www.deca.org/compete/principles-of-finance" },
-                { name: "Integrated Marketing Campaign (IMC)", cat: "Prepared Written Event Operations", url: "https://www.deca.org/compete/integrated-marketing-campaign-product" },
-                { name: "Business Operations Research (BOR)", cat: "Prepared Written Strategic Event", url: "https://www.deca.org/compete/business-services-operations-research" }
-            ];
-        } else {
-            recommendations = [
-                { name: "Entrepreneurship Series (ENT)", cat: "Individual Case Roleplay Variant", url: "https://www.deca.org/compete/entrepreneurship-series" },
-                { name: "Hospitality Services Team (HTDM)", cat: "Collaborative Decision Making", url: "https://www.deca.org/compete/hospitality-services-team-decision-making" },
-                { name: "Business Services Marketing (BSM)", cat: "Individual Core Roleplay System", url: "https://www.deca.org/compete/business-services-marketing" }
-            ];
-        }
-    } else {
-        if (q3 >= 3) {
-            recommendations = [
-                { name: "Accounting I / Economics", cat: "Objective System Testing Track", url: "https://www.fbla.org/competitive-event/accounting-i" },
-                { name: "Securities & Investments", cat: "Analytical Financial Testing Model", url: "https://www.fbla.org/competitive-event/securities-investments" },
-                { name: "Business Plan Portfolio", cat: "Long-Term Prepared Strategic Document", url: "https://www.fbla.org/competitive-event/business-plan" }
-            ];
-        } else if (q4 >= 3 && q2 >= 3) {
-            recommendations = [
-                { name: "Impromptu Speaking", cat: "Live Professional Delivery Presentation", url: "https://www.fbla.org/competitive-event/impromptu-speaking" },
-                { name: "Client Service Interactive Track", cat: "Spontaneous Simulation Case Roleplay", url: "https://www.fbla.org/competitive-event/client-service" },
-                { name: "Social Media Strategies", cat: "Prepared Team Multi-Channel Proposal", url: "https://www.fbla.org/competitive-event/social-media-strategies" }
-            ];
-        } else {
-            recommendations = [
-                isUpperClassman
-                    ? { name: "Business Communication Standards", cat: "Core Advanced Testing Track", url: "https://www.fbla.org/competitive-event/business-communication" }
-                    : { name: "Introduction to Business Communication", cat: "Foundational Cluster Testing Vector", url: "https://www.fbla.org/competitive-event/introduction-to-business-communication" },
-                { name: "Management Decision Making", cat: "Collaborative Interactive Simulation", url: "https://www.fbla.org/competitive-event/management-decision-making" },
-                { name: "Digital Video Production System", cat: "Pre-Engineered Media Prepared Event", url: "https://www.fbla.org/competitive-event/digital-video-production" }
-            ];
-        }
+    if (currentQuestion && !quizAnswers[currentQuestion.id]) {
+        document.getElementById('quiz-question-error')?.classList.remove('hidden');
+        return;
     }
 
-    // STRIKE PRINCIPLES FOR UPPERCLASSMEN RULES
-    if (isUpperClassman) {
-        recommendations = recommendations.map(item => {
-            if (item.name.toLowerCase().includes("principles of")) {
-                return { name: "Retail Merchandising Series (RMS)", cat: "Individual Core Roleplay System", url: "https://www.deca.org/compete/retail-merchandising" };
-            }
-            if (item.name.toLowerCase().includes("introduction to")) {
-                return { name: "Business Communication Standards", cat: "Core Advanced Testing Track", url: "https://www.fbla.org/competitive-event/business-communication" };
-            }
-            return item;
-        });
-    }
+    const scoreFn = track === 'DECA' ? scoreDecaCandidate : scoreFblaCandidate;
+
+    const ranked = QUIZ_CANDIDATES[track]
+        .map(candidate => ({
+            candidate,
+            event: getQuizEventById(candidate.id),
+            score: scoreFn(candidate, quizAnswers)
+        }))
+        .filter(item => item.event && Number.isFinite(item.score))
+        .sort((a, b) => b.score - a.score || a.event.name.localeCompare(b.event.name))
+        .slice(0, 3);
 
     const cardsBox = document.getElementById('quiz-result-cards');
-    cardsBox.innerHTML = '';
+    if (!cardsBox) return;
 
-    recommendations.forEach(item => {
-        cardsBox.innerHTML += `
-            <div class="bg-white p-4 border border-darkBlue flex flex-col justify-between space-y-3">
+    cardsBox.innerHTML = ranked.map((item, index) => {
+        const type = formatQuizType(track, item.candidate);
+        const reason = buildQuizReason(track, item.candidate, quizAnswers);
+
+        return `
+            <article class="bg-white p-4 border-2 border-darkBlue flex flex-col justify-between gap-4">
                 <div>
-                    <span class="block text-[9px] font-black uppercase tracking-wider">${item.cat}</span>
-                    <h5 class="font-black text-sm mt-0.5">${item.name}</h5>
+                    <span class="inline-block bg-darkBlue text-white text-[9px] font-black uppercase tracking-widest px-2 py-1 mb-3">#${index + 1} Match</span>
+                    <span class="block text-[10px] font-black uppercase tracking-wider">${type}</span>
+                    <h5 class="font-black text-base mt-1">${item.event.name}</h5>
+                    <p class="text-xs font-medium leading-relaxed mt-3">${reason}</p>
+                    <p class="text-[10px] font-black uppercase tracking-wider mt-3">Participants: ${item.event.members}</p>
                 </div>
-                <a href="${item.url}" target="_blank" class="w-full text-center bg-darkBlue text-white font-bold py-1.5 text-[10px] uppercase tracking-wider block hover:bg-white hover:text-darkBlue border border-darkBlue transition-colors">
-                    View Event Description <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[8px]"></i>
-                </a>
-            </div>
-        `;
-    });
 
-    document.getElementById('quiz-result-container').classList.remove('hidden');
-    cardsBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                <a href="${item.event.url}"
+                   target="_blank"
+                   rel="noopener"
+                   class="w-full text-center bg-darkBlue text-white font-bold py-2 text-[10px] uppercase tracking-wider block hover:bg-white hover:text-darkBlue border border-darkBlue transition-colors">
+                    View Official Event <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-[8px]"></i>
+                </a>
+            </article>
+        `;
+    }).join('');
+
+    const resultTrack = document.getElementById('quiz-result-track');
+    if (resultTrack) resultTrack.textContent = track;
+
+    const resultContainer = document.getElementById('quiz-result-container');
+    if (resultContainer) {
+        resultContainer.classList.remove('hidden');
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+}
+
+function initNoviceQuiz() {
+    if (!document.getElementById('aptitude-quiz-form')) return;
+    initiateQuizMode('DECA');
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNoviceQuiz);
+} else {
+    initNoviceQuiz();
 }
 
 /* ============================================================
