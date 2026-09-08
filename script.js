@@ -524,6 +524,7 @@ const PAGE_FILES = {
     gallery: 'gallery.html',
     awards: 'awards.html',
     officers: 'officers.html',
+    alumni: 'alumni.html',
     join: 'join.html'
 };
 
