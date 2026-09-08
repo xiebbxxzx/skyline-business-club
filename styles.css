@@ -1371,3 +1371,504 @@ body.high-contrast .footer-section h3 {
         transition: none;
     }
 }
+
+
+/* ============================================================
+   PHOTO GALLERY — 2025–2026 SEASON ROUTE
+   Curved dashed "map" timeline with photo clusters that fan
+   outward on hover. Scoped to #page-gallery so other pages are
+   untouched.
+   ============================================================ */
+
+#page-gallery.season-gallery-page {
+    background:
+        radial-gradient(circle at 8% 10%, rgba(252, 163, 17, 0.10), transparent 18rem),
+        radial-gradient(circle at 92% 35%, rgba(11, 37, 69, 0.06), transparent 22rem),
+        #fff;
+}
+
+#page-gallery .season-gallery-shell {
+    width: min(1180px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 4.5rem 0 2rem;
+}
+
+#page-gallery .season-gallery-hero {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--primary);
+}
+
+#page-gallery .season-gallery-kicker {
+    margin: 0 0 0.8rem;
+    font-size: 0.68rem;
+    line-height: 1;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--primary);
+}
+
+#page-gallery .season-gallery-title {
+    margin: 0;
+    font-size: clamp(4rem, 9vw, 8.5rem);
+    line-height: 0.78;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.065em;
+    color: var(--primary);
+}
+
+#page-gallery .season-gallery-intro {
+    max-width: 32rem;
+    margin: 1.5rem 0 0;
+    font-size: 0.82rem;
+    font-weight: 800;
+    line-height: 1.6;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.72;
+}
+
+#page-gallery .season-instagram-link {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--primary);
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 var(--accent);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+#page-gallery .season-instagram-link:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--accent);
+}
+
+/* ── Route structure ─────────────────────────────────────── */
+
+#page-gallery .season-route-wrap {
+    position: relative;
+    isolation: isolate;
+    padding: 3rem 0 1rem;
+}
+
+#page-gallery .season-route-line {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    pointer-events: none;
+}
+
+#page-gallery .season-route-line path {
+    fill: none;
+    stroke: var(--primary);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 15 16;
+    opacity: 0.82;
+}
+
+#page-gallery .season-era-label {
+    position: relative;
+    z-index: 2;
+    width: fit-content;
+    margin-inline: auto;
+    padding: 0.55rem 0.95rem;
+    background: var(--accent);
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    font-size: 0.65rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    box-shadow: 3px 3px 0 var(--primary);
+}
+
+#page-gallery .season-era-label--top {
+    margin-bottom: 2rem;
+}
+
+#page-gallery .season-era-label--bottom {
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem;
+}
+
+#page-gallery .season-stop {
+    --marker-x: 50%;
+    position: relative;
+    z-index: 2;
+    min-height: 350px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 130px minmax(0, 1fr);
+    align-items: center;
+    gap: 1.6rem;
+    padding: 2.2rem 0;
+}
+
+#page-gallery .season-stop--last {
+    min-height: 320px;
+}
+
+#page-gallery .season-stop-copy {
+    max-width: 360px;
+}
+
+#page-gallery .season-stop--left .season-stop-copy {
+    grid-column: 1;
+    justify-self: end;
+    text-align: right;
+}
+
+#page-gallery .season-stop--left .season-photo-cluster {
+    grid-column: 3;
+    justify-self: start;
+}
+
+#page-gallery .season-stop--right .season-photo-cluster {
+    grid-column: 1;
+    justify-self: end;
+}
+
+#page-gallery .season-stop--right .season-stop-copy {
+    grid-column: 3;
+    justify-self: start;
+    text-align: left;
+}
+
+#page-gallery .season-stop-meta {
+    margin: 0 0 0.5rem;
+    font-size: 0.58rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--primary);
+    opacity: 0.65;
+}
+
+#page-gallery .season-stop-title {
+    margin: 0;
+    font-size: clamp(2rem, 4.5vw, 4rem);
+    line-height: 0.95;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.045em;
+    color: var(--primary);
+}
+
+#page-gallery .season-stop-caption {
+    margin: 0.85rem 0 1rem;
+    font-size: 0.82rem;
+    line-height: 1.55;
+    font-weight: 650;
+    color: var(--primary);
+}
+
+#page-gallery .season-album-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
+    padding: 0.25rem 0 0.18rem;
+    font-size: 0.68rem;
+    line-height: 1.1;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    transition: color 150ms ease, border-color 150ms ease;
+}
+
+#page-gallery .season-album-link i {
+    font-size: 0.62rem;
+    transition: transform 150ms ease;
+}
+
+#page-gallery .season-album-link:hover i {
+    transform: translate(2px, -2px);
+}
+
+/* The marker floats over the SVG route. */
+#page-gallery .season-marker {
+    position: absolute;
+    top: 50%;
+    left: var(--marker-x);
+    width: 22px;
+    height: 22px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background: var(--accent);
+    border: 3px solid var(--primary);
+    box-shadow: 3px 3px 0 #fff;
+    z-index: 5;
+}
+
+#page-gallery .season-marker span {
+    position: absolute;
+    inset: 4px;
+    background: var(--primary);
+}
+
+/* ── Preview photo stacks ────────────────────────────────── */
+
+#page-gallery .season-photo-cluster {
+    position: relative;
+    width: min(330px, 100%);
+    height: 240px;
+    overflow: visible;
+    perspective: 900px;
+}
+
+#page-gallery .season-photo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 215px;
+    height: 145px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        linear-gradient(135deg, rgba(11, 37, 69, 0.06), rgba(252, 163, 17, 0.13)),
+        #f5f6f8;
+    border: 3px solid var(--primary);
+    box-shadow: 5px 5px 0 var(--accent);
+    overflow: hidden;
+    color: var(--primary);
+    transition:
+        transform 360ms cubic-bezier(.2,.75,.2,1),
+        box-shadow 260ms ease,
+        z-index 0s linear;
+    will-change: transform;
+}
+
+#page-gallery .season-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#page-gallery .season-photo span {
+    font-size: 0.56rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.42;
+}
+
+#page-gallery .season-photo--1 {
+    z-index: 4;
+    transform: translate(-50%, -50%) rotate(-2deg);
+}
+
+#page-gallery .season-photo--2 {
+    z-index: 3;
+    transform: translate(-47%, -47%) rotate(4deg);
+}
+
+#page-gallery .season-photo--3 {
+    z-index: 2;
+    transform: translate(-53%, -46%) rotate(-5deg);
+}
+
+#page-gallery .season-photo--4 {
+    z-index: 1;
+    transform: translate(-49%, -53%) rotate(7deg);
+}
+
+/* Fan out in four directions when the preview is hovered/focused. */
+@media (hover: hover) and (pointer: fine) {
+    #page-gallery .season-photo-cluster:hover .season-photo--1 {
+        z-index: 4;
+        transform: translate(-79%, -77%) rotate(-8deg);
+        box-shadow: 8px 8px 0 var(--accent);
+    }
+
+    #page-gallery .season-photo-cluster:hover .season-photo--2 {
+        z-index: 3;
+        transform: translate(-18%, -78%) rotate(7deg);
+        box-shadow: 8px 8px 0 var(--accent);
+    }
+
+    #page-gallery .season-photo-cluster:hover .season-photo--3 {
+        z-index: 2;
+        transform: translate(-81%, -18%) rotate(-5deg);
+        box-shadow: 8px 8px 0 var(--accent);
+    }
+
+    #page-gallery .season-photo-cluster:hover .season-photo--4 {
+        z-index: 1;
+        transform: translate(-15%, -16%) rotate(9deg);
+        box-shadow: 8px 8px 0 var(--accent);
+    }
+}
+
+/* ── Bottom contribution note ────────────────────────────── */
+
+#page-gallery .season-gallery-note {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1rem 1.5rem;
+    align-items: baseline;
+    margin: 2rem 0 3rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--primary);
+}
+
+#page-gallery .season-gallery-note-label {
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+#page-gallery .season-gallery-note p {
+    margin: 0;
+    max-width: 46rem;
+    font-size: 0.78rem;
+    line-height: 1.6;
+    font-weight: 650;
+}
+
+/* ── Responsive gallery route ────────────────────────────── */
+
+@media screen and (max-width: 850px) {
+    #page-gallery .season-gallery-hero {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #page-gallery .season-gallery-title {
+        font-size: clamp(4rem, 18vw, 7rem);
+    }
+
+    #page-gallery .season-route-line {
+        width: 88px;
+        left: 0;
+        right: auto;
+    }
+
+    #page-gallery .season-route-line path {
+        stroke-width: 7;
+    }
+
+    #page-gallery .season-stop,
+    #page-gallery .season-stop--last {
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+        padding: 3.2rem 0 3.2rem 5.25rem;
+    }
+
+    #page-gallery .season-stop--left .season-stop-copy,
+    #page-gallery .season-stop--right .season-stop-copy,
+    #page-gallery .season-stop--left .season-photo-cluster,
+    #page-gallery .season-stop--right .season-photo-cluster {
+        justify-self: auto;
+        text-align: left;
+    }
+
+    #page-gallery .season-marker {
+        left: 34px !important;
+        top: 4.25rem;
+    }
+
+    #page-gallery .season-photo-cluster {
+        width: min(330px, 100%);
+        height: 230px;
+    }
+
+    #page-gallery .season-era-label {
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    #page-gallery .season-gallery-shell {
+        width: min(100% - 1.25rem, 1180px);
+        padding-top: 3rem;
+    }
+
+    #page-gallery .season-gallery-kicker {
+        font-size: 0.58rem;
+    }
+
+    #page-gallery .season-gallery-intro {
+        font-size: 0.72rem;
+    }
+
+    #page-gallery .season-route-line {
+        width: 54px;
+    }
+
+    #page-gallery .season-stop,
+    #page-gallery .season-stop--last {
+        padding-left: 3.6rem;
+    }
+
+    #page-gallery .season-marker {
+        left: 22px !important;
+    }
+
+    #page-gallery .season-photo-cluster {
+        height: auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.65rem;
+    }
+
+    #page-gallery .season-photo {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        transform: none !important;
+        box-shadow: 3px 3px 0 var(--accent);
+    }
+
+    #page-gallery .season-gallery-note {
+        grid-template-columns: 1fr;
+        gap: 0.45rem;
+    }
+}
+
+/* Reduced motion keeps the gallery fully usable without fan animation. */
+@media (prefers-reduced-motion: reduce) {
+    #page-gallery .season-photo,
+    #page-gallery .season-album-link i,
+    #page-gallery .season-instagram-link {
+        transition: none;
+    }
+}
+
+/* Keep the site's generic body-link hover rule from repainting the
+   photo-gallery text links into large white blocks. */
+main #page-gallery .season-album-link:hover {
+    background: transparent !important;
+    color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+main #page-gallery .season-album-link:hover i {
+    color: var(--primary) !important;
+}
