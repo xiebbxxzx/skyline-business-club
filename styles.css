@@ -1515,7 +1515,7 @@ body.high-contrast .footer-section h3 {
     z-index: 2;
     min-height: 350px;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 130px minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) 220px minmax(0, 1fr);
     align-items: center;
     gap: 1.6rem;
     padding: 2.2rem 0;
@@ -1526,7 +1526,16 @@ body.high-contrast .footer-section h3 {
 }
 
 #page-gallery .season-stop-copy {
-    max-width: 360px;
+    max-width: 330px;
+    min-width: 0;
+}
+
+#page-gallery .season-stop--left .season-stop-copy {
+    padding-right: 0.75rem;
+}
+
+#page-gallery .season-stop--right .season-stop-copy {
+    padding-left: 0.75rem;
 }
 
 #page-gallery .season-stop--left .season-stop-copy {
@@ -1563,20 +1572,39 @@ body.high-contrast .footer-section h3 {
 
 #page-gallery .season-stop-title {
     margin: 0;
-    font-size: clamp(2rem, 4.5vw, 4rem);
+    max-width: 100%;
+    font-size: clamp(1.9rem, 3.7vw, 3.55rem);
     line-height: 0.95;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: -0.045em;
     color: var(--primary);
+    overflow-wrap: anywhere;
 }
 
 #page-gallery .season-stop-caption {
-    margin: 0.85rem 0 1rem;
+    position: relative;
+    margin: 1rem 0 1.15rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid rgba(11, 37, 69, 0.28);
     font-size: 0.82rem;
-    line-height: 1.55;
-    font-weight: 650;
+    line-height: 1.6;
+    font-weight: 700;
+    font-style: italic;
     color: var(--primary);
+}
+
+#page-gallery .season-stop-caption::before {
+    content: "QUOTE";
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.5rem;
+    line-height: 1;
+    font-style: normal;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    opacity: 0.55;
 }
 
 #page-gallery .season-album-link {
@@ -1784,6 +1812,12 @@ body.high-contrast .footer-section h3 {
     #page-gallery .season-stop--right .season-photo-cluster {
         justify-self: auto;
         text-align: left;
+    }
+
+    #page-gallery .season-stop--left .season-stop-copy,
+    #page-gallery .season-stop--right .season-stop-copy {
+        padding-left: 0;
+        padding-right: 0;
     }
 
     #page-gallery .season-marker {
