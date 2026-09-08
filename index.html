@@ -59,80 +59,128 @@
 
     <main id="main-content" tabindex="-1" class="flex-grow">
 
-        <section id="page-home" class="tab-content">
-            <div class="relative overflow-hidden border-b-4 border-darkBlue min-h-[720px] flex items-center">
-                <div class="absolute inset-0 hero-photo-backdrop"></div>
-                <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 w-full">
-                    <div class="w-full bg-white/95 border-4 border-darkBlue p-8 md:p-12 neo-box space-y-6 relative pt-12">
-                        <i class="fa-solid fa-dove eagle-watermark"></i>
-                        <span class="text-xs font-black bg-darkBlue text-white px-3 py-1 uppercase tracking-widest inline-block border border-darkBlue">What is this club?</span>
-                        <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-none text-darkBlue uppercase max-w-4xl">
-                            Skyline Business Club
+        <section id="page-home" class="tab-content home-redesign">
+
+            <!-- HERO -->
+            <section class="home-hero">
+                <div class="home-hero-grid">
+                    <div class="home-hero-copy">
+                        <p class="home-eyebrow">Skyline High School / DECA + FBLA</p>
+                        <h1 class="home-display-title">
+                            Business<br>
+                            <span>Starts Here.</span>
                         </h1>
-                        <p class="text-lg text-darkBlue font-medium leading-relaxed max-w-5xl">
+                        <p class="home-hero-description">
                             Skyline Business Club is the home for Skyline students interested in DECA, FBLA, business competitions, leadership, career skills, and community. As the largest and most successful DECA/FBLA chapter in Utah, our members compete across regional, state, and national circuits while building real-world business experience together.
                         </p>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-xs font-black uppercase tracking-wider max-w-5xl">
-                            <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white"><span class="block text-2xl">141</span><span>Region Placements</span></button>
-                            <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white"><span class="block text-2xl">140</span><span>State Placements</span></button>
-                            <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white"><span class="block text-2xl">22</span><span>ICDC Attendees</span></button>
-                            <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white"><span class="block text-2xl">23</span><span>NLC Attendees</span></button>
-                        </div>
-                        <p class="text-xs font-bold uppercase tracking-wider text-darkBlue">
-                            *The 2025-26 competition season
-                        </p>
-                        <div class="pt-2 flex flex-wrap gap-4">
-                            <button onclick="switchTab('novice')" class="bg-darkBlue text-white font-bold px-8 py-4 text-base tracking-wide uppercase neo-btn">
-                                Start Here
+                        <div class="home-hero-actions">
+                            <button onclick="switchTab('novice')" class="home-primary-action">
+                                Start Here <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
                             </button>
-                            <button onclick="switchTab('awards')" class="bg-darkBlue text-white font-bold px-8 py-4 text-base tracking-wide uppercase neo-btn">
-                                View Recognition
+                            <button onclick="switchTab('awards')" class="home-text-action">
+                                View Recognition <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div class="text-center max-w-2xl mx-auto mb-12">
-                    <h2 class="text-3xl font-black tracking-tight page-heading-accent">Why Join?</h2>
-                </div>
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                    <div class="lg:col-span-6 flex justify-center">
-                        <svg viewBox="0 0 200 200" class="w-[300px] h-[300px] md:w-[360px] md:h-[360px] drop-shadow-[6px_6px_0px_#FFD100]" role="img" aria-label="Interactive why join pie chart">
-                                <g class="path-pie-group active" tabindex="0" onclick="setWhyJoinStep(0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(0);}">
-                                    <path class="path-pie-segment" d="M 100 100 L 100.000 8.000 A 92 92 0 0 1 192.000 100.000 Z"></path>
-                                    <text class="path-pie-label" x="139.6" y="60.4" text-anchor="middle" dominant-baseline="middle">Compete</text>
-                                </g>
-                                <g class="path-pie-group" tabindex="0" onclick="setWhyJoinStep(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(1);}">
-                                    <path class="path-pie-segment" d="M 100 100 L 192.000 100.000 A 92 92 0 0 1 100.000 192.000 Z"></path>
-                                    <text class="path-pie-label" x="139.6" y="139.6" text-anchor="middle" dominant-baseline="middle">Lead</text>
-                                </g>
-                                <g class="path-pie-group" tabindex="0" onclick="setWhyJoinStep(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(2);}">
-                                    <path class="path-pie-segment" d="M 100 100 L 100.000 192.000 A 92 92 0 0 1 8.000 100.000 Z"></path>
-                                    <text class="path-pie-label" x="60.4" y="134.6" text-anchor="middle" dominant-baseline="middle">Build</text>
-                                    <text class="path-pie-label" x="60.4" y="146.6" text-anchor="middle" dominant-baseline="middle">Skills</text>
-                                </g>
-                                <g class="path-pie-group" tabindex="0" onclick="setWhyJoinStep(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(3);}">
-                                    <path class="path-pie-segment" d="M 100 100 L 8.000 100.000 A 92 92 0 0 1 100.000 8.000 Z"></path>
-                                    <text class="path-pie-label" x="60.4" y="60.4" text-anchor="middle" dominant-baseline="middle">Connect</text>
-                                </g>
-                        </svg>
-                    </div>
-                    <div class="lg:col-span-6 border-2 border-darkBlue p-6 bg-white min-h-[300px] flex flex-col justify-center space-y-4 neo-box relative pt-10">
-                        <span class="text-xs font-black bg-darkBlue text-white px-2 py-1 uppercase tracking-widest inline-block w-fit">Click a Segment</span>
-                        <h3 id="why-join-title" class="text-3xl font-black uppercase tracking-tight subsection-banner">Compete</h3>
-                        <p id="why-join-desc" class="text-sm font-medium leading-relaxed">Competing gives members a clear goal, a reason to practice, and a chance to represent Skyline at region, state, and national conferences. Students can choose events that fit their strengths, from roleplays and presentations to tests and written projects.</p>
-                        <button id="why-join-action" onclick="switchTab('resources')" class="bg-darkBlue text-white font-black uppercase text-xs tracking-wider px-5 py-3 border-2 border-darkBlue neo-btn w-fit">Open Resources</button>
+                    <div class="home-hero-mark" aria-hidden="true">
+                        <span class="home-hero-mark-top">COMPETE</span>
+                        <span class="home-hero-mark-main">S</span>
+                        <span class="home-hero-mark-bottom">LEAD / BUILD / CONNECT</span>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                <div class="text-center max-w-2xl mx-auto mb-12">
-                    <h2 class="text-3xl font-black tracking-tight page-heading-accent">Nationals</h2>
-                    <p class="section-subtitle">Photos from ICDC and NLC are on the way</p>
+            <!-- STATS -->
+            <section class="home-stat-band" aria-label="2025-26 competition season highlights">
+                <button onclick="switchTab('awards')" class="home-stat">
+                    <span class="home-stat-number">141</span>
+                    <span class="home-stat-label">Region<br>Placements</span>
+                </button>
+                <button onclick="switchTab('awards')" class="home-stat">
+                    <span class="home-stat-number">140</span>
+                    <span class="home-stat-label">State<br>Placements</span>
+                </button>
+                <button onclick="switchTab('awards')" class="home-stat">
+                    <span class="home-stat-number">22</span>
+                    <span class="home-stat-label">ICDC<br>Attendees</span>
+                </button>
+                <button onclick="switchTab('awards')" class="home-stat">
+                    <span class="home-stat-number">23</span>
+                    <span class="home-stat-label">NLC<br>Attendees</span>
+                </button>
+                <span class="home-stat-season">2025–26 Season</span>
+            </section>
+
+            <!-- WHY JOIN -->
+            <section class="home-why-section">
+                <div class="home-why-wheel-stage">
+                    <div class="home-why-disc" id="why-join-wheel" aria-label="Interactive reasons to join Skyline Business Club">
+                        <button type="button"
+                                class="home-disc-segment home-disc-segment--compete path-pie-group active"
+                                onclick="setWhyJoinStep(0)"
+                                onmouseenter="setWhyJoinStep(0)"
+                                onfocus="setWhyJoinStep(0)">
+                            <span>Compete</span>
+                        </button>
+
+                        <button type="button"
+                                class="home-disc-segment home-disc-segment--lead path-pie-group"
+                                onclick="setWhyJoinStep(1)"
+                                onmouseenter="setWhyJoinStep(1)"
+                                onfocus="setWhyJoinStep(1)">
+                            <span>Lead</span>
+                        </button>
+
+                        <button type="button"
+                                class="home-disc-segment home-disc-segment--build path-pie-group"
+                                onclick="setWhyJoinStep(2)"
+                                onmouseenter="setWhyJoinStep(2)"
+                                onfocus="setWhyJoinStep(2)">
+                            <span>Build<br>Skills</span>
+                        </button>
+
+                        <button type="button"
+                                class="home-disc-segment home-disc-segment--connect path-pie-group"
+                                onclick="setWhyJoinStep(3)"
+                                onmouseenter="setWhyJoinStep(3)"
+                                onfocus="setWhyJoinStep(3)">
+                            <span>Connect</span>
+                        </button>
+
+                        <div class="home-disc-center" aria-hidden="true">
+                            <span>Why</span>
+                            <strong>Join?</strong>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="home-why-content">
+                    <p class="home-section-index">01 / WHY JOIN</p>
+                    <h2 class="home-section-title">Find your reason.</h2>
+                    <p class="home-why-instruction">Hover or select a section of the wheel.</p>
+
+                    <div class="home-why-answer">
+                        <h3 id="why-join-title">Compete</h3>
+                        <p id="why-join-desc">Competing gives members a clear goal, a reason to practice, and a chance to represent Skyline at region, state, and national conferences. Students can choose events that fit their strengths, from roleplays and presentations to tests and written projects.</p>
+                        <button id="why-join-action" onclick="switchTab('resources')" class="home-inline-action">
+                            Open Resources <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NATIONALS — Kevin's existing collage structure preserved -->
+            <section class="home-nationals-section">
+                <div class="home-section-heading">
+                    <div>
+                        <p class="home-section-index">02 / NATIONALS</p>
+                        <h2 class="home-section-title">From Skyline<br>to the national stage.</h2>
+                    </div>
+                    <p class="home-section-side-note">ICDC + NLC / 2025–2026</p>
+                </div>
+
+
 
                 <!--
                     NATIONALS COLLAGES
@@ -294,12 +342,19 @@
                     </div>
                 </div>
             </div>
+            </section>
 
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                <div class="text-center max-w-2xl mx-auto mb-12">
-                    <h2 class="text-3xl font-black tracking-tight page-heading-accent">Calendar</h2>
+            <!-- CALENDAR -->
+            <section class="home-calendar-section">
+                <div class="home-section-heading home-section-heading--calendar">
+                    <div>
+                        <p class="home-section-index">03 / WHAT'S NEXT</p>
+                        <h2 class="home-section-title">Stay in the loop.</h2>
+                    </div>
+                    <p class="home-section-side-note">Meetings / Conferences / Competitions</p>
                 </div>
-                <div class="grid grid-cols-1">
+
+                <div class="home-calendar-frame">
                     <div class="bg-white border-4 border-darkBlue neo-box overflow-hidden pt-2">
                         <div class="bg-darkBlue text-white px-6 py-3 border-b-2 border-darkBlue">
                             <h3 class="font-black text-xl uppercase tracking-tight">Upcoming Events</h3>
@@ -354,24 +409,27 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
-
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-                <div class="border-4 border-darkBlue bg-white neo-box p-8 text-center space-y-6">
-                    <h3 class="text-3xl font-black uppercase tracking-tight subsection-banner">Support Skyline Business Club</h3>
-                    <p class="text-sm font-medium max-w-3xl mx-auto">Help our members travel, compete, access practice materials, and represent Skyline at regional, state, and national conferences.</p>
-                    <div class="border-2 border-darkBlue p-5 text-left max-w-4xl mx-auto bg-white">
-                        <h4 class="font-black uppercase tracking-wider text-sm mb-3">Why Donate?</h4>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-bold">
-                            <div class="border border-darkBlue p-3">Reduce travel and lodging costs for state, ICDC, and NLC qualifiers.</div>
-                            <div class="border border-darkBlue p-3">Fund practice materials, event prep resources, and competition registration fees.</div>
-                            <div class="border border-darkBlue p-3">Support first-time competitors who need help accessing chapter opportunities.</div>
-                        </div>
-                    </div>
-                    <button onclick="switchTab('join')" class="bg-darkBlue text-white font-black uppercase text-xs tracking-wider px-6 py-3 border-2 border-darkBlue neo-btn">Donate or Support the Club</button>
+            <!-- SUPPORT -->
+            <section class="home-support-band">
+                <div class="home-support-copy">
+                    <p class="home-section-index">04 / SUPPORT THE CHAPTER</p>
+                    <h2>Help Skyline<br>go further.</h2>
+                    <p>Support travel, lodging, competition registration, practice materials, and access for first-time competitors.</p>
                 </div>
-            </div>
+
+                <div class="home-support-reasons">
+                    <span>Travel + Lodging</span>
+                    <span>Competition Fees</span>
+                    <span>Practice Materials</span>
+                    <span>Student Access</span>
+                </div>
+
+                <button onclick="switchTab('join')" class="home-support-action">
+                    Donate or Support the Club <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                </button>
+            </section>
 
         </section>
 
