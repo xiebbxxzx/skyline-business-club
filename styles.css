@@ -203,14 +203,14 @@ body {
    Components that manage their own hover state opt out below —
    without the exclusions this white-on-hover wins over everything,
    including active tabs and white text sitting on a navy banner. */
-main button:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-toggle),
-main a:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-toggle) {
+main button:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle),
+main a:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle) {
     background-color: #FFFFFF !important;
     color: #0B2545 !important;
     border-color: #0B2545 !important;
 }
-main button:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-toggle) i,
-main a:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-toggle) i {
+main button:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle) i,
+main a:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle) i {
     color: #0B2545 !important;
 }
 /* Icons inside a navy banner keep their own colour regardless —
@@ -219,30 +219,23 @@ main button:hover .subsection-banner i,
 main a:hover .subsection-banner i {
     color: inherit !important;
 }
-/* Novice quiz mode toggles — same story as the resource tabs:
-   they own their colours, so keep the generic invert away. */
-.quiz-toggle {
-    background: #fff;
-    color: var(--primary);
-    border: 1px solid var(--primary);
+/* Novice quiz organization toggles.
+   setQuizToggleStyles() in script.js paints the selected/unselected
+   colours as inline styles, so these rules only do two things:
+   keep the generic invert away (see :not() above) and add a hover
+   cue on the button you have NOT picked. Inline styles outrank plain
+   CSS, hence the !important on the hover colours only. */
+.quiz-org-toggle {
     cursor: pointer;
-    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
 }
 
-.quiz-toggle:hover {
-    background: var(--accent);
-    color: var(--primary);
-}
-
-.quiz-toggle.is-active {
-    background: var(--primary);
-    color: #fff;
+.quiz-org-toggle[aria-pressed="true"] {
     cursor: default;
 }
 
-.quiz-toggle.is-active:hover {
-    background: var(--primary);
-    color: #fff;
+.quiz-org-toggle[aria-pressed="false"]:hover {
+    background-color: var(--accent) !important;
+    color: var(--primary) !important;
 }
 
 /* ============================================================
@@ -1526,7 +1519,9 @@ body.high-contrast .footer-section h3 {
 }
 
 #page-gallery .season-stop-copy {
-    max-width: 330px;
+    /* Wide enough for the longest title word (INVITATIONAL) to sit
+       on one line at the title's largest size. */
+    max-width: 360px;
     min-width: 0;
 }
 
@@ -1573,13 +1568,19 @@ body.high-contrast .footer-section h3 {
 #page-gallery .season-stop-title {
     margin: 0;
     max-width: 100%;
-    font-size: clamp(1.9rem, 3.7vw, 3.55rem);
+    font-size: clamp(1.7rem, 3.2vw, 3rem);
     line-height: 0.95;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: -0.045em;
     color: var(--primary);
-    overflow-wrap: anywhere;
+    /* Never split a word across lines — "anywhere" was leaving the
+       last letter of INVITATIONAL stranded on its own line. Long
+       titles wrap between words and the size above keeps the
+       longest single word inside the column. */
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
 }
 
 #page-gallery .season-stop-caption {
