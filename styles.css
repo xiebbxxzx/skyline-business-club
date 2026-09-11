@@ -203,14 +203,14 @@ body {
    Components that manage their own hover state opt out below —
    without the exclusions this white-on-hover wins over everything,
    including active tabs and white text sitting on a navy banner. */
-main button:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle),
-main a:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle) {
+main button:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle):not(.alumni-action),
+main a:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle):not(.alumni-action) {
     background-color: #FFFFFF !important;
     color: #0B2545 !important;
     border-color: #0B2545 !important;
 }
-main button:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle) i,
-main a:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle) i {
+main button:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle):not(.alumni-action) i,
+main a:hover:not(.resource-tab):not(.resource-category-toggle):not(.quiz-org-toggle):not(.alumni-action) i {
     color: #0B2545 !important;
 }
 /* Icons inside a navy banner keep their own colour regardless —
@@ -1906,4 +1906,130 @@ main #page-gallery .season-album-link:hover {
 
 main #page-gallery .season-album-link:hover i {
     color: var(--primary) !important;
+}
+
+/* ============================================================
+   ALUMNI CARDS
+   Text-only: initials block, name, and a LinkedIn action bar.
+   ============================================================ */
+
+.alumni-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 1.25rem;
+    background: #fff;
+    border: 2px solid var(--primary);
+    box-shadow: 4px 4px 0 0 var(--primary);
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.alumni-card:hover,
+.alumni-card:focus-within {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 var(--accent);
+}
+
+/* Initials stand in for a headshot without needing one */
+.alumni-initials {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    background: var(--primary);
+    color: #fff;
+    border: 2px solid var(--primary);
+    box-shadow: 3px 3px 0 0 var(--accent);
+    font-size: 0.95rem;
+    font-weight: 900;
+    letter-spacing: 0.06em;
+}
+
+.alumni-name {
+    margin: 0;
+    font-size: 1.15rem;
+    line-height: 1.15;
+    font-weight: 900;
+    letter-spacing: -0.015em;
+    color: var(--primary);
+    /* Long names wrap between words, never mid-word */
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+}
+
+/* Action bar pinned to the bottom so every card lines up */
+.alumni-action {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--primary);
+    color: #fff;
+    border: 2px solid var(--primary);
+    font-size: 0.68rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    text-decoration: none;
+    transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.alumni-action .fa-linkedin {
+    font-size: 0.95rem;
+}
+
+.alumni-action-out {
+    margin-left: auto;
+    font-size: 0.6rem;
+}
+
+.alumni-action:hover,
+.alumni-action:focus-visible {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+.alumni-action:hover .fa-linkedin,
+.alumni-action:focus-visible .fa-linkedin {
+    color: var(--primary);
+}
+
+/* Cards still waiting on a real profile URL */
+.alumni-card.is-pending {
+    box-shadow: none;
+    border-style: dashed;
+    opacity: 0.6;
+}
+
+.alumni-card.is-pending:hover,
+.alumni-card.is-pending:focus-within {
+    transform: none;
+    box-shadow: none;
+}
+
+.alumni-card.is-pending .alumni-initials {
+    background: #fff;
+    color: var(--primary);
+    border-style: dashed;
+    box-shadow: none;
+}
+
+.alumni-action.is-pending {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    background: #fff;
+    color: var(--primary);
+    border: 2px dashed var(--primary);
+    font-size: 0.68rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    cursor: default;
 }
