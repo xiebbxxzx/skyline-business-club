@@ -21,24 +21,13 @@
     <link rel="stylesheet" href="styles.css">
 
     <style>
-        /* ==========================================================
-           OFFICER CARDS — consistent, responsive, and overflow-safe
-           Bios expand inside the card; long names/roles wrap cleanly.
-           ========================================================== */
-
         .leadership-grid {
             align-items: stretch;
         }
 
-        .leadership-card,
-        .leadership-card * {
-            box-sizing: border-box;
-        }
-
         .leadership-card {
             width: 100%;
-            min-width: 0;
-            min-height: 292px;
+            min-height: 270px;
             align-self: stretch;
             background: #fff;
             border: 2px solid #0B2545;
@@ -46,7 +35,6 @@
             padding: 1rem;
             text-align: center;
             transition: transform 220ms ease, box-shadow 220ms ease;
-            overflow-wrap: anywhere;
         }
 
         .leadership-card:hover,
@@ -66,63 +54,46 @@
             align-items: center;
             justify-content: center;
             background: #fff;
-            flex-shrink: 0;
         }
 
         .leadership-photo-label {
-            max-width: 100%;
             margin-top: .4rem;
-            padding: 0 .2rem;
             font-size: .42rem;
             line-height: 1.1;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: .10em;
-            overflow-wrap: anywhere;
+            letter-spacing: .12em;
         }
 
         .leadership-role {
             display: inline-flex;
-            width: auto;
-            max-width: 100%;
-            min-height: 2.35rem;
+            min-height: 2.15rem;
             align-items: center;
             justify-content: center;
             margin-top: .85rem;
             background: #0B2545;
             color: #fff;
-            padding: .38rem .55rem;
-            font-size: .54rem;
-            line-height: 1.25;
+            padding: .32rem .48rem;
+            font-size: .55rem;
+            line-height: 1.2;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: .055em;
-            text-align: center;
-            white-space: normal;
-            overflow-wrap: anywhere;
+            letter-spacing: .07em;
             box-shadow: 2px 2px 0 #FFD100;
         }
 
         .leadership-name {
-            width: 100%;
-            min-width: 0;
-            min-height: 2.45em;
+            min-height: 2.35em;
             margin-top: .7rem;
-            padding: 0 .15rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: clamp(1rem, 1.2vw, 1.3rem);
-            line-height: 1.1;
+            font-size: clamp(1rem, 1.25vw, 1.35rem);
+            line-height: 1.08;
             font-weight: 900;
-            overflow-wrap: anywhere;
         }
 
-        /* Bio area starts collapsed and becomes part of the card's
-           normal height when opened — nothing is positioned outside. */
         .leadership-extra {
-            width: 100%;
-            min-width: 0;
             display: grid;
             grid-template-rows: 0fr;
             opacity: 0;
@@ -134,7 +105,6 @@
         }
 
         .leadership-extra-inner {
-            min-width: 0;
             overflow: hidden;
         }
 
@@ -146,34 +116,24 @@
         }
 
         .leadership-bio {
-            width: 100%;
-            max-width: 100%;
-            margin: 0;
-            font-size: clamp(.66rem, .68vw, .72rem);
-            line-height: 1.5;
+            font-size: .72rem;
+            line-height: 1.45;
             font-weight: 600;
             text-align: left;
-            overflow-wrap: anywhere;
-            word-break: normal;
-            hyphens: auto;
         }
 
         .leadership-email {
             display: inline-flex;
-            max-width: 100%;
             align-items: center;
             justify-content: center;
             gap: .35rem;
-            margin-top: .8rem;
+            margin-top: .75rem;
             border: 1px solid #0B2545;
-            padding: .42rem .6rem;
-            font-size: .57rem;
-            line-height: 1.2;
+            padding: .4rem .55rem;
+            font-size: .58rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: .045em;
-            white-space: normal;
-            overflow-wrap: anywhere;
+            letter-spacing: .05em;
         }
 
         .leadership-email:hover,
@@ -182,35 +142,17 @@
             color: #fff;
         }
 
-        /* Recruitment cards use the same dimensions and typography.
-           Keeping them to three columns at large widths gives the longer
-           bios enough room to stay readable and contained. */
-        .recruitment-grid .leadership-card {
-            min-height: 292px;
-        }
-
         .recruitment-grid .leadership-role {
-            font-size: .50rem;
-            padding-left: .42rem;
-            padding-right: .42rem;
+            font-size: .48rem;
+            padding-left: .35rem;
+            padding-right: .35rem;
         }
 
         .recruitment-grid .leadership-name {
-            font-size: clamp(.95rem, 1vw, 1.08rem);
+            font-size: clamp(.9rem, 1vw, 1.08rem);
         }
 
-        @media (min-width: 1280px) {
-            .recruitment-grid {
-                grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-            }
-        }
-
-        /* On touch/mobile, bios stay visible so there is no hidden content. */
         @media (hover: none), (max-width: 767px) {
-            .leadership-card {
-                min-height: 0;
-            }
-
             .leadership-extra {
                 grid-template-rows: 1fr;
                 opacity: 1;
@@ -221,28 +163,6 @@
             .leadership-card:focus-within {
                 transform: none;
                 box-shadow: 4px 4px 0 #0B2545;
-            }
-        }
-
-        @media (max-width: 420px) {
-            .leadership-card {
-                padding: .85rem;
-            }
-
-            .leadership-role {
-                font-size: .50rem;
-                letter-spacing: .04em;
-            }
-
-            .leadership-bio {
-                font-size: .69rem;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .leadership-card,
-            .leadership-extra {
-                transition: none;
             }
         }
     </style>
