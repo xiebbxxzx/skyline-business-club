@@ -1471,38 +1471,81 @@ function switchTab(tabId) {
    one tile at a time. List as many photos as you like — more
    photos than tiles is the point; the extras rotate in.
 
-   To add photos: drop the files in images/ and list their paths
-   below. A plain string works, or use an object to attach a
-   caption that appears when someone hovers the tile.
+   Photos live in images/nationals/icdc/ and images/nationals/nlc/.
+   To add one, drop the file in and append its path below. A plain
+   string works, or use an object to attach a caption that appears
+   when someone hovers the tile:
 
-       icdc: [
-           "images/icdc-01.jpg",
-           { src: "images/icdc-02.jpg", caption: "Business Growth Plan finalists" }
-       ]
+       { src: "images/nationals/icdc/icdc-01.jpg",
+         caption: "Business Growth Plan finalists" }
 
    Leave a list empty and that collage keeps its dashed
    placeholders — nothing breaks.
    ============================================================ */
 const NATIONALS_PHOTOS = {
     icdc: [
-        // "images/icdc-01.jpg",
-        // { src: "images/icdc-02.jpg", caption: "Add a caption here" },
+        "images/nationals/icdc/icdc-01.jpg",
+        "images/nationals/icdc/icdc-02.jpg",
+        "images/nationals/icdc/icdc-03.jpg",
+        "images/nationals/icdc/icdc-04.jpg",
+        "images/nationals/icdc/icdc-05.jpg",
+        "images/nationals/icdc/icdc-06.jpg",
+        "images/nationals/icdc/icdc-07.jpg",
+        "images/nationals/icdc/icdc-08.jpg",
+        "images/nationals/icdc/icdc-09.jpg",
+        "images/nationals/icdc/icdc-10.jpg",
+        "images/nationals/icdc/icdc-11.jpg",
+        "images/nationals/icdc/icdc-12.jpg",
+        "images/nationals/icdc/icdc-13.jpg",
+        "images/nationals/icdc/icdc-14.jpg",
+        "images/nationals/icdc/icdc-15.jpg",
+        "images/nationals/icdc/icdc-16.jpg",
+        "images/nationals/icdc/icdc-17.jpg",
+        "images/nationals/icdc/icdc-18.jpg",
+        "images/nationals/icdc/icdc-19.jpg",
+        "images/nationals/icdc/icdc-20.jpg",
+        "images/nationals/icdc/icdc-21.jpg",
+        "images/nationals/icdc/icdc-22.jpg",
+        "images/nationals/icdc/icdc-23.jpg",
+        "images/nationals/icdc/icdc-24.jpg",
+        "images/nationals/icdc/icdc-25.jpg",
     ],
     nlc: [
-        // "images/nlc-01.jpg",
-        // { src: "images/nlc-02.jpg", caption: "Add a caption here" },
+        "images/nationals/nlc/nlc-01.jpg",
+        "images/nationals/nlc/nlc-02.jpg",
+        "images/nationals/nlc/nlc-03.jpg",
+        "images/nationals/nlc/nlc-04.jpg",
+        "images/nationals/nlc/nlc-05.jpg",
+        "images/nationals/nlc/nlc-06.jpg",
+        "images/nationals/nlc/nlc-07.jpg",
+        "images/nationals/nlc/nlc-08.jpg",
+        "images/nationals/nlc/nlc-09.jpg",
+        "images/nationals/nlc/nlc-10.jpg",
+        "images/nationals/nlc/nlc-11.jpg",
+        "images/nationals/nlc/nlc-12.jpg",
+        "images/nationals/nlc/nlc-13.jpg",
+        "images/nationals/nlc/nlc-14.jpg",
+        "images/nationals/nlc/nlc-15.jpg",
+        "images/nationals/nlc/nlc-16.jpg",
+        "images/nationals/nlc/nlc-17.jpg",
+        "images/nationals/nlc/nlc-18.jpg",
+        "images/nationals/nlc/nlc-19.jpg",
+        "images/nationals/nlc/nlc-20.jpg",
+        "images/nationals/nlc/nlc-21.jpg",
+        "images/nationals/nlc/nlc-22.jpg",
+        "images/nationals/nlc/nlc-23.jpg",
+        "images/nationals/nlc/nlc-24.jpg",
     ]
 };
 
-// How long a photo stays before the next tile swaps, in milliseconds.
-const COLLAGE_SWAP_INTERVAL = 3200;
+// How long before the next tile swaps, in milliseconds. Lower is faster.
+// One tile changes per tick, so with 9 tiles per collage each individual
+// photo stays put for roughly 9x this value.
+const COLLAGE_SWAP_INTERVAL = 1600;
 
 function initNationalsCollages() {
     const blocks = document.querySelectorAll('.collage-block[data-collage]');
     if (!blocks.length) return;
-
-    const reduceMotion = window.matchMedia &&
-        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     blocks.forEach((block, blockIndex) => {
         const key = block.dataset.collage;
@@ -1515,7 +1558,7 @@ function initNationalsCollages() {
         if (!photos.length || !tiles.length) return;
 
         // Give each tile two stacked layers so one can fade in over the other.
-        const states = tiles.map((tile, i) => {
+        const states = tiles.map(tile => {
             // Guard against a second init run stacking extra layers.
             tile.querySelectorAll('.collage-img').forEach(el => el.remove());
 
@@ -1523,22 +1566,38 @@ function initNationalsCollages() {
             const b = document.createElement('img');
             [a, b].forEach(img => {
                 img.className = 'collage-img';
-                img.loading = 'lazy';
                 img.decoding = 'async';
                 img.alt = '';
                 tile.insertBefore(img, tile.firstChild);
             });
-            return { tile, layers: [a, b], front: 0, photoIndex: i % photos.length };
+            return { tile, layers: [a, b], front: 0, photoIndex: -1, busy: false };
         });
 
-        const show = (state, photo, animate) => {
+        /* Swap a tile to a new photo.
+
+           The old photo stays put until the new file has finished
+           loading, so a tile never shows its empty background mid-swap.
+           reveal() is guarded to run exactly once per call: a cached
+           image fires both the complete check and onload, and letting
+           both through used to flip state.front twice, which left the
+           bookkeeping inverted and wrote the next src onto the visible
+           layer — that was the white flash. */
+        const show = (state, index) => {
+            const photo = photos[index];
             const next = state.layers[1 - state.front];
             const current = state.layers[state.front];
+            let done = false;
+
+            state.busy = true;
 
             const reveal = () => {
+                if (done) return;
+                done = true;
                 next.classList.add('is-visible');
                 current.classList.remove('is-visible');
                 state.front = 1 - state.front;
+                state.photoIndex = index;
+                state.busy = false;
                 state.tile.classList.add('is-live');
 
                 const cap = state.tile.querySelector('.collage-caption');
@@ -1548,36 +1607,68 @@ function initNationalsCollages() {
 
             next.onload = reveal;
             next.onerror = () => {
-                // Bad path: drop back to the placeholder rather than showing a broken image.
-                state.tile.classList.remove('is-live');
+                if (done) return;
+                done = true;
+                state.busy = false;
+                // Bad path: keep whatever was already showing.
+                if (state.photoIndex === -1) state.tile.classList.remove('is-live');
             };
             next.src = photo.src;
 
-            // Cached images may already be complete before onload attaches.
+            // Cached images can already be complete before onload attaches.
             if (next.complete && next.naturalWidth) reveal();
-            if (!animate) next.style.transition = 'none';
         };
 
-        // Seed every tile with its starting photo.
-        states.forEach(state => show(state, photos[state.photoIndex], false));
+        /* Photo picker: a shuffled bag, so every photo in the pool gets
+           shown once before any repeats, but in a different order each
+           time the bag refills. */
+        let bag = [];
+        const refillBag = () => {
+            bag = photos.map((_, i) => i);
+            for (let i = bag.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [bag[i], bag[j]] = [bag[j], bag[i]];
+            }
+        };
+        const takePhoto = () => {
+            if (!bag.length) refillBag();
+            const onScreen = new Set(states.map(s => s.photoIndex));
+            // Prefer something not already visible elsewhere in this collage.
+            let at = bag.findIndex(i => !onScreen.has(i));
+            if (at === -1) at = 0;
+            return bag.splice(at, 1)[0];
+        };
 
-        // Nothing left over to rotate in.
+        // Seed every tile, in a random order rather than 1..9.
+        states.forEach(state => show(state, takePhoto()));
+
+        // Nothing spare to rotate in.
         if (photos.length <= tiles.length) return;
 
-        let cursor = tiles.length % photos.length;   // next unused photo
-        let turn = 0;                                // which tile swaps next
+        /* Tile picker: random, but never the same tile twice in a row and
+           never one that is still mid-fade. */
+        let lastTile = -1;
+        const pickTile = () => {
+            const free = states
+                .map((s, i) => i)
+                .filter(i => !states[i].busy && i !== lastTile);
+            const pool = free.length ? free : states.map((s, i) => i).filter(i => !states[i].busy);
+            if (!pool.length) return -1;
+            const choice = pool[Math.floor(Math.random() * pool.length)];
+            lastTile = choice;
+            return choice;
+        };
+
         let timer = null;
 
         const step = () => {
-            const state = states[turn % states.length];
-            const photo = photos[cursor % photos.length];
-            show(state, photo, !reduceMotion);
-            cursor = (cursor + 1) % photos.length;
-            turn += 1;
+            const t = pickTile();
+            if (t === -1) return;          // everything still loading; try next tick
+            show(states[t], takePhoto());
         };
 
         // Stagger the two collages so they do not swap in lockstep.
-        const offset = blockIndex * (COLLAGE_SWAP_INTERVAL / 2);
+        const offset = blockIndex * Math.round(COLLAGE_SWAP_INTERVAL / 2);
 
         const start = () => {
             if (timer) return;
@@ -1591,7 +1682,13 @@ function initNationalsCollages() {
         // Only animate while the collage is on screen and the tab is visible.
         if ('IntersectionObserver' in window) {
             new IntersectionObserver(entries => {
-                entries.forEach(e => (e.isIntersecting && !document.hidden) ? start() : stop());
+                entries.forEach(e => {
+                    if (e.isIntersecting && !document.hidden) {
+                        setTimeout(start, offset);
+                    } else {
+                        stop();
+                    }
+                });
             }, { threshold: 0.15 }).observe(block);
         } else {
             setTimeout(start, offset);
