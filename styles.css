@@ -993,7 +993,9 @@ body.high-contrast .footer-section h3 {
     object-position: center;
     display: block;
     opacity: 0;
-    transition: opacity 900ms ease-in-out;
+    /* Kept comfortably under COLLAGE_SWAP_INTERVAL in script.js so one
+       crossfade finishes before the next tile starts changing. */
+    transition: opacity 650ms ease-in-out;
 }
 
 .collage-img.is-visible {
