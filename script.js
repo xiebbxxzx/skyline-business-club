@@ -1194,6 +1194,7 @@ function switchTab(tabId) {
     const eventsContainer = document.querySelector('.container-cal .events');
     const highlightsList = document.getElementById('month-highlights-list');
     const highlightsMonth = document.getElementById('highlights-month');
+    const monthNote = document.getElementById('month-note');
 
     const months = [
         'January', 'February', 'March', 'April', 'May', 'June',
@@ -1205,13 +1206,33 @@ function switchTab(tabId) {
     ];
 
     // Add chapter events here. `month` is 1-based.
+    /* Add chapter events here.
+       `month` is 1-based (1 = January). Add `endDay` for a multi-day
+       window: every day in the range is marked on the grid, and the
+       month list shows it once as a span.
+
+       Utah FBLA dates are from "Dates to Remember 2026-27" (updated
+       8/17/2026). That document lists no clock times, so: conferences
+       and in-person competitions run "All Day", online testing windows
+       are worked "After School" at Skyline, and deadlines are "by 5:00 PM". */
+    /* Notes that apply to a whole month rather than a single date.
+       Keyed by 1-based month, so they come back every year. Shown as a
+       banner above the month list instead of marking every day. */
+    const MONTH_NOTES = {
+        11: "November is DECA Month"
+    };
+
     const eventsArr = [
         {
             day: 11,
             month: 9,
             year: 2026,
             events: [
-                {title: "DECA Fall Leadership Conference", time: "7:30 AM - 12:30 PM" }
+                {
+                    title: "DECA Fall Leadership Conference",
+                    time: "7:30 AM - 12:30 PM",
+                    location: "Thanksgiving Point"
+                }
             ]
         },
         {
@@ -1219,7 +1240,11 @@ function switchTab(tabId) {
             month: 10,
             year: 2026,
             events: [
-                { title: "EagleFest", time: "4:00 PM - 6:00 PM" }
+                {
+                    title: "EagleFest",
+                    time: "4:00 PM - 6:00 PM",
+                    location: "Skyline High School"
+                }
             ]
         },
         {
@@ -1227,7 +1252,36 @@ function switchTab(tabId) {
             month: 10,
             year: 2026,
             events: [
-                { title: "FBLA Fall Leadership Conference", time: "8:00 AM - 3:00 PM" }
+                {
+                    title: "FBLA Fall Leadership Conference",
+                    time: "8:00 AM - 3:00 PM",
+                    location: "Utah Valley Convention Center"
+                }
+            ]
+        },
+        {
+            day: 9,
+            month: 10,
+            year: 2026,
+            events: [
+                {
+                    title: "UVU Invitational",
+                    time: "All Day",
+                    location: "Utah Valley University"
+                }
+            ]
+        },
+        {
+            day: 12,
+            endDay: 23,
+            month: 10,
+            year: 2026,
+            events: [
+                {
+                    title: "State Prep Competition",
+                    time: "After School",
+                    location: "Skyline High School"
+                }
             ]
         },
         {
@@ -1235,7 +1289,163 @@ function switchTab(tabId) {
             month: 10,
             year: 2026,
             events: [
-                { title: "Aggie Invitational", time: "All Day" }
+                {
+                    title: "Aggie Invitational",
+                    time: "All Day",
+                    location: "Utah State University"
+                }
+            ]
+        },
+        {
+            day: 2,
+            endDay: 13,
+            month: 11,
+            year: 2026,
+            events: [
+                {
+                    title: "FBLA Regions Testing Window",
+                    time: "After School",
+                    location: "Skyline High School"
+                }
+            ]
+        },
+        {
+            day: 11,
+            month: 12,
+            year: 2026,
+            events: [
+                {
+                    title: "FBLA Metro Region Competition",
+                    time: "All Day",
+                    location: "University of Utah"
+                }
+            ]
+        },
+        {
+            day: 20,
+            endDay: 22,
+            month: 1,
+            year: 2027,
+            events: [
+                {
+                    title: "DECA Testing Tournament of Champions",
+                    time: "After School",
+                    location: "Skyline High School"
+                }
+            ]
+        },
+        {
+            day: 1,
+            endDay: 12,
+            month: 2,
+            year: 2027,
+            events: [
+                {
+                    title: "FBLA State Conference Testing Window",
+                    time: "After School",
+                    location: "Skyline High School"
+                }
+            ]
+        },
+        {
+            day: 3,
+            month: 2,
+            year: 2027,
+            events: [
+                {
+                    title: "DECA Written Projects Due",
+                    time: "by 9:00 PM",
+                    location: "N/A"
+                }
+            ]
+        },
+        {
+            day: 4,
+            month: 2,
+            year: 2027,
+            events: [
+                {
+                    title: "FBLA SLC Pre-Submission Upload Deadline",
+                    time: "by 5:00 PM",
+                    location: "N/A"
+                }
+            ]
+        },
+        {
+            day: 8,
+            endDay: 12,
+            month: 2,
+            year: 2027,
+            events: [
+                {
+                    title: "DECA State Testing",
+                    time: "After School",
+                    location: "Skyline High School"
+                }
+            ]
+        },
+        {
+            day: 18,
+            endDay: 19,
+            month: 2,
+            year: 2027,
+            events: [
+                {
+                    title: "DECA State Career Development Conference",
+                    time: "All Day",
+                    location: "Davis Conference Center"
+                }
+            ]
+        },
+        {
+            day: 25,
+            month: 2,
+            year: 2027,
+            events: [
+                {
+                    title: "JEOPARDY & BINGO Submission Due",
+                    time: "by 5:00 PM",
+                    location: "N/A"
+                }
+            ]
+        },
+        {
+            day: 9,
+            endDay: 10,
+            month: 3,
+            year: 2027,
+            events: [
+                {
+                    title: "FBLA State Leadership Conference",
+                    time: "All Day",
+                    location: "Davis Conference Center"
+                }
+            ]
+        },
+        {
+            day: 16,
+            endDay: 21,
+            month: 4,
+            year: 2027,
+            events: [
+                {
+                    title: "DECA International Career Development Conference",
+                    time: "All Day",
+                    location: "Anaheim, California"
+                }
+            ]
+        },
+        {
+            day: 23,
+            endDay: 26,
+            month: 6,
+            year: 2027,
+            events: [
+                {
+                    title: "FBLA National Leadership Conference",
+                    time: "All Day",
+                    location: "Columbus, OH"
+                }
             ]
         }
     ];
@@ -1245,8 +1455,15 @@ function switchTab(tabId) {
     let year = today.getFullYear();
     let activeDay = today.getDate();
 
+    /* An entry covers a single day, or day..endDay when endDay is set. */
+    function covers(entry, day) {
+        const last = entry.endDay || entry.day;
+        return day >= entry.day && day <= last;
+    }
+
     function hasEvent(day, monthIndex, yr) {
-        return eventsArr.some(e => e.day === day && e.month === monthIndex + 1 && e.year === yr);
+        return eventsArr.some(e =>
+            e.month === monthIndex + 1 && e.year === yr && covers(e, day));
     }
 
     function initCalendar() {
@@ -1304,11 +1521,24 @@ function switchTab(tabId) {
             highlightsMonth.textContent = months[month] + ' ' + year;
         }
 
+        if (monthNote) {
+            const note = MONTH_NOTES[month + 1];
+            monthNote.textContent = note || '';
+            monthNote.hidden = !note;
+        }
+
         const entries = [];
         eventsArr.forEach(entry => {
             if (entry.month === month + 1 && entry.year === year) {
                 entry.events.forEach(ev => {
-                    entries.push({ day: entry.day, title: ev.title, time: ev.time });
+                    // A multi-day window is listed once, on its start date.
+                    entries.push({
+                        day: entry.day,
+                        endDay: entry.endDay || null,
+                        title: ev.title,
+                        time: ev.time,
+                        location: ev.location || ''
+                    });
                 });
             }
         });
@@ -1325,16 +1555,26 @@ function switchTab(tabId) {
 
         highlightsList.innerHTML = entries.map(e => {
             const dow = weekdays[new Date(year, month, e.day).getDay()].slice(0, 3);
-            const past = isCurrentMonth && e.day < now.getDate();
+            // A window counts as past only once its last day has gone by.
+            const past = isCurrentMonth && (e.endDay || e.day) < now.getDate();
+            const dateChip = e.endDay
+                ? `<span class="month-highlight-dow">${months[month].slice(0, 3)}</span>
+                           <span class="month-highlight-day is-range">${e.day}&ndash;${e.endDay}</span>`
+                : `<span class="month-highlight-dow">${dow}</span>
+                           <span class="month-highlight-day">${e.day}</span>`;
             return `<li>
                     <button type="button" class="month-highlight${past ? ' is-past' : ''}" data-day="${e.day}">
-                        <span class="month-highlight-date">
-                            <span class="month-highlight-dow">${dow}</span>
-                            <span class="month-highlight-day">${e.day}</span>
+                        <span class="month-highlight-date${e.endDay ? ' is-range' : ''}">
+                            ${dateChip}
                         </span>
                         <span class="month-highlight-body">
                             <span class="month-highlight-title">${e.title}</span>
-                            <span class="month-highlight-time">${e.time}</span>
+                            <span class="month-highlight-meta">
+                                <span class="month-highlight-time">${e.time}</span>
+                                ${(e.location && e.location !== 'N/A')
+                                    ? `<span class="month-highlight-where">${e.location}</span>`
+                                    : ''}
+                            </span>
                         </span>
                     </button>
                 </li>`;
@@ -1365,15 +1605,20 @@ function switchTab(tabId) {
     function updateEvents(date) {
         let events = '';
         eventsArr.forEach((entry) => {
-            if (date === entry.day && month + 1 === entry.month && year === entry.year) {
+            if (entry.month === month + 1 && entry.year === year && covers(entry, date)) {
                 entry.events.forEach((ev) => {
+                    // "N/A" means there is nowhere to be, so skip the line.
+                    const place = (ev.location && ev.location !== 'N/A')
+                        ? `<span class="event-location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> ${ev.location}</span>`
+                        : '';
                     events +=
                         `<div class="event">
                             <div class="title">
                                 <i class="fas fa-circle" aria-hidden="true"></i>
                                 <h3 class="event-title">${ev.title}</h3>
                             </div>
-                            <span class="event-time">${ev.time}</span>
+                            <span class="event-time"><i class="fa-regular fa-clock" aria-hidden="true"></i> ${ev.time}</span>
+                            ${place}
                         </div>`;
                 });
             }
@@ -1649,12 +1894,13 @@ function initNationalsCollages() {
            never one that is still mid-fade. */
         let lastTile = -1;
         const pickTile = () => {
+            // Skip the tick rather than fall back to the tile that just
+            // changed — repeating one tile back to back reads as a glitch.
             const free = states
                 .map((s, i) => i)
                 .filter(i => !states[i].busy && i !== lastTile);
-            const pool = free.length ? free : states.map((s, i) => i).filter(i => !states[i].busy);
-            if (!pool.length) return -1;
-            const choice = pool[Math.floor(Math.random() * pool.length)];
+            if (!free.length) return -1;
+            const choice = free[Math.floor(Math.random() * free.length)];
             lastTile = choice;
             return choice;
         };
