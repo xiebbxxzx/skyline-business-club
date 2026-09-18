@@ -2035,3 +2035,89 @@ main #page-gallery .season-album-link:hover i {
     letter-spacing: 0.09em;
     cursor: default;
 }
+
+/* A multi-day window shows "12–23" rather than a single date */
+.month-highlight-date.is-range {
+    width: 58px;
+}
+
+.month-highlight-day.is-range {
+    font-size: 0.85rem;
+    letter-spacing: -0.02em;
+}
+
+/* Event time + location lines */
+.events .event .event-location {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #c3ccd6;
+    pointer-events: none;
+}
+
+.events .event:hover .event-location {
+    color: var(--primary);
+}
+
+.events .event .event-time i,
+.events .event .event-location i {
+    width: 0.8rem;
+    margin-right: 0.1rem;
+}
+
+.month-highlight-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.15rem 0.45rem;
+}
+
+/* Separate the time from the place with a dot */
+.month-highlight-where {
+    position: relative;
+    padding-left: 0.6rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    opacity: 0.72;
+}
+
+.month-highlight-where::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    opacity: 0.6;
+}
+
+.month-highlight.is-past .month-highlight-where {
+    opacity: 0.5;
+}
+
+@media screen and (max-width: 420px) {
+    .month-highlight-where {
+        padding-left: 0;
+        flex-basis: 100%;
+    }
+    .month-highlight-where::before {
+        content: none;
+    }
+}
+
+/* Month-wide note (e.g. DECA Month) above the month list */
+.month-note {
+    margin: 0;
+    padding: 0.55rem 1.25rem;
+    background: var(--accent);
+    color: var(--primary);
+    border-bottom: 2px solid var(--primary);
+    font-size: 0.68rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    text-align: center;
+}
+
+.month-note[hidden] {
+    display: none;
+}
