@@ -89,6 +89,8 @@
                         "></path>
                     </svg>
 
+                    <div class="season-route-lens" aria-hidden="true"></div>
+
                     <div class="season-era-label season-era-label--top">Nationals</div>
 
                     <!-- NLC -->
@@ -368,6 +370,103 @@
         }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        (function () {
+            const wrap = document.querySelector('#page-gallery .season-route-wrap');
+            const svg = wrap?.querySelector('.season-route-line');
+            const path = svg?.querySelector('path');
+            const lens = wrap?.querySelector('.season-route-lens');
+
+            if (!wrap || !svg || !path || !lens) return;
+
+            const lensSvg = svg.cloneNode(true);
+            lensSvg.classList.add('season-route-lens-svg');
+            lens.appendChild(lensSvg);
+
+            let samples = [];
+            let raf = 0;
+            let pendingEvent = null;
+            const sampleCount = 420;
+            const triggerDistance = 82;
+            const zoom = 1.48;
+
+            function rebuildSamples() {
+                samples = [];
+                const total = path.getTotalLength();
+                for (let i = 0; i <= sampleCount; i++) {
+                    const p = path.getPointAtLength((total * i) / sampleCount);
+                    samples.push({ x: p.x, y: p.y });
+                }
+            }
+
+            function positionLens(event) {
+                raf = 0;
+                if (!pendingEvent) return;
+
+                const e = pendingEvent;
+                const svgRect = svg.getBoundingClientRect();
+                const wrapRect = wrap.getBoundingClientRect();
+                const vb = svg.viewBox.baseVal;
+
+                const mouseSvgX = ((e.clientX - svgRect.left) / svgRect.width) * vb.width;
+                const mouseSvgY = ((e.clientY - svgRect.top) / svgRect.height) * vb.height;
+                const pxPerSvgX = svgRect.width / vb.width;
+                const pxPerSvgY = svgRect.height / vb.height;
+
+                let best = null;
+                let bestDistSq = Infinity;
+
+                for (const p of samples) {
+                    const dx = (p.x - mouseSvgX) * pxPerSvgX;
+                    const dy = (p.y - mouseSvgY) * pxPerSvgY;
+                    const d2 = dx * dx + dy * dy;
+                    if (d2 < bestDistSq) {
+                        bestDistSq = d2;
+                        best = p;
+                    }
+                }
+
+                if (!best || Math.sqrt(bestDistSq) > triggerDistance) {
+                    lens.classList.remove('is-visible');
+                    return;
+                }
+
+                const xPx = ((best.x - vb.x) / vb.width) * svgRect.width + (svgRect.left - wrapRect.left);
+                const yPx = ((best.y - vb.y) / vb.height) * svgRect.height + (svgRect.top - wrapRect.top);
+
+                lens.style.left = xPx + 'px';
+                lens.style.top = yPx + 'px';
+
+                const lensSize = lens.getBoundingClientRect().width || 116;
+                const clone = lensSvg;
+                clone.style.width = svgRect.width + 'px';
+                clone.style.height = svgRect.height + 'px';
+                clone.style.left = (lensSize / 2 - zoom * (xPx - (svgRect.left - wrapRect.left))) + 'px';
+                clone.style.top = (lensSize / 2 - zoom * (yPx - (svgRect.top - wrapRect.top))) + 'px';
+                clone.style.transform = `scale(${zoom})`;
+
+                lens.classList.add('is-visible');
+            }
+
+            function onPointerMove(e) {
+                pendingEvent = e;
+                if (!raf) raf = requestAnimationFrame(positionLens);
+            }
+
+            wrap.addEventListener('pointermove', onPointerMove);
+            wrap.addEventListener('pointerleave', function () {
+                pendingEvent = null;
+                lens.classList.remove('is-visible');
+            });
+
+            window.addEventListener('resize', function () {
+                lens.classList.remove('is-visible');
+            });
+
+            rebuildSamples();
+        })();
+    </script>
 
     <script src="script.js"></script>
 </body>
