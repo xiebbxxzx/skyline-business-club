@@ -1890,92 +1890,12 @@ body.high-contrast .footer-section h3 {
     }
 }
 
-
-/* ============================================================
-   GALLERY ROUTE MAGNIFIER
-   A fisheye-style lens appears when the pointer gets close to
-   the curved timeline. It enlarges only the route underneath.
-   ============================================================ */
-
-#page-gallery .season-route-lens {
-    position: absolute;
-    z-index: 8;
-    width: 116px;
-    height: 116px;
-    border-radius: 50%;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.72) translateY(6px);
-    background: rgba(255, 255, 255, 0.94);
-    border: 3px solid var(--primary);
-    box-shadow:
-        0 14px 24px rgba(11, 37, 69, 0.18),
-        6px 7px 0 var(--accent);
-    transition:
-        opacity 120ms ease,
-        transform 190ms cubic-bezier(.2,.8,.2,1);
-}
-
-#page-gallery .season-route-lens.is-visible {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1) translateY(-5px);
-}
-
-#page-gallery .season-route-lens::after {
-    content: "";
-    position: absolute;
-    inset: 9px;
-    border-radius: 50%;
-    border: 1px solid rgba(11, 37, 69, 0.18);
-    box-shadow: inset 0 0 0 3px rgba(252, 163, 17, 0.08);
-    pointer-events: none;
-}
-
-#page-gallery .season-route-lens-svg {
-    position: absolute !important;
-    inset: auto !important;
-    overflow: visible;
-    transform-origin: 0 0;
-    pointer-events: none;
-}
-
-#page-gallery .season-route-lens-svg path {
-    stroke-width: 6.5;
-    stroke-dasharray: 15 16;
-    opacity: 1;
-    filter: none;
-}
-
-@media screen and (max-width: 850px) {
-    #page-gallery .season-route-lens {
-        width: 92px;
-        height: 92px;
-    }
-}
-
-@media (hover: none), (pointer: coarse) {
-    #page-gallery .season-route-lens {
-        display: none;
-    }
-}
-
 /* Reduced motion keeps the gallery fully usable without fan animation. */
 @media (prefers-reduced-motion: reduce) {
     #page-gallery .season-photo,
     #page-gallery .season-album-link i,
-    #page-gallery .season-instagram-link,
-    #page-gallery .season-stop-copy,
-    #page-gallery .season-photo-cluster,
-    #page-gallery .season-marker,
-    #page-gallery .season-marker::before,
-    #page-gallery .season-era-label,
-    #page-gallery .season-route-lens {
+    #page-gallery .season-instagram-link {
         transition: none;
-    }
-
-    #page-gallery .season-route-line path {
-        animation: none;
     }
 }
 
@@ -1992,86 +1912,6 @@ main #page-gallery .season-album-link:hover i {
 }
 
 
-
-/* ============================================================
-   GALLERY TIMELINE — INTERACTION POLISH
-   Adds motion and "active stop" feedback without JS.
-   ============================================================ */
-
-/* The dashed path subtly travels downward, like movement through the season. */
-#page-gallery .season-route-line path {
-    animation: seasonRouteTravel 18s linear infinite;
-    filter: drop-shadow(0 1px 0 rgba(255,255,255,0.9));
-}
-
-@keyframes seasonRouteTravel {
-    to { stroke-dashoffset: -124; }
-}
-
-/* Give each stop a little magnetic response toward the route. */
-#page-gallery .season-stop-copy,
-#page-gallery .season-photo-cluster {
-    transition: transform 260ms cubic-bezier(.2,.75,.2,1), opacity 220ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    #page-gallery .season-stop:hover .season-stop-copy {
-        transform: translateY(-4px);
-    }
-
-    #page-gallery .season-stop:hover .season-marker {
-        transform: translate(-50%, -50%) rotate(225deg) scale(1.22);
-        box-shadow: 5px 5px 0 #fff;
-    }
-
-    #page-gallery .season-stop:hover .season-stop-meta {
-        opacity: 1;
-    }
-
-    #page-gallery .season-stop:hover .season-stop-title {
-        text-decoration: underline;
-        text-decoration-color: var(--accent);
-        text-decoration-thickness: 0.16em;
-        text-underline-offset: 0.14em;
-    }
-}
-
-/* Expanding ring around the timeline diamond when an event is active. */
-#page-gallery .season-marker {
-    transition:
-        transform 280ms cubic-bezier(.2,.75,.2,1),
-        box-shadow 220ms ease;
-}
-
-#page-gallery .season-marker::before {
-    content: "";
-    position: absolute;
-    inset: -10px;
-    border: 2px solid var(--accent);
-    opacity: 0;
-    transform: scale(0.65);
-    transition: opacity 220ms ease, transform 280ms cubic-bezier(.2,.75,.2,1);
-    pointer-events: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    #page-gallery .season-stop:hover .season-marker::before {
-        opacity: 0.9;
-        transform: scale(1);
-    }
-}
-
-/* Tiny route-end emphasis so the journey feels intentionally framed. */
-#page-gallery .season-era-label {
-    transition: transform 180ms ease, box-shadow 180ms ease;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    #page-gallery .season-era-label:hover {
-        transform: translate(-2px, -2px);
-        box-shadow: 5px 5px 0 var(--primary);
-    }
-}
 
 /* ============================================================
    ALUMNI CARDS
