@@ -1390,7 +1390,7 @@ body.high-contrast .footer-section h3 {
 
 #page-gallery .season-gallery-hero {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     gap: 2rem;
     padding-bottom: 2rem;
@@ -1418,113 +1418,38 @@ body.high-contrast .footer-section h3 {
     color: var(--primary);
 }
 
-#page-gallery .season-instagram-feature {
-    position: relative;
-    flex: 0 0 min(390px, 42%);
-    min-height: 185px;
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-    padding: 1.35rem 1.45rem;
-    border: 3px solid var(--primary);
-    background: var(--primary);
-    color: #fff;
-    text-decoration: none;
-    box-shadow: 7px 7px 0 var(--accent);
-    isolation: isolate;
-    transition:
-        transform 180ms cubic-bezier(.2,.75,.2,1),
-        box-shadow 180ms ease;
-}
-
-#page-gallery .season-instagram-watermark {
-    position: absolute;
-    z-index: -1;
-    right: -0.18em;
-    top: 50%;
-    transform: translateY(-50%) rotate(-8deg);
-    font-size: clamp(10rem, 17vw, 14rem);
-    line-height: 1;
-    color: rgba(255,255,255,0.11);
-    transition:
-        transform 240ms cubic-bezier(.2,.75,.2,1),
-        color 180ms ease;
-}
-
-#page-gallery .season-instagram-copy {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.42rem;
-}
-
-#page-gallery .season-instagram-eyebrow {
-    font-size: 0.58rem;
-    line-height: 1;
-    font-weight: 900;
+#page-gallery .season-gallery-intro {
+    max-width: 32rem;
+    margin: 1.5rem 0 0;
+    font-size: 0.82rem;
+    font-weight: 800;
+    line-height: 1.6;
     text-transform: uppercase;
-    letter-spacing: 0.17em;
-    color: var(--accent);
+    letter-spacing: 0.08em;
+    opacity: 0.72;
 }
 
-#page-gallery .season-instagram-handle {
-    font-size: clamp(1.35rem, 2.4vw, 2rem);
-    line-height: 1;
-    font-weight: 900;
-    letter-spacing: -0.035em;
-    color: #fff;
-}
-
-#page-gallery .season-instagram-cta {
+#page-gallery .season-instagram-link {
+    flex: 0 0 auto;
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    margin-top: 0.55rem;
-    padding-top: 0.65rem;
-    border-top: 1px solid rgba(255,255,255,0.35);
-    font-size: 0.66rem;
-    line-height: 1;
+    gap: 0.65rem;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--primary);
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.7rem;
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #fff;
+    letter-spacing: 0.09em;
+    text-decoration: none;
+    box-shadow: 4px 4px 0 var(--accent);
+    transition: transform 160ms ease, box-shadow 160ms ease;
 }
 
-#page-gallery .season-instagram-cta i {
-    font-size: 0.62rem;
-    transition: transform 160ms ease;
-}
-
-#page-gallery .season-instagram-feature:hover,
-#page-gallery .season-instagram-feature:focus-visible {
-    transform: translate(-3px, -3px);
-    box-shadow: 10px 10px 0 var(--accent);
-}
-
-#page-gallery .season-instagram-feature:hover .season-instagram-watermark,
-#page-gallery .season-instagram-feature:focus-visible .season-instagram-watermark {
-    transform: translateY(-50%) rotate(-3deg) scale(1.06);
-    color: rgba(255,255,255,0.16);
-}
-
-#page-gallery .season-instagram-feature:hover .season-instagram-cta i,
-#page-gallery .season-instagram-feature:focus-visible .season-instagram-cta i {
-    transform: translate(2px, -2px);
-}
-
-/* Override the site's generic body-link hover inversion for this feature card. */
-main #page-gallery .season-instagram-feature:hover,
-main #page-gallery .season-instagram-feature:focus-visible {
-    background: var(--primary) !important;
-    color: #fff !important;
-    border-color: var(--primary) !important;
-}
-
-main #page-gallery .season-instagram-feature:hover i,
-main #page-gallery .season-instagram-feature:focus-visible i {
-    color: inherit !important;
+#page-gallery .season-instagram-link:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--accent);
 }
 
 /* ── Route structure ─────────────────────────────────────── */
@@ -1583,7 +1508,7 @@ main #page-gallery .season-instagram-feature:focus-visible i {
     --marker-x: 50%;
     position: relative;
     z-index: 2;
-    min-height: 430px;
+    min-height: 350px;
     display: grid;
     grid-template-columns: minmax(0, 1fr) 220px minmax(0, 1fr);
     align-items: center;
@@ -1734,8 +1659,8 @@ main #page-gallery .season-instagram-feature:focus-visible i {
 
 #page-gallery .season-photo-cluster {
     position: relative;
-    width: min(480px, 100%);
-    height: 350px;
+    width: min(330px, 100%);
+    height: 240px;
     overflow: visible;
     perspective: 900px;
 }
@@ -1800,29 +1725,28 @@ main #page-gallery .season-instagram-feature:focus-visible i {
 
 /* Fan out in four directions when the preview is hovered/focused. */
 @media (hover: hover) and (pointer: fine) {
-    /* Irregular "photo burst": all four become fully visible without looking like a rigid grid. */
     #page-gallery .season-photo-cluster:hover .season-photo--1 {
         z-index: 4;
-        transform: translate(calc(-50% - 132px), calc(-50% - 101px)) rotate(-8deg);
-        box-shadow: 9px 9px 0 var(--accent);
+        transform: translate(-79%, -77%) rotate(-8deg);
+        box-shadow: 8px 8px 0 var(--accent);
     }
 
     #page-gallery .season-photo-cluster:hover .season-photo--2 {
         z-index: 3;
-        transform: translate(calc(-50% + 124px), calc(-50% - 82px)) rotate(7deg);
-        box-shadow: 9px 9px 0 var(--accent);
+        transform: translate(-18%, -78%) rotate(7deg);
+        box-shadow: 8px 8px 0 var(--accent);
     }
 
     #page-gallery .season-photo-cluster:hover .season-photo--3 {
         z-index: 2;
-        transform: translate(calc(-50% - 116px), calc(-50% + 93px)) rotate(-5deg);
-        box-shadow: 9px 9px 0 var(--accent);
+        transform: translate(-81%, -18%) rotate(-5deg);
+        box-shadow: 8px 8px 0 var(--accent);
     }
 
     #page-gallery .season-photo-cluster:hover .season-photo--4 {
         z-index: 1;
-        transform: translate(calc(-50% + 136px), calc(-50% + 108px)) rotate(10deg);
-        box-shadow: 9px 9px 0 var(--accent);
+        transform: translate(-15%, -16%) rotate(9deg);
+        box-shadow: 8px 8px 0 var(--accent);
     }
 }
 
@@ -1925,15 +1849,8 @@ main #page-gallery .season-instagram-feature:focus-visible i {
         font-size: 0.58rem;
     }
 
-    #page-gallery .season-instagram-feature {
-        width: 100%;
-        min-height: 155px;
-        flex-basis: auto;
-        padding: 1.15rem 1.2rem;
-    }
-
-    #page-gallery .season-instagram-watermark {
-        font-size: 10rem;
+    #page-gallery .season-gallery-intro {
+        font-size: 0.72rem;
     }
 
     #page-gallery .season-route-line {
@@ -1976,9 +1893,7 @@ main #page-gallery .season-instagram-feature:focus-visible i {
 @media (prefers-reduced-motion: reduce) {
     #page-gallery .season-photo,
     #page-gallery .season-album-link i,
-    #page-gallery .season-instagram-feature,
-    #page-gallery .season-instagram-watermark,
-    #page-gallery .season-instagram-cta i {
+    #page-gallery .season-instagram-link {
         transition: none;
     }
 }
@@ -1994,8 +1909,6 @@ main #page-gallery .season-album-link:hover {
 main #page-gallery .season-album-link:hover i {
     color: var(--primary) !important;
 }
-
-
 
 /* ============================================================
    ALUMNI CARDS
@@ -2207,4 +2120,19 @@ main #page-gallery .season-album-link:hover i {
 
 .month-note[hidden] {
     display: none;
+}
+
+/* Standing meeting schedule, shown in the calendar header */
+.meeting-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.3rem 0.7rem;
+    background: var(--accent);
+    color: var(--primary);
+    font-size: 0.68rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
 }
