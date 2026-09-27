@@ -1248,6 +1248,18 @@ function switchTab(tabId) {
             ]
         },
         {
+            day: 5,
+            month: 10,
+            year: 2026,
+            events: [
+                {
+                    title: "First Meeting",
+                    time: "After School",
+                    location: "Room 1401"
+                }
+            ]
+        },
+        {
             day: 7,
             month: 10,
             year: 2026,
