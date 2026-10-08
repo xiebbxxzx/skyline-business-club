@@ -1178,6 +1178,7 @@ function switchTab(tabId) {
        ]
    }
    ============================================================ */
+
 (function () {
     const calendar = document.querySelector('.calendar');
     if (!calendar) return;
@@ -1197,12 +1198,28 @@ function switchTab(tabId) {
     const monthNote = document.getElementById('month-note');
 
     const months = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
     ];
 
     const weekdays = [
-        'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday'
     ];
 
     // Add chapter events here. `month` is 1-based.
@@ -1215,14 +1232,19 @@ function switchTab(tabId) {
        8/17/2026). That document lists no clock times, so: conferences
        and in-person competitions run "All Day", online testing windows
        are worked "After School" at Skyline, and deadlines are "by 5:00 PM". */
+
     /* Notes that apply to a whole month rather than a single date.
        Keyed by 1-based month, so they come back every year. Shown as a
        banner above the month list instead of marking every day. */
+
     const MONTH_NOTES = {
         11: "November is DECA Month"
     };
 
+
     const eventsArr = [
+
+        // SEPTEMBER 2026
         {
             day: 11,
             month: 9,
@@ -1235,6 +1257,9 @@ function switchTab(tabId) {
                 }
             ]
         },
+
+
+        // OCTOBER 2026
         {
             day: 1,
             month: 10,
@@ -1247,6 +1272,7 @@ function switchTab(tabId) {
                 }
             ]
         },
+
         {
             day: 5,
             month: 10,
@@ -1259,6 +1285,7 @@ function switchTab(tabId) {
                 }
             ]
         },
+
         {
             day: 7,
             month: 10,
@@ -1271,6 +1298,7 @@ function switchTab(tabId) {
                 }
             ]
         },
+
         {
             day: 9,
             month: 10,
@@ -1283,6 +1311,7 @@ function switchTab(tabId) {
                 }
             ]
         },
+
         {
             day: 12,
             endDay: 23,
@@ -1296,6 +1325,20 @@ function switchTab(tabId) {
                 }
             ]
         },
+
+        {
+            day: 19,
+            month: 10,
+            year: 2026,
+            events: [
+                {
+                    title: "Hospitality Rising Competition Submission Deadline",
+                    time: "Deadline",
+                    location: "Online"
+                }
+            ]
+        },
+
         {
             day: 20,
             month: 10,
@@ -1308,6 +1351,9 @@ function switchTab(tabId) {
                 }
             ]
         },
+
+
+        // NOVEMBER 2026
         {
             day: 2,
             endDay: 13,
@@ -1321,6 +1367,22 @@ function switchTab(tabId) {
                 }
             ]
         },
+
+        {
+            day: 4,
+            month: 11,
+            year: 2026,
+            events: [
+                {
+                    title: "Hospitality Rising Student Summit",
+                    time: "8:00 AM - 3:00 PM",
+                    location: "A. Ray Olpin Union, University of Utah"
+                }
+            ]
+        },
+
+
+        // DECEMBER 2026
         {
             day: 11,
             month: 12,
@@ -1333,6 +1395,9 @@ function switchTab(tabId) {
                 }
             ]
         },
+
+
+        // JANUARY 2027
         {
             day: 20,
             endDay: 22,
@@ -1346,6 +1411,9 @@ function switchTab(tabId) {
                 }
             ]
         },
+
+
+        // FEBRUARY 2027
         {
             day: 1,
             endDay: 12,
@@ -1359,6 +1427,7 @@ function switchTab(tabId) {
                 }
             ]
         },
+
         {
             day: 3,
             month: 2,
@@ -1371,6 +1440,7 @@ function switchTab(tabId) {
                 }
             ]
         },
+
         {
             day: 4,
             month: 2,
@@ -1383,6 +1453,7 @@ function switchTab(tabId) {
                 }
             ]
         },
+
         {
             day: 8,
             endDay: 12,
@@ -1396,6 +1467,7 @@ function switchTab(tabId) {
                 }
             ]
         },
+
         {
             day: 18,
             endDay: 19,
@@ -1409,6 +1481,7 @@ function switchTab(tabId) {
                 }
             ]
         },
+
         {
             day: 25,
             month: 2,
@@ -1421,6 +1494,9 @@ function switchTab(tabId) {
                 }
             ]
         },
+
+
+        // MARCH 2027
         {
             day: 9,
             endDay: 10,
@@ -1434,6 +1510,9 @@ function switchTab(tabId) {
                 }
             ]
         },
+
+
+        // APRIL 2027
         {
             day: 16,
             endDay: 21,
@@ -1447,6 +1526,9 @@ function switchTab(tabId) {
                 }
             ]
         },
+
+
+        // JUNE 2027
         {
             day: 23,
             endDay: 26,
@@ -1460,28 +1542,39 @@ function switchTab(tabId) {
                 }
             ]
         }
+
     ];
+
 
     let today = new Date();
     let month = today.getMonth();
     let year = today.getFullYear();
     let activeDay = today.getDate();
 
+
     /* An entry covers a single day, or day..endDay when endDay is set. */
+
     function covers(entry, day) {
         const last = entry.endDay || entry.day;
         return day >= entry.day && day <= last;
     }
 
+
     function hasEvent(day, monthIndex, yr) {
         return eventsArr.some(e =>
-            e.month === monthIndex + 1 && e.year === yr && covers(e, day));
+            e.month === monthIndex + 1 &&
+            e.year === yr &&
+            covers(e, day)
+        );
     }
 
+
     function initCalendar() {
+
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
         const prevLastDay = new Date(year, month, 0);
+
         const prevDays = prevLastDay.getDate();
         const lastDate = lastDay.getDate();
         const startDay = firstDay.getDay();
@@ -1495,55 +1588,98 @@ function switchTab(tabId) {
             days += `<div class="day prev-date">${prevDays - x + 1}</div>`;
         }
 
+
         const now = new Date();
-        const isCurrentMonth = year === now.getFullYear() && month === now.getMonth();
+
+        const isCurrentMonth =
+            year === now.getFullYear() &&
+            month === now.getMonth();
+
 
         // Keep the selection in range when moving between months.
+
         if (isCurrentMonth) {
             activeDay = now.getDate();
         } else if (activeDay > lastDate) {
             activeDay = lastDate;
         }
 
+
         for (let i = 1; i <= lastDate; i++) {
+
             const classes = ['day'];
-            if (hasEvent(i, month, year)) classes.push('event');
-            if (isCurrentMonth && i === now.getDate()) classes.push('today');
-            if (i === activeDay) classes.push('active');
+
+            if (hasEvent(i, month, year)) {
+                classes.push('event');
+            }
+
+            if (
+                isCurrentMonth &&
+                i === now.getDate()
+            ) {
+                classes.push('today');
+            }
+
+            if (i === activeDay) {
+                classes.push('active');
+            }
+
             days += `<div class="${classes.join(' ')}">${i}</div>`;
         }
+
 
         for (let j = 1; j <= nextDays; j++) {
             days += `<div class="day next-date">${j}</div>`;
         }
 
+
         daysContainer.innerHTML = days;
+
         getActiveDay(activeDay);
         updateEvents(activeDay);
         updateMonthHighlights();
         addListener();
     }
 
+
+
     /* Everything happening in the month currently on screen, listed
        under the calendar. Clicking one jumps to that day. */
+
     function updateMonthHighlights() {
+
         if (!highlightsList) return;
 
+
         if (highlightsMonth) {
-            highlightsMonth.textContent = months[month] + ' ' + year;
+            highlightsMonth.textContent =
+                months[month] + ' ' + year;
         }
 
+
         if (monthNote) {
+
             const note = MONTH_NOTES[month + 1];
+
             monthNote.textContent = note || '';
             monthNote.hidden = !note;
         }
 
+
         const entries = [];
+
+
         eventsArr.forEach(entry => {
-            if (entry.month === month + 1 && entry.year === year) {
+
+            if (
+                entry.month === month + 1 &&
+                entry.year === year
+            ) {
+
                 entry.events.forEach(ev => {
+
                     // A multi-day window is listed once, on its start date.
+
                     entries.push({
                         day: entry.day,
                         endDay: entry.endDay || null,
@@ -1551,175 +1687,540 @@ function switchTab(tabId) {
                         time: ev.time,
                         location: ev.location || ''
                     });
+
                 });
+
             }
+
         });
-        entries.sort((a, b) => a.day - b.day || a.title.localeCompare(b.title));
+
+
+        entries.sort(
+            (a, b) =>
+                a.day - b.day ||
+                a.title.localeCompare(b.title)
+        );
+
 
         if (!entries.length) {
+
             highlightsList.innerHTML =
                 '<li class="month-highlights-none">Nothing scheduled this month</li>';
+
             return;
         }
 
+
         const now = new Date();
-        const isCurrentMonth = year === now.getFullYear() && month === now.getMonth();
+
+        const isCurrentMonth =
+            year === now.getFullYear() &&
+            month === now.getMonth();
+
 
         highlightsList.innerHTML = entries.map(e => {
-            const dow = weekdays[new Date(year, month, e.day).getDay()].slice(0, 3);
+
+            const dow =
+                weekdays[
+                    new Date(year, month, e.day).getDay()
+                ].slice(0, 3);
+
+
             // A window counts as past only once its last day has gone by.
-            const past = isCurrentMonth && (e.endDay || e.day) < now.getDate();
+
+            const past =
+                isCurrentMonth &&
+                (e.endDay || e.day) < now.getDate();
+
+
             const dateChip = e.endDay
-                ? `<span class="month-highlight-dow">${months[month].slice(0, 3)}</span>
-                           <span class="month-highlight-day is-range">${e.day}&ndash;${e.endDay}</span>`
-                : `<span class="month-highlight-dow">${dow}</span>
-                           <span class="month-highlight-day">${e.day}</span>`;
-            return `<li>
-                    <button type="button" class="month-highlight${past ? ' is-past' : ''}" data-day="${e.day}">
-                        <span class="month-highlight-date${e.endDay ? ' is-range' : ''}">
+                ? `
+                    <span class="month-highlight-dow">
+                        ${months[month].slice(0, 3)}
+                    </span>
+
+                    <span class="month-highlight-day is-range">
+                        ${e.day}&ndash;${e.endDay}
+                    </span>
+                `
+                : `
+                    <span class="month-highlight-dow">
+                        ${dow}
+                    </span>
+
+                    <span class="month-highlight-day">
+                        ${e.day}
+                    </span>
+                `;
+
+
+            return `
+                <li>
+
+                    <button
+                        type="button"
+                        class="month-highlight${past ? ' is-past' : ''}"
+                        data-day="${e.day}"
+                    >
+
+                        <span
+                            class="month-highlight-date${e.endDay ? ' is-range' : ''}"
+                        >
                             ${dateChip}
                         </span>
+
+
                         <span class="month-highlight-body">
-                            <span class="month-highlight-title">${e.title}</span>
-                            <span class="month-highlight-meta">
-                                <span class="month-highlight-time">${e.time}</span>
-                                ${(e.location && e.location !== 'N/A')
-                                    ? `<span class="month-highlight-where">${e.location}</span>`
-                                    : ''}
+
+                            <span class="month-highlight-title">
+                                ${e.title}
                             </span>
+
+
+                            <span class="month-highlight-meta">
+
+                                <span class="month-highlight-time">
+                                    ${e.time}
+                                </span>
+
+                                ${
+                                    e.location &&
+                                    e.location !== 'N/A'
+
+                                        ? `
+                                            <span class="month-highlight-where">
+                                                ${e.location}
+                                            </span>
+                                          `
+
+                                        : ''
+                                }
+
+                            </span>
+
                         </span>
+
                     </button>
-                </li>`;
+
+                </li>
+            `;
+
         }).join('');
 
-        highlightsList.querySelectorAll('.month-highlight').forEach(btn => {
-            btn.addEventListener('click', () => {
-                activeDay = Number(btn.dataset.day);
-                initCalendar();
-                const cell = [...daysContainer.querySelectorAll('.day')].find(d =>
-                    !d.classList.contains('prev-date') &&
-                    !d.classList.contains('next-date') &&
-                    Number(d.textContent) === activeDay
-                );
-                if (cell && cell.scrollIntoView) {
-                    cell.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }
+
+        highlightsList
+            .querySelectorAll('.month-highlight')
+            .forEach(btn => {
+
+                btn.addEventListener('click', () => {
+
+                    activeDay =
+                        Number(btn.dataset.day);
+
+                    initCalendar();
+
+
+                    const cell =
+                        [...daysContainer.querySelectorAll('.day')]
+                            .find(d =>
+                                !d.classList.contains('prev-date') &&
+                                !d.classList.contains('next-date') &&
+                                Number(d.textContent) === activeDay
+                            );
+
+
+                    if (
+                        cell &&
+                        cell.scrollIntoView
+                    ) {
+
+                        cell.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'nearest'
+                        });
+
+                    }
+
+                });
+
             });
-        });
+
     }
+
+
 
     function getActiveDay(date) {
-        const day = new Date(year, month, date);
-        eventDay.textContent = weekdays[day.getDay()];
-        eventDate.textContent = months[month] + ' ' + date + ', ' + year;
+
+        const day =
+            new Date(
+                year,
+                month,
+                date
+            );
+
+        eventDay.textContent =
+            weekdays[day.getDay()];
+
+        eventDate.textContent =
+            months[month] +
+            ' ' +
+            date +
+            ', ' +
+            year;
+
     }
+
+
 
     function updateEvents(date) {
+
         let events = '';
-        eventsArr.forEach((entry) => {
-            if (entry.month === month + 1 && entry.year === year && covers(entry, date)) {
-                entry.events.forEach((ev) => {
+
+
+        eventsArr.forEach(entry => {
+
+            if (
+                entry.month === month + 1 &&
+                entry.year === year &&
+                covers(entry, date)
+            ) {
+
+                entry.events.forEach(ev => {
+
                     // "N/A" means there is nowhere to be, so skip the line.
-                    const place = (ev.location && ev.location !== 'N/A')
-                        ? `<span class="event-location"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> ${ev.location}</span>`
-                        : '';
-                    events +=
-                        `<div class="event">
+
+                    const place =
+                        (
+                            ev.location &&
+                            ev.location !== 'N/A'
+                        )
+                            ? `
+                                <span class="event-location">
+                                    <i
+                                        class="fa-solid fa-location-dot"
+                                        aria-hidden="true"
+                                    ></i>
+
+                                    ${ev.location}
+                                </span>
+                              `
+                            : '';
+
+
+                    events += `
+
+                        <div class="event">
+
                             <div class="title">
-                                <i class="fas fa-circle" aria-hidden="true"></i>
-                                <h3 class="event-title">${ev.title}</h3>
+
+                                <i
+                                    class="fas fa-circle"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <h3 class="event-title">
+                                    ${ev.title}
+                                </h3>
+
                             </div>
-                            <span class="event-time"><i class="fa-regular fa-clock" aria-hidden="true"></i> ${ev.time}</span>
+
+
+                            <span class="event-time">
+
+                                <i
+                                    class="fa-regular fa-clock"
+                                    aria-hidden="true"
+                                ></i>
+
+                                ${ev.time}
+
+                            </span>
+
+
                             ${place}
-                        </div>`;
+
+                        </div>
+                    `;
+
                 });
+
             }
+
         });
+
 
         if (events === '') {
-            events = `<div class="no-event"><h3 class="event-none">No events scheduled</h3></div>`;
+
+            events = `
+                <div class="no-event">
+                    <h3 class="event-none">
+                        No events scheduled
+                    </h3>
+                </div>
+            `;
+
         }
 
+
         eventsContainer.innerHTML = events;
+
     }
+
+
 
     function addListener() {
-        daysContainer.querySelectorAll('.day').forEach((day) => {
-            if (day.classList.contains('prev-date') || day.classList.contains('next-date')) return;
-            day.addEventListener('click', () => {
-                activeDay = Number(day.textContent);
-                daysContainer.querySelectorAll('.day').forEach(d => d.classList.remove('active'));
-                day.classList.add('active');
-                getActiveDay(activeDay);
-                updateEvents(activeDay);
+
+        daysContainer
+            .querySelectorAll('.day')
+            .forEach(day => {
+
+                if (
+                    day.classList.contains('prev-date') ||
+                    day.classList.contains('next-date')
+                ) {
+                    return;
+                }
+
+
+                day.addEventListener('click', () => {
+
+                    activeDay =
+                        Number(day.textContent);
+
+
+                    daysContainer
+                        .querySelectorAll('.day')
+                        .forEach(d =>
+                            d.classList.remove('active')
+                        );
+
+
+                    day.classList.add('active');
+
+                    getActiveDay(activeDay);
+                    updateEvents(activeDay);
+
+                });
+
             });
-        });
+
     }
 
+
+
     function prevMonth() {
+
         month--;
+
         if (month < 0) {
             month = 11;
             year--;
         }
+
         initCalendar();
+
     }
 
+
+
     function nextMonth() {
+
         month++;
+
         if (month > 11) {
             month = 0;
             year++;
         }
+
         initCalendar();
+
     }
 
-    prev.addEventListener('click', prevMonth);
-    next.addEventListener('click', nextMonth);
-    prev.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); prevMonth(); } });
-    next.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); nextMonth(); } });
 
-    todayBtn.addEventListener('click', () => {
-        today = new Date();
-        month = today.getMonth();
-        year = today.getFullYear();
-        activeDay = today.getDate();
-        initCalendar();
-    });
 
-    dateInput.addEventListener('input', (e) => {
-        dateInput.value = dateInput.value.replace(/[^0-9/]/g, '');
-        if (dateInput.value.length === 2) {
-            dateInput.value += '/';
+    prev.addEventListener(
+        'click',
+        prevMonth
+    );
+
+
+    next.addEventListener(
+        'click',
+        nextMonth
+    );
+
+
+    prev.addEventListener(
+        'keydown',
+        (e) => {
+
+            if (
+                e.key === 'Enter' ||
+                e.key === ' '
+            ) {
+
+                e.preventDefault();
+                prevMonth();
+
+            }
+
         }
-        if (dateInput.value.length > 7) {
-            dateInput.value = dateInput.value.slice(0, 7);
+    );
+
+
+    next.addEventListener(
+        'keydown',
+        (e) => {
+
+            if (
+                e.key === 'Enter' ||
+                e.key === ' '
+            ) {
+
+                e.preventDefault();
+                nextMonth();
+
+            }
+
         }
-        if (e.inputType === 'deleteContentBackward' && dateInput.value.length === 3) {
-            dateInput.value = dateInput.value.slice(0, 2);
+    );
+
+
+
+    todayBtn.addEventListener(
+        'click',
+        () => {
+
+            today = new Date();
+
+            month = today.getMonth();
+            year = today.getFullYear();
+            activeDay = today.getDate();
+
+            initCalendar();
+
         }
-    });
+    );
+
+
+
+    dateInput.addEventListener(
+        'input',
+        (e) => {
+
+            dateInput.value =
+                dateInput.value.replace(
+                    /[^0-9/]/g,
+                    ''
+                );
+
+
+            if (
+                dateInput.value.length === 2
+            ) {
+
+                dateInput.value += '/';
+
+            }
+
+
+            if (
+                dateInput.value.length > 7
+            ) {
+
+                dateInput.value =
+                    dateInput.value.slice(
+                        0,
+                        7
+                    );
+
+            }
+
+
+            if (
+                e.inputType === 'deleteContentBackward' &&
+                dateInput.value.length === 3
+            ) {
+
+                dateInput.value =
+                    dateInput.value.slice(
+                        0,
+                        2
+                    );
+
+            }
+
+        }
+    );
+
+
 
     function gotoDate() {
-        const parts = dateInput.value.split('/');
+
+        const parts =
+            dateInput.value.split('/');
+
+
         if (parts.length === 2) {
-            const m = Number(parts[0]);
-            const y = Number(parts[1]);
-            if (m > 0 && m < 13 && parts[1].length === 4 && !isNaN(y)) {
+
+            const m =
+                Number(parts[0]);
+
+            const y =
+                Number(parts[1]);
+
+
+            if (
+                m > 0 &&
+                m < 13 &&
+                parts[1].length === 4 &&
+                !isNaN(y)
+            ) {
+
                 month = m - 1;
                 year = y;
                 activeDay = 1;
+
                 initCalendar();
+
                 return;
+
             }
+
         }
-        alert('Enter a date as mm/yyyy, for example 09/2026.');
+
+
+        alert(
+            'Enter a date as mm/yyyy, for example 09/2026.'
+        );
+
     }
 
-    gotoBtn.addEventListener('click', gotoDate);
-    dateInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); gotoDate(); } });
+
+
+    gotoBtn.addEventListener(
+        'click',
+        gotoDate
+    );
+
+
+    dateInput.addEventListener(
+        'keydown',
+        (e) => {
+
+            if (e.key === 'Enter') {
+
+                e.preventDefault();
+                gotoDate();
+
+            }
+
+        }
+    );
+
 
     initCalendar();
+
 })();
 /* ============================================================
    NATIONALS PHOTO COLLAGES
