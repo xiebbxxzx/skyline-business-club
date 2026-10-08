@@ -114,6 +114,13 @@
             object-position: center;
         }
 
+        /* For portraits with very little space above the head: shift the
+           crop window up so the whole head stays in frame on wide/phone
+           layouts, where only a thin middle band of the photo is shown. */
+        .leadership-photo img.photo-top {
+            object-position: 50% 8%;
+        }
+
         /* Executive officers: large square portraits instead of full-width panels */
         .leadership-photo--executive {
             width: 190px;
@@ -649,8 +656,7 @@
                                     <div class="leadership-inner">
                                         <div class="leadership-face leadership-front">
                                             <div class="leadership-photo">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="leadership-photo-label">Portrait Placement</span>
+                                                <img src="images/sarah_wu.jpeg" onerror="this.onerror=null;this.src='sarah_wu.jpeg';" alt="Portrait of Sarah Wu">
                                             </div>
                                             <div class="leadership-role">VP of Public Relations</div>
                                             <h3 class="leadership-name">Sarah Wu</h3>
@@ -905,8 +911,7 @@
                                     <div class="leadership-inner">
                                         <div class="leadership-face leadership-front">
                                             <div class="leadership-photo">
-                                                <i class="fa-regular fa-user text-3xl"></i>
-                                                <span class="leadership-photo-label">Portrait Placement</span>
+                                                <img src="images/snow_xu.jpeg" class="photo-top" onerror="this.onerror=null;this.src='snow_xu.jpeg';" alt="Portrait of Snow Xu">
                                             </div>
                                             <div class="leadership-role">Recruitment Committee</div>
                                             <h3 class="leadership-name">Snow Xu</h3>
