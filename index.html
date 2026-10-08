@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body data-page="home" class="bg-white text-darkBlue font-sans antialiased flex flex-col min-h-screen">
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -30,9 +31,11 @@
         <img src="images/logo.png" alt="Skyline Business Club logo" class="nav-logo">
         <span>Skyline Business Club</span>
     </a>
+
     <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mainNav">
         <i class="fa fa-bars" aria-hidden="true"></i>
     </button>
+
     <ul class="navbar" id="mainNav">
         <li><a href="index.html" id="nav-home" class="active">Home</a></li>
         <li><a href="novice.html" id="nav-novice">Novice Directory</a></li>
@@ -44,6 +47,7 @@
         <li><a href="join.html" id="nav-join" class="nav-cta">Join Now</a></li>
     </ul>
 </nav>
+
 <a href="join.html" class="news-ticker" aria-label="Chapter updates ticker">
     <div class="ticker-track">
         <span>Registration open: join Skyline DECA &amp; FBLA for the 2026 competitive season</span>
@@ -56,83 +60,344 @@
         <span>Pick your event in the Novice Directory</span>
     </div>
 </a>
+
 <div class="yellow-accent-line"></div>
 
 <main id="main-content" tabindex="-1" class="flex-grow">
 
     <section id="page-home" class="tab-content">
+
+        <!-- HERO: WHAT IS SKYLINE + WHY JOIN -->
         <div class="relative overflow-hidden border-b-4 border-darkBlue min-h-[720px] flex items-center">
             <div class="absolute inset-0 hero-photo-backdrop"></div>
+
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 w-full">
-                <div class="w-full bg-white/95 border-4 border-darkBlue p-8 md:p-12 neo-box space-y-6 relative pt-12">
-                    <i class="fa-solid fa-dove eagle-watermark"></i>
-                    <span class="text-xs font-black bg-darkBlue text-white px-3 py-1 uppercase tracking-widest inline-block border border-darkBlue">What is this club?</span>
-                    <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-none text-darkBlue uppercase max-w-4xl">
-                        Skyline Business Club
-                    </h1>
-                    <p class="text-lg text-darkBlue font-medium leading-relaxed max-w-5xl">
-                        Skyline Business Club is the home for Skyline students interested in DECA, FBLA, business competitions, leadership, career skills, and community. As the largest and most successful DECA/FBLA chapter in Utah, our members compete across regional, state, and national circuits while building real-world business experience together.
-                    </p>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-xs font-black uppercase tracking-wider max-w-5xl">
-                        <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white"><span class="block text-2xl">141</span><span>Region Placements</span></button>
-                        <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white"><span class="block text-2xl">140</span><span>State Placements</span></button>
-                        <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white"><span class="block text-2xl">22</span><span>ICDC Attendees</span></button>
-                        <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white"><span class="block text-2xl">23</span><span>NLC Attendees</span></button>
+
+                <div class="w-full bg-white/95 border-4 border-darkBlue p-8 md:p-12 neo-box relative">
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+
+                        <!-- LEFT: WHAT IS THIS CLUB? -->
+                        <div class="lg:col-span-7 space-y-6">
+
+                            <span class="text-xs font-black bg-darkBlue text-white px-3 py-1 uppercase tracking-widest inline-block border border-darkBlue">
+                                What is this club?
+                            </span>
+
+                            <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-none text-darkBlue uppercase">
+                                Skyline Business Club
+                            </h1>
+
+                            <p class="text-lg text-darkBlue font-medium leading-relaxed">
+                                Skyline Business Club is the home for Skyline students interested in DECA, FBLA, business competitions, leadership, career skills, and community. As the largest and most successful DECA/FBLA chapter in Utah, our members compete across regional, state, and national circuits while building real-world business experience together.
+                            </p>
+
+                            <div class="pt-2 flex flex-wrap gap-4">
+
+                                <button onclick="switchTab('novice')" class="bg-darkBlue text-white font-bold px-8 py-4 text-base tracking-wide uppercase neo-btn">
+                                    Start Here
+                                </button>
+
+                                <button onclick="switchTab('awards')" class="bg-darkBlue text-white font-bold px-8 py-4 text-base tracking-wide uppercase neo-btn">
+                                    View Recognition
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- RIGHT: WHY JOIN -->
+                        <div class="lg:col-span-5">
+
+                            <div class="text-center mb-5">
+                                <h2 class="text-3xl font-black tracking-tight page-heading-accent">
+                                    Why Join?
+                                </h2>
+                            </div>
+
+                            <div class="flex justify-center mb-6">
+
+                                <svg viewBox="0 0 200 200"
+                                     class="w-[250px] h-[250px] md:w-[290px] md:h-[290px] drop-shadow-[6px_6px_0px_#FFD100]"
+                                     role="img"
+                                     aria-label="Interactive why join pie chart">
+
+                                    <g class="path-pie-group active"
+                                       tabindex="0"
+                                       onclick="setWhyJoinStep(0)"
+                                       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(0);}">
+
+                                        <path class="path-pie-segment"
+                                              d="M 100 100 L 100.000 8.000 A 92 92 0 0 1 192.000 100.000 Z"></path>
+
+                                        <text class="path-pie-label"
+                                              x="139.6"
+                                              y="60.4"
+                                              text-anchor="middle"
+                                              dominant-baseline="middle">
+                                            Compete
+                                        </text>
+
+                                    </g>
+
+
+                                    <g class="path-pie-group"
+                                       tabindex="0"
+                                       onclick="setWhyJoinStep(1)"
+                                       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(1);}">
+
+                                        <path class="path-pie-segment"
+                                              d="M 100 100 L 192.000 100.000 A 92 92 0 0 1 100.000 192.000 Z"></path>
+
+                                        <text class="path-pie-label"
+                                              x="139.6"
+                                              y="139.6"
+                                              text-anchor="middle"
+                                              dominant-baseline="middle">
+                                            Lead
+                                        </text>
+
+                                    </g>
+
+
+                                    <g class="path-pie-group"
+                                       tabindex="0"
+                                       onclick="setWhyJoinStep(2)"
+                                       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(2);}">
+
+                                        <path class="path-pie-segment"
+                                              d="M 100 100 L 100.000 192.000 A 92 92 0 0 1 8.000 100.000 Z"></path>
+
+                                        <text class="path-pie-label"
+                                              x="60.4"
+                                              y="134.6"
+                                              text-anchor="middle"
+                                              dominant-baseline="middle">
+                                            Build
+                                        </text>
+
+                                        <text class="path-pie-label"
+                                              x="60.4"
+                                              y="146.6"
+                                              text-anchor="middle"
+                                              dominant-baseline="middle">
+                                            Skills
+                                        </text>
+
+                                    </g>
+
+
+                                    <g class="path-pie-group"
+                                       tabindex="0"
+                                       onclick="setWhyJoinStep(3)"
+                                       onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(3);}">
+
+                                        <path class="path-pie-segment"
+                                              d="M 100 100 L 8.000 100.000 A 92 92 0 0 1 100.000 8.000 Z"></path>
+
+                                        <text class="path-pie-label"
+                                              x="60.4"
+                                              y="60.4"
+                                              text-anchor="middle"
+                                              dominant-baseline="middle">
+                                            Connect
+                                        </text>
+
+                                    </g>
+
+                                </svg>
+
+                            </div>
+
+
+                            <div class="border-2 border-darkBlue p-5 bg-white flex flex-col justify-center space-y-3 neo-box relative">
+
+                                <span class="text-xs font-black bg-darkBlue text-white px-2 py-1 uppercase tracking-widest inline-block w-fit">
+                                    Click a Segment
+                                </span>
+
+                                <h3 id="why-join-title"
+                                    class="text-2xl font-black uppercase tracking-tight subsection-banner">
+                                    Compete
+                                </h3>
+
+                                <p id="why-join-desc"
+                                   class="text-sm font-medium leading-relaxed">
+                                    Competing gives members a clear goal, a reason to practice, and a chance to represent Skyline at region, state, and national conferences. Students can choose events that fit their strengths, from roleplays and presentations to tests and written projects.
+                                </p>
+
+                                <button id="why-join-action"
+                                        onclick="switchTab('resources')"
+                                        class="bg-darkBlue text-white font-black uppercase text-xs tracking-wider px-5 py-3 border-2 border-darkBlue neo-btn w-fit">
+                                    Open Resources
+                                </button>
+
+                            </div>
+
+                        </div>
+
                     </div>
-                    <p class="text-xs font-bold uppercase tracking-wider text-darkBlue">
-                        *The 2025-26 competition season
-                    </p>
-                    <div class="pt-2 flex flex-wrap gap-4">
-                        <button onclick="switchTab('novice')" class="bg-darkBlue text-white font-bold px-8 py-4 text-base tracking-wide uppercase neo-btn">
-                            Start Here
-                        </button>
-                        <button onclick="switchTab('awards')" class="bg-darkBlue text-white font-bold px-8 py-4 text-base tracking-wide uppercase neo-btn">
-                            View Recognition
-                        </button>
+
+
+                    <!-- COMPETITION STATS -->
+                    <div class="mt-10 pt-8 border-t-2 border-darkBlue">
+
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-center text-xs font-black uppercase tracking-wider">
+
+                            <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white">
+                                <span class="block text-2xl">141</span>
+                                <span>Region Placements</span>
+                            </button>
+
+                            <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white">
+                                <span class="block text-2xl">140</span>
+                                <span>State Placements</span>
+                            </button>
+
+                            <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white">
+                                <span class="block text-2xl">22</span>
+                                <span>ICDC Attendees</span>
+                            </button>
+
+                            <button onclick="switchTab('awards')" class="border-2 border-darkBlue p-3 bg-white">
+                                <span class="block text-2xl">23</span>
+                                <span>NLC Attendees</span>
+                            </button>
+
+                        </div>
+
+                        <p class="text-xs font-bold uppercase tracking-wider text-darkBlue mt-3">
+                            *The 2025-26 competition season
+                        </p>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
 
+
+        <!-- CURRENT COMPETITION OPPORTUNITIES -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
             <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-3xl font-black tracking-tight page-heading-accent">Why Join?</h2>
+
+                <h2 class="text-3xl font-black tracking-tight page-heading-accent">
+                    Current Competition Opportunities
+                </h2>
+
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                <div class="lg:col-span-6 flex justify-center">
-                    <svg viewBox="0 0 200 200" class="w-[300px] h-[300px] md:w-[360px] md:h-[360px] drop-shadow-[6px_6px_0px_#FFD100]" role="img" aria-label="Interactive why join pie chart">
-                            <g class="path-pie-group active" tabindex="0" onclick="setWhyJoinStep(0)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(0);}">
-                                <path class="path-pie-segment" d="M 100 100 L 100.000 8.000 A 92 92 0 0 1 192.000 100.000 Z"></path>
-                                <text class="path-pie-label" x="139.6" y="60.4" text-anchor="middle" dominant-baseline="middle">Compete</text>
-                            </g>
-                            <g class="path-pie-group" tabindex="0" onclick="setWhyJoinStep(1)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(1);}">
-                                <path class="path-pie-segment" d="M 100 100 L 192.000 100.000 A 92 92 0 0 1 100.000 192.000 Z"></path>
-                                <text class="path-pie-label" x="139.6" y="139.6" text-anchor="middle" dominant-baseline="middle">Lead</text>
-                            </g>
-                            <g class="path-pie-group" tabindex="0" onclick="setWhyJoinStep(2)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(2);}">
-                                <path class="path-pie-segment" d="M 100 100 L 100.000 192.000 A 92 92 0 0 1 8.000 100.000 Z"></path>
-                                <text class="path-pie-label" x="60.4" y="134.6" text-anchor="middle" dominant-baseline="middle">Build</text>
-                                <text class="path-pie-label" x="60.4" y="146.6" text-anchor="middle" dominant-baseline="middle">Skills</text>
-                            </g>
-                            <g class="path-pie-group" tabindex="0" onclick="setWhyJoinStep(3)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setWhyJoinStep(3);}">
-                                <path class="path-pie-segment" d="M 100 100 L 8.000 100.000 A 92 92 0 0 1 100.000 8.000 Z"></path>
-                                <text class="path-pie-label" x="60.4" y="60.4" text-anchor="middle" dominant-baseline="middle">Connect</text>
-                            </g>
-                    </svg>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+
+                <!-- FBLA STATE PREP -->
+                <div class="border-4 border-darkBlue bg-white neo-box p-6 flex flex-col">
+
+                    <span class="text-xs font-black bg-darkBlue text-white px-3 py-1 uppercase tracking-widest inline-block w-fit mb-5">
+                        FBLA
+                    </span>
+
+                    <h3 class="text-2xl font-black uppercase tracking-tight subsection-banner mb-4">
+                        FBLA State Prep
+                    </h3>
+
+                    <p class="text-sm font-medium leading-relaxed mb-6 flex-grow">
+                        Sign up for FBLA State preparation and get connected with chapter competition support.
+                    </p>
+
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScH4EWMDNFz-8MkyrjsgIL8io6VKtubac3l6ntQe7IAdthQgA/viewform?usp=header"
+                       target="_blank"
+                       rel="noopener"
+                       class="bg-darkBlue text-white font-black uppercase text-xs tracking-wider px-5 py-3 border-2 border-darkBlue neo-btn text-center">
+
+                        Open Sign-Up Form
+
+                    </a>
+
                 </div>
-                <div class="lg:col-span-6 border-2 border-darkBlue p-6 bg-white min-h-[300px] flex flex-col justify-center space-y-4 neo-box relative pt-10">
-                    <span class="text-xs font-black bg-darkBlue text-white px-2 py-1 uppercase tracking-widest inline-block w-fit">Click a Segment</span>
-                    <h3 id="why-join-title" class="text-3xl font-black uppercase tracking-tight subsection-banner">Compete</h3>
-                    <p id="why-join-desc" class="text-sm font-medium leading-relaxed">Competing gives members a clear goal, a reason to practice, and a chance to represent Skyline at region, state, and national conferences. Students can choose events that fit their strengths, from roleplays and presentations to tests and written projects.</p>
-                    <button id="why-join-action" onclick="switchTab('resources')" class="bg-darkBlue text-white font-black uppercase text-xs tracking-wider px-5 py-3 border-2 border-darkBlue neo-btn w-fit">Open Resources</button>
+
+
+                <!-- AGGIE INVITATIONAL -->
+                <div class="border-4 border-darkBlue bg-white neo-box p-6 flex flex-col">
+
+                    <span class="text-xs font-black bg-darkBlue text-white px-3 py-1 uppercase tracking-widest inline-block w-fit mb-5">
+                        Invitational
+                    </span>
+
+                    <h3 class="text-2xl font-black uppercase tracking-tight subsection-banner mb-4">
+                        Aggie Invitational
+                    </h3>
+
+                    <p class="text-sm font-medium leading-relaxed mb-6 flex-grow">
+                        Interested in competing at the Aggie Invitational? Use the chapter sign-up form to get started.
+                    </p>
+
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdc-fq3jvUIxnjBfXnnG5pxnUEQyxR6kVGYvRUeqG23Afi8ag/viewform?usp=header"
+                       target="_blank"
+                       rel="noopener"
+                       class="bg-darkBlue text-white font-black uppercase text-xs tracking-wider px-5 py-3 border-2 border-darkBlue neo-btn text-center">
+
+                        Open Sign-Up Form
+
+                    </a>
+
                 </div>
+
+
+                <!-- HOSPITALITY RISING -->
+                <div class="border-4 border-darkBlue bg-white neo-box p-6 flex flex-col">
+
+                    <span class="text-xs font-black bg-darkBlue text-white px-3 py-1 uppercase tracking-widest inline-block w-fit mb-5">
+                        University of Utah
+                    </span>
+
+                    <h3 class="text-2xl font-black uppercase tracking-tight subsection-banner mb-4">
+                        Hospitality Rising
+                    </h3>
+
+                    <p class="text-sm font-medium leading-relaxed mb-4">
+                        Learn more about the Hospitality Rising opportunity at the University of Utah.
+                    </p>
+
+                    <p class="text-sm font-black leading-relaxed mb-6 flex-grow">
+                        Talk to advisors and Mrs. Lott in the Career Center for more details.
+                    </p>
+
+                    <a href="https://marriott.utah.edu/summit/"
+                       target="_blank"
+                       rel="noopener"
+                       class="bg-darkBlue text-white font-black uppercase text-xs tracking-wider px-5 py-3 border-2 border-darkBlue neo-btn text-center">
+
+                        View Opportunity
+
+                    </a>
+
+                </div>
+
+
             </div>
+
         </div>
 
+
+        <!-- NATIONALS -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+
             <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-3xl font-black tracking-tight page-heading-accent">Nationals</h2>
-                <p class="section-subtitle">Photos from ICDC and NLC are on the way</p>
+
+                <h2 class="text-3xl font-black tracking-tight page-heading-accent">
+                    Nationals
+                </h2>
+
+                <p class="section-subtitle">
+                    Photos from ICDC and NLC are on the way
+                </p>
+
             </div>
 
             <!--
@@ -149,13 +414,18 @@
                 span extra columns or rows. The grid packs densely, so tiles can
                 be added or removed in any order without leaving holes.
             -->
+
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
                 <div class="collage-block" id="nationals-icdc" data-collage="icdc">
+
                     <div class="collage-header">
                         <h3 class="collage-title">ICDC</h3>
                         <span class="collage-meta">International Career Development Conference</span>
                     </div>
+
                     <div class="photo-collage">
+
                         <figure class="collage-tile big">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -163,6 +433,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -170,6 +441,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -177,6 +449,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -184,6 +457,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -191,6 +465,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -198,6 +473,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile tall">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -205,6 +481,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile wide">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -212,6 +489,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile wide">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -219,15 +497,21 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                     </div>
+
                 </div>
 
+
                 <div class="collage-block" id="nationals-nlc" data-collage="nlc">
+
                     <div class="collage-header">
                         <h3 class="collage-title">NLC</h3>
                         <span class="collage-meta">National Leadership Conference</span>
                     </div>
+
                     <div class="photo-collage">
+
                         <figure class="collage-tile big">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -235,6 +519,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -242,6 +527,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -249,6 +535,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -256,6 +543,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -263,6 +551,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile tall">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -270,6 +559,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile tall">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -277,6 +567,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -284,6 +575,7 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                         <figure class="collage-tile wide">
                             <div class="collage-empty">
                                 <i class="fa-solid fa-camera" aria-hidden="true"></i>
@@ -291,29 +583,66 @@
                             </div>
                             <figcaption class="collage-caption"></figcaption>
                         </figure>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
 
+
+        <!-- CALENDAR -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+
             <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-3xl font-black tracking-tight page-heading-accent">Calendar</h2>
+                <h2 class="text-3xl font-black tracking-tight page-heading-accent">
+                    Calendar
+                </h2>
             </div>
+
             <div class="grid grid-cols-1">
+
                 <div class="bg-white border-4 border-darkBlue neo-box overflow-hidden pt-2">
+
                     <div class="bg-darkBlue text-white px-6 py-3 border-b-2 border-darkBlue flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
-                        <h3 class="font-black text-xl uppercase tracking-tight">Upcoming Events</h3>
-                        <span class="meeting-badge"><i class="fa-solid fa-users" aria-hidden="true"></i> Meetings Mondays &amp; Wednesdays</span>
+
+                        <h3 class="font-black text-xl uppercase tracking-tight">
+                            Upcoming Events
+                        </h3>
+
+                        <span class="meeting-badge">
+                            <i class="fa-solid fa-users" aria-hidden="true"></i>
+                            Meetings Mondays &amp; Wednesdays
+                        </span>
+
                     </div>
+
+
                     <div class="container-cal">
+
                         <div class="left">
+
                             <div class="calendar">
+
                                 <div class="month">
-                                    <i class="fa fa-angle-left prev" role="button" tabindex="0" aria-label="Previous month"></i>
+
+                                    <i class="fa fa-angle-left prev"
+                                       role="button"
+                                       tabindex="0"
+                                       aria-label="Previous month"></i>
+
                                     <div class="date"></div>
-                                    <i class="fa fa-angle-right next" role="button" tabindex="0" aria-label="Next month"></i>
+
+                                    <i class="fa fa-angle-right next"
+                                       role="button"
+                                       tabindex="0"
+                                       aria-label="Next month"></i>
+
                                 </div>
+
+
                                 <div class="weekdays">
                                     <div>Sun</div>
                                     <div>Mon</div>
@@ -323,97 +652,243 @@
                                     <div>Fri</div>
                                     <div>Sat</div>
                                 </div>
+
+
                                 <div class="days">
                                     <!-- Days are inserted here by JS -->
                                 </div>
+
+
                                 <div class="goto-today">
+
                                     <div class="goto">
-                                        <input type="text" placeholder="mm/yyyy" class="date-input" aria-label="Go to month and year">
-                                        <button type="button" class="goto-btn">Go</button>
+
+                                        <input type="text"
+                                               placeholder="mm/yyyy"
+                                               class="date-input"
+                                               aria-label="Go to month and year">
+
+                                        <button type="button" class="goto-btn">
+                                            Go
+                                        </button>
+
                                     </div>
-                                    <button type="button" class="today-btn">Today</button>
+
+                                    <button type="button" class="today-btn">
+                                        Today
+                                    </button>
+
                                 </div>
+
                             </div>
+
                         </div>
+
+
                         <div class="right">
+
                             <div class="today-date">
                                 <div class="event-day"></div>
                                 <div class="event-date"></div>
                             </div>
+
                             <div class="events">
                                 <!-- Events are inserted here by JS -->
                             </div>
+
                         </div>
+
                     </div>
+
+
                     <div class="month-highlights border-t-2 border-darkBlue">
+
                         <div class="month-highlights-head">
-                            <h4 class="month-highlights-title">This Month</h4>
-                            <span class="month-highlights-month" id="highlights-month"></span>
+
+                            <h4 class="month-highlights-title">
+                                This Month
+                            </h4>
+
+                            <span class="month-highlights-month"
+                                  id="highlights-month">
+                            </span>
+
                         </div>
+
                         <!-- Month-wide notes such as DECA Month; filled in by script.js -->
-                        <p class="month-note" id="month-note" hidden></p>
-                        <ul class="month-highlights-list" id="month-highlights-list">
+                        <p class="month-note"
+                           id="month-note"
+                           hidden>
+                        </p>
+
+                        <ul class="month-highlights-list"
+                            id="month-highlights-list">
                             <!-- Filled in by the calendar script -->
                         </ul>
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
 
 
+        <!-- SUPPORT SKYLINE -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+
             <div class="border-4 border-darkBlue bg-white neo-box p-8 text-center space-y-6">
-                <h3 class="text-3xl font-black uppercase tracking-tight subsection-banner">Support Skyline Business Club</h3>
-                <p class="text-sm font-medium max-w-3xl mx-auto">Help our members travel, compete, access practice materials, and represent Skyline at regional, state, and national conferences.</p>
+
+                <h3 class="text-3xl font-black uppercase tracking-tight subsection-banner">
+                    Support Skyline Business Club
+                </h3>
+
+                <p class="text-sm font-medium max-w-3xl mx-auto">
+                    Help our members travel, compete, access practice materials, and represent Skyline at regional, state, and national conferences.
+                </p>
+
                 <div class="border-2 border-darkBlue p-5 text-left max-w-4xl mx-auto bg-white">
-                    <h4 class="font-black uppercase tracking-wider text-sm mb-3">Why Donate?</h4>
+
+                    <h4 class="font-black uppercase tracking-wider text-sm mb-3">
+                        Why Donate?
+                    </h4>
+
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-bold">
-                        <div class="border border-darkBlue p-3">Reduce travel and lodging costs for state, ICDC, and NLC qualifiers.</div>
-                        <div class="border border-darkBlue p-3">Fund practice materials, event prep resources, and competition registration fees.</div>
-                        <div class="border border-darkBlue p-3">Support first-time competitors who need help accessing chapter opportunities.</div>
+
+                        <div class="border border-darkBlue p-3">
+                            Reduce travel and lodging costs for state, ICDC, and NLC qualifiers.
+                        </div>
+
+                        <div class="border border-darkBlue p-3">
+                            Fund practice materials, event prep resources, and competition registration fees.
+                        </div>
+
+                        <div class="border border-darkBlue p-3">
+                            Support first-time competitors who need help accessing chapter opportunities.
+                        </div>
+
                     </div>
+
                 </div>
-                <button onclick="switchTab('join')" class="bg-darkBlue text-white font-black uppercase text-xs tracking-wider px-6 py-3 border-2 border-darkBlue neo-btn">Donate or Support the Club</button>
+
+                <button onclick="switchTab('join')"
+                        class="bg-darkBlue text-white font-black uppercase text-xs tracking-wider px-6 py-3 border-2 border-darkBlue neo-btn">
+                    Donate or Support the Club
+                </button>
+
             </div>
+
         </div>
 
     </section>
 
-
 </main>
 
+
 <footer class="site-footer" role="contentinfo">
+
     <div class="footer-content">
+
         <div class="footer-section">
-            <h3><i class="fa fa-map-marker" aria-hidden="true"></i> School Location</h3>
-            <p>Skyline High School<br>3251 E 3760 S<br>Salt Lake City, UT 84109</p>
+
+            <h3>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                School Location
+            </h3>
+
+            <p>
+                Skyline High School<br>
+                3251 E 3760 S<br>
+                Salt Lake City, UT 84109
+            </p>
+
         </div>
+
+
         <div class="footer-section">
-            <h3><i class="fa fa-calendar" aria-hidden="true"></i> Meetings</h3>
-            <p>Every <strong>Monday</strong> and <strong>Wednesday</strong> unless otherwise stated.<br>Check the calendar on the home page.</p>
+
+            <h3>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                Meetings
+            </h3>
+
+            <p>
+                Every <strong>Monday</strong> and <strong>Wednesday</strong> unless otherwise stated.<br>
+                Check the calendar on the home page.
+            </p>
+
         </div>
+
+
         <div class="footer-section">
-            <h3><i class="fa fa-language" aria-hidden="true"></i> Language</h3>
+
+            <h3>
+                <i class="fa fa-language" aria-hidden="true"></i>
+                Language
+            </h3>
+
             <div id="google_translate_element"></div>
+
         </div>
+
+
         <div class="footer-section">
-            <h3><i class="fa fa-adjust" aria-hidden="true"></i> Accessibility</h3>
-            <button id="contrastToggle" type="button" class="contrast-toggle" aria-pressed="false">
-                <i class="fa fa-adjust" aria-hidden="true"></i> <span class="contrast-toggle-label">High contrast: Off</span>
+
+            <h3>
+                <i class="fa fa-adjust" aria-hidden="true"></i>
+                Accessibility
+            </h3>
+
+            <button id="contrastToggle"
+                    type="button"
+                    class="contrast-toggle"
+                    aria-pressed="false">
+
+                <i class="fa fa-adjust" aria-hidden="true"></i>
+
+                <span class="contrast-toggle-label">
+                    High contrast: Off
+                </span>
+
             </button>
+
         </div>
+
     </div>
+
+
     <div class="footer-bottom">
-        <p>&copy; 2026 Skyline Business Club. All rights reserved.</p>
+
+        <p>
+            &copy; 2026 Skyline Business Club. All rights reserved.
+        </p>
+
     </div>
+
 </footer>
 
+
 <script type="text/javascript">
+
     function googleTranslateElementInit() {
-        new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+
+        new google.translate.TranslateElement(
+            {
+                pageLanguage: 'en'
+            },
+            'google_translate_element'
+        );
+
     }
+
 </script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+<script type="text/javascript"
+        src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
+
 
 <script src="script.js"></script>
 
