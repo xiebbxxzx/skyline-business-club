@@ -1339,6 +1339,18 @@ function switchTab(tabId) {
             ]
         },
         {
+            day: 8,
+            month: 12,
+            year: 2026,
+            events: [
+                {
+                    title: "DECA Regions",
+                    time: "3:00 PM - 8:00 PM",
+                    location: "Taylorsville High School"
+                }
+            ]
+        },
+        {
             day: 11,
             month: 12,
             year: 2026,
